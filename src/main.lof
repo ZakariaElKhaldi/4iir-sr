@@ -5,8 +5,21 @@
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Comparaison des mod\`eles dans le carnet de recherche ex\'ecut\'e}}{7}{figure.caption.8}%
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Chronologie de r\'ealisation fond\'ee sur les dates de l'historique Git}}{7}{figure.caption.9}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Vue principale de supervision pendant un sc\'enario Playwright aliment\'e}}{9}{figure.caption.10}%
-\contentsline {figure}{\numberline {A.2}{\ignorespaces Liste filtrable des alertes de s\'ecurit\'e dans l'interface d'investigation}}{10}{figure.caption.11}%
-\contentsline {figure}{\numberline {A.3}{\ignorespaces Cartographie des routes d\'eriv\'ee des alertes charg\'ees pendant le sc\'enario E2E}}{11}{figure.caption.12}%
-\contentsline {figure}{\numberline {A.4}{\ignorespaces Contr\^ole local d'un exemple d'attaque conforme au sch\'ema RT-IoT2022}}{12}{figure.caption.13}%
-\contentsline {figure}{\numberline {A.5}{\ignorespaces Espace d'investigation adapt\'e \`a une largeur mobile de 390 pixels}}{13}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Cas d'utilisation du syst\`eme de d\'etection}}{10}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Diagramme de classes du domaine principal}}{11}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Classes associ\'ees à l'ingestion durable}}{12}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Classes associ\'ees au suivi de l'\'etat des mod\`eles}}{13}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces S\'equence d'ingestion durable et de diffusion des r\'esultats}}{14}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Machine à \'etats d'un travail d'ingestion}}{15}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces S\'equence d'authentification et d'autorisation}}{16}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces S\'equence de pr\'ediction synchrone}}{17}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces S\'equence de rejeu contr\^ol\'e d'un jeu de donn\'ees}}{18}{figure.caption.17}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces S\'equence d'investigation et de qualification d'une alerte}}{19}{figure.caption.18}%
+\contentsline {figure}{\numberline {2.11}{\ignorespaces S\'equence d'int\'egration des \'ev\'enements Suricata}}{20}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.12}{\ignorespaces S\'equence de consultation de la sant\'e d'un mod\`ele}}{21}{figure.caption.20}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Vue principale de supervision pendant un sc\'enario Playwright aliment\'e}}{22}{figure.caption.21}%
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Liste filtrable des alertes de s\'ecurit\'e dans l'interface d'investigation}}{23}{figure.caption.22}%
+\contentsline {figure}{\numberline {A.3}{\ignorespaces Cartographie des routes d\'eriv\'ee des alertes charg\'ees pendant le sc\'enario E2E}}{24}{figure.caption.23}%
+\contentsline {figure}{\numberline {A.4}{\ignorespaces Contr\^ole local d'un exemple d'attaque conforme au sch\'ema RT-IoT2022}}{25}{figure.caption.24}%
+\contentsline {figure}{\numberline {A.5}{\ignorespaces Espace d'investigation adapt\'e \`a une largeur mobile de 390 pixels}}{26}{figure.caption.25}%

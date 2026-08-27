@@ -265,25 +265,7 @@ la progression observ\'ee.
 
 \begin{figure}[htbp]
   \centering
-  \resizebox{\textwidth}{!}{%
-    \begin{ganttchart}[
-      time slot format=isodate,
-      hgrid,
-      vgrid,
-      title/.append style={fill=PremiumEmerald,text=white},
-      title label font=\bfseries\small\color{white},
-      bar/.append style={fill=Emerald!78},
-      bar label font=\small
-    ]{2026-07-23}{2026-08-25}
-      \gantttitlecalendar{month=name} \\
-      \ganttbar{Foundations and experiments}{2026-07-23}{2026-08-04} \\
-      \ganttbar{API and dashboard}{2026-08-04}{2026-08-05} \\
-      \ganttbar{Ingestion, authentication, and security}{2026-08-07}{2026-08-11} \\
-      \ganttbar{User experience and operations}{2026-08-11}{2026-08-21} \\
-      \ganttbar{Isolated network laboratory}{2026-08-20}{2026-08-21} \\
-      \ganttbar{Evidence package and executed notebook}{2026-08-24}{2026-08-25}
-    \end{ganttchart}%
-  }
+  \includegraphics[width=\textwidth,height=0.42\textheight,keepaspectratio]{../diagrams/rendered/05-project-timeline.pdf}
   \caption{Chronologie de r\'ealisation fond\'ee sur les dates de l'historique Git}
   \label{fig:gantt-realisation}
 \end{figure}

@@ -2,18 +2,16 @@
 config:
   sequence:
     mirrorActors: false
-    actorMargin: 38
-    messageMargin: 24
+    actorMargin: 30
+    messageMargin: 25
 ---
 sequenceDiagram
     autonumber
-    participant Scheduler as Scheduler
-    participant Health as Model-health API and service
-    participant Models as Model registry and reference
-    participant DB as Persistence
-    participant Live as WebSocket manager
-    actor Analyst as Administrator / analyst
-    participant UI as Model-health view
+    participant Scheduler
+    participant Health as Health subsystem
+    participant Models as Model evidence
+    participant DB as Store
+    participant UI as Health view
 
     loop each interval and monitoring window
         Scheduler->>Health: Evaluate observed cohorts
@@ -24,13 +22,12 @@ sequenceDiagram
         Health->>Health: Compute quality and drift evidence
         Health->>DB: Commit shadow-mode snapshot
         opt status changed
-            Health-)Live: model_health.updated
+            Health-)UI: WebSocket health update
         end
     end
 
-    Analyst->>UI: Open model-health view
     par latest snapshot
-        UI->>Health: Request selected cohort and window
+        UI->>Health: Request cohort and window
         Health->>DB: Read latest snapshot
         DB-->>Health: Snapshot or none
         Health-->>UI: Snapshot or 404
@@ -40,3 +37,5 @@ sequenceDiagram
         DB-->>Health: Bounded history
         Health-->>UI: History response
     end
+
+    note over Health,UI: The subsystem abstracts the API, service,<br/>and WebSocket manager boundaries.

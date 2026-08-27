@@ -2,26 +2,23 @@
 config:
   sequence:
     mirrorActors: false
-    actorMargin: 36
-    messageMargin: 24
+    actorMargin: 30
+    messageMargin: 25
 ---
 sequenceDiagram
     autonumber
-    actor Network as External IoT network
-    participant Sensor as Suricata
-    participant EVE as EVE log
-    participant Agent as Sensor agent
+    actor Network as IoT network
+    participant Sensor as Sensor and EVE
+    participant Agent as Agent
     participant API as Sensor API
-    participant DB as Persistence
-    participant Publisher as Outbox publisher
-    actor UI as Dashboard
+    participant DB as Store
 
     Network-)Sensor: Network packets
-    Sensor-)EVE: Append alerts and statistics
+    Sensor->>Sensor: Inspect packets and append EVE records
 
     loop each polling cycle
-        Agent->>EVE: Read from durable checkpoint
-        EVE-->>Agent: Normalized records and next offset
+        Agent->>Sensor: Read from durable checkpoint
+        Sensor-->>Agent: Records and next offset
         opt records available or heartbeat due
             Agent->>API: Submit authenticated batch
             API->>DB: Update sensor state and deduplicate alerts
@@ -41,9 +38,4 @@ sequenceDiagram
         end
     end
 
-    loop each committed alert event
-        Publisher->>DB: Claim unpublished event
-        DB-->>Publisher: alert.created payload
-        Publisher-)UI: WebSocket alert
-        Publisher->>DB: Mark published or retry
-    end
+    note over API,DB: Committed alert publication follows diagram 02.

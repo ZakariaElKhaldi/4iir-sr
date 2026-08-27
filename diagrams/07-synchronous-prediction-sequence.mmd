@@ -2,17 +2,17 @@
 config:
   sequence:
     mirrorActors: false
-    actorMargin: 38
+    actorMargin: 30
     messageMargin: 24
 ---
 sequenceDiagram
     autonumber
-    actor Client as Authenticated client
+    actor Client
     participant API as Prediction API
-    participant Schema as Schema validator
-    participant Models as Verified model cascade
-    participant DB as Persistence
-    participant Live as WebSocket manager
+    participant Schema as Validator
+    participant Models as Model cascade
+    participant DB as Store
+    participant Live as Live events
 
     Client->>API: POST /predict
     activate API

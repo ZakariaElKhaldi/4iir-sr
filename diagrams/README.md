@@ -48,14 +48,19 @@ Paste a file into the Mermaid Live Editor, or convert it locally after installin
 Mermaid CLI:
 
 ```bash
-mmdc -i 02-ingestion-sequence.mmd -o 02-ingestion-sequence.pdf -b transparent
+mmdc -i 02-ingestion-sequence.mmd \
+  -o rendered/02-ingestion-sequence.pdf \
+  -b transparent --pdfFit
 ```
 
 Validate every Mermaid source with Mermaid CLI 11 or newer:
 
 ```bash
+mkdir -p rendered
 for diagram in *.mmd; do
-  mmdc -i "$diagram" -o "${diagram%.mmd}.svg" -b transparent
+  mmdc -i "$diagram" \
+    -o "rendered/${diagram%.mmd}.pdf" \
+    -b transparent --pdfFit
 done
 ```
 
@@ -69,8 +74,10 @@ boxes. They intentionally show domain-level interactions rather than every
 method call; the repository code and architecture documentation remain the
 detailed implementation reference.
 
-Vector PDF exports are available in `rendered/`. Include them without distortion
-and cap both dimensions so a diagram cannot overflow the text area:
+Tightly fitted vector PDF exports are available in `rendered/`. The `--pdfFit`
+flag is required; without it, Mermaid places the chart on a Letter page with
+large empty margins. Include the fitted PDF without distortion and cap both
+dimensions so it cannot overflow the text area:
 
 ```latex
 \begin{figure}[htbp]

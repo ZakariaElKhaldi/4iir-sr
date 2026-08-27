@@ -2,21 +2,18 @@
 config:
   sequence:
     mirrorActors: false
-    actorMargin: 38
-    messageMargin: 24
+    actorMargin: 30
+    messageMargin: 25
 ---
 sequenceDiagram
     autonumber
-    actor Producer as Authenticated flow producer
+    actor Producer
     participant API as Ingestion API
-    participant DB as Jobs and data store
-    participant Worker as Ingestion worker
-    participant Models as Verified model cascade
-    participant Publisher as Outbox publisher
+    participant DB as Store
+    participant Workers as Workers
     actor UI as Dashboard
 
     Producer->>API: Submit flow batch
-    activate API
     API->>API: Validate complete request
     alt request rejected
         API-->>Producer: 4xx response, nothing enqueued
@@ -25,23 +22,23 @@ sequenceDiagram
         DB-->>API: Accepted and duplicate dispositions
         API-->>Producer: 202 Accepted
     end
-    deactivate API
 
     loop each eligible job
-        Worker->>DB: Claim job with processing lease
-        DB-->>Worker: Canonical observation
-        Worker->>Models: Run compatible model cascade
-        Models-->>Worker: Prediction and optional alert
+        Workers->>DB: Claim job with processing lease
+        DB-->>Workers: Canonical observation
+        Workers->>Workers: Run verified model cascade
         alt processing succeeds
-            Worker->>DB: Commit result, success transition,<br/>and outbox events atomically
+            Workers->>DB: Commit result, transition,<br/>and outbox events atomically
         else processing fails
-            Worker->>DB: Commit retry or dead-letter state
+            Workers->>DB: Commit retry or dead-letter state
         end
     end
 
-    loop each committed outbox event
-        Publisher->>DB: Claim unpublished event
-        DB-->>Publisher: Event payload
-        Publisher-)UI: WebSocket prediction or alert
-        Publisher->>DB: Mark published or schedule retry
+    opt committed outbox event available
+        Workers->>DB: Claim unpublished event
+        DB-->>Workers: Event payload
+        Workers-)UI: WebSocket prediction or alert
+        Workers->>DB: Mark published or schedule retry
     end
+
+    note over Workers: This subsystem contains separate ingestion-worker<br/>and outbox-publisher executions.

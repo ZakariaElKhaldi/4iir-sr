@@ -2,17 +2,17 @@
 config:
   sequence:
     mirrorActors: false
-    actorMargin: 38
+    actorMargin: 30
     messageMargin: 24
 ---
 sequenceDiagram
     autonumber
-    actor Admin as Administrator
-    participant UI as Replay controls
+    actor Admin
+    participant UI as Controls
     participant API as Replay API
-    participant Replay as Replay service
-    participant CSV as Prepared dataset
-    participant Predict as Prediction service
+    participant Replay as Replay
+    participant CSV as Dataset
+    participant Predict as Prediction
 
     Admin->>UI: Select scenario and limits
     UI->>API: POST /replay/start
