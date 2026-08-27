@@ -1,0 +1,48 @@
+---
+config:
+  sequence:
+    mirrorActors: false
+    actorMargin: 38
+    messageMargin: 24
+---
+sequenceDiagram
+    autonumber
+    actor Admin as Administrator
+    participant UI as Replay controls
+    participant API as Replay API
+    participant Replay as Replay service
+    participant CSV as Prepared dataset
+    participant Predict as Prediction service
+
+    Admin->>UI: Select scenario and limits
+    UI->>API: POST /replay/start
+    API->>Replay: Validate controls and count rows
+    Replay->>CSV: Scan bounded selection
+    alt invalid request or unavailable dataset
+        Replay-->>API: Validation failure
+        API-->>UI: 409 or 422 response
+    else replay accepted
+        API-)Replay: Start background task
+        API-->>UI: 202 Running
+    end
+
+    par background replay
+        loop each selected row
+            Replay->>CSV: Read next row lazily
+            CSV-->>Replay: Canonical observation
+            Replay->>Predict: Process observation
+            Predict-->>Replay: Persisted prediction
+        end
+    and status and control
+        loop while view is active
+            UI->>API: GET /replay/status
+            API-->>UI: Current ReplayStatus
+        end
+        opt operator control
+            UI->>API: Pause, resume, or stop
+            API->>Replay: Update serialized control state
+            API-->>UI: Updated ReplayStatus
+        end
+    end
+
+    note over Replay,Predict: Prediction details are defined in diagram 07.

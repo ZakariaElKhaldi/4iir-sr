@@ -1,0 +1,42 @@
+---
+config:
+  sequence:
+    mirrorActors: false
+    actorMargin: 42
+    messageMargin: 24
+---
+sequenceDiagram
+    autonumber
+    actor Admin as Administrator
+    participant UI as Dashboard
+    participant API as Authentication API
+    participant Limiter as Rate limiter
+    participant Auth as Credential service
+
+    Admin->>UI: Submit credentials
+    UI->>API: POST /auth/login
+    activate API
+    API->>Limiter: Check client and account limits
+    alt rate limited
+        API-->>UI: 429 + Retry-After
+    else attempt allowed
+        API->>Auth: Verify username and password hash
+        alt invalid credentials
+            API->>Limiter: Record failure
+            API-->>UI: 401 Unauthorized
+        else valid credentials
+            API->>Limiter: Clear failure state
+            API->>Auth: Create signed access token
+            Auth-->>API: Token and expiry
+            API-->>UI: 200 TokenResponse
+        end
+    end
+    deactivate API
+
+    UI->>API: GET /auth/me with bearer token
+    API->>Auth: Verify token claims and admin subject
+    alt token valid
+        API-->>UI: Administrator profile
+    else token invalid or expired
+        API-->>UI: 401 Unauthorized
+    end

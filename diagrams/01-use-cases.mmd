@@ -1,0 +1,38 @@
+%% UML-aligned use-case view rendered with Mermaid flowchart syntax.
+%% Mermaid has no native UML use-case diagram; see README.md and 01-use-cases.puml.
+flowchart LR
+    accTitle: IoT IDS use-case view
+    accDescr: An administrator and an external IoT system interact with the supported capabilities inside the IoT IDS system boundary.
+
+    admin["&laquo;actor&raquo;<br/>Administrator"]
+    external["&laquo;actor&raquo;<br/>External IoT system<br/>or sensor agent"]
+
+    subgraph ids["IoT IDS prototype"]
+        direction TB
+        authenticate(["Authenticate"])
+        ingestFlows(["Submit canonical<br/>flow observations"])
+        ingestSensor(["Submit Suricata<br/>sensor events"])
+        replay(["Control dataset replay"])
+        investigate(["Investigate alerts"])
+        feedback(["Record analyst<br/>disposition"])
+        health(["Review system and<br/>model health"])
+    end
+
+    %% Directed edges stabilize left-to-right layout; marker removal makes them
+    %% UML actor/use-case associations, which are semantically undirected.
+    admin --> authenticate
+    admin --> replay
+    admin --> investigate
+    admin --> feedback
+    admin --> health
+    ingestFlows --> external
+    ingestSensor --> external
+
+    feedback -. "&laquo;extend&raquo;<br/>[disposition recorded]" .-> investigate
+
+    classDef actor fill:#ffffff,stroke:#0f5132,stroke-width:2px,color:#102a22;
+    classDef usecase fill:#f2fbf7,stroke:#13795b,stroke-width:1.5px,color:#102a22;
+    class admin,external actor;
+    class authenticate,ingestFlows,ingestSensor,replay,investigate,feedback,health usecase;
+    style ids fill:#fbfdfc,stroke:#0f5132,stroke-width:2px,color:#102a22
+    linkStyle 0,1,2,3,4,5,6 marker-end:none,stroke:#394b45,stroke-width:1.25px;

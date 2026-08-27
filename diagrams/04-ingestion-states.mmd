@@ -1,0 +1,26 @@
+stateDiagram-v2
+    direction TB
+
+    state "Queued" as queued
+    state "Processing" as processing
+    state "Retrying" as retrying
+    state "Dead letter" as deadLetter
+    state "Succeeded" as succeeded
+    state failureChoice <<choice>>
+
+    [*] --> queued : enqueue / record initial transition
+    queued --> processing : claim [availableAt <= now] / set lease, attempts++
+    retrying --> processing : claim [availableAt <= now] / renew lease, attempts++
+    processing --> succeeded : commitSucceeded / persist result and outbox
+    processing --> failureChoice : processingFailed / classify failure
+    failureChoice --> retrying : [retryable and retry budget remains] / schedule delay
+    failureChoice --> deadLetter : [permanent or retry budget exhausted] / retain error
+    processing --> retrying : leaseExpired / recover immediately
+    deadLetter --> queued : redrive [authorized and eligible] / reset attempts
+    succeeded --> [*]
+
+    note right of deadLetter
+        Redrive is refused for succeeded jobs,
+        immutable-payload conflicts, partial results,
+        or ineligible permanent failures.
+    end note

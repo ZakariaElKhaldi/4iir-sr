@@ -1,0 +1,72 @@
+\begin{titlepage}
+  \thispagestyle{empty}
+  \sffamily
+
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[WarmIvory] (current page.south west) rectangle (current page.north east);
+    \fill[PremiumEmerald]
+      (current page.south west)
+      rectangle ([xshift=12mm]current page.north west);
+    \fill[AntiqueGold]
+      ([xshift=12mm,yshift=-20mm]current page.north west)
+      rectangle ([xshift=13.2mm,yshift=20mm]current page.south west);
+
+    \node[anchor=west,inner sep=0pt]
+      at ([xshift=30mm,yshift=-27mm]current page.north west)
+      {\includegraphics[width=101mm]{assets/emsi-logo.png}};
+
+    % A short gold keyline anchors the project label to the title block.
+    \draw[AntiqueGold,line width=1.1pt]
+      ([xshift=30mm,yshift=-72mm]current page.north west)
+      -- ([xshift=43mm,yshift=-72mm]current page.north west);
+
+    \node[
+      anchor=west,
+      text=PremiumEmerald,
+      font=\fontsize{9.5}{11}\selectfont\bfseries,
+      inner sep=0pt
+    ] at ([xshift=48mm,yshift=-72mm]current page.north west)
+      {\textls[125]{\MakeUppercase{\ReportKind}}};
+
+    \node[
+      anchor=north west,
+      text width=152mm,
+      align=left,
+      inner sep=0pt
+    ] at ([xshift=30mm,yshift=-85mm]current page.north west) {%
+      {\color{MutedInk}\fontsize{21.5}{25.5}\selectfont\ReportTitleLead\par}
+      \vspace{1.5mm}
+      {\color{PremiumEmerald}\fontsize{31.5}{35.5}\selectfont\bfseries
+        \ReportTitleFocus\par}
+    };
+
+    \draw[AntiqueGold,line width=1pt]
+      ([xshift=30mm,yshift=-127mm]current page.north west)
+      -- ([xshift=60mm,yshift=-127mm]current page.north west);
+
+    \node[
+      anchor=north west,
+      text width=150mm,
+      align=left,
+      text=Charcoal
+    ] at ([xshift=30mm,yshift=-143mm]current page.north west) {%
+      {\small\color{MutedInk}R\'EALIS\'E PAR}\par
+      \vspace{2.5mm}
+      {\Large\bfseries \StudentName}
+    };
+
+    \node[
+      anchor=south west,
+      text width=150mm,
+      text=MutedInk,
+      align=left,
+      inner sep=0pt
+    ] at ([xshift=30mm,yshift=29mm]current page.south west) {%
+      {\small \ProgramName}\par
+      \vspace{3mm}
+      {\small Ann\'ee universitaire \textbf{\AcademicYear}}
+    };
+  \end{tikzpicture}
+
+  \null
+\end{titlepage}

@@ -1,0 +1,143 @@
+\documentclass[12pt,a4paper,oneside]{report}
+
+% Compile the complete report with:
+%   pdflatex main.tex && bibtex main && pdflatex main.tex && pdflatex main.tex
+% To compile selected chapters only, enable and edit \includeonly below.
+% \includeonly{chapters/01-cadre-recherche}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage[scaled=0.95]{helvet}
+\usepackage[a4paper,margin=0pt]{geometry}
+\usepackage{graphicx}
+\usepackage[tracking=true]{microtype}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{pgfgantt}
+\usepackage[authoryear,round]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+% Editable report data
+\newcommand{\ReportKind}{Projet d\'et\'e}
+\newcommand{\ProgramName}{3\textsuperscript{e} ann\'ee en Ing\'enierie Informatique et R\'eseaux}
+\newcommand{\ReportTitleLead}{IoT Network-Flow}
+\newcommand{\ReportTitleFocus}{Intrusion Detection}
+\newcommand{\StudentName}{Pr\'enom NOM}
+\newcommand{\AcademicYear}{20XX--20XX}
+
+% Cover palette
+\definecolor{PremiumEmerald}{HTML}{064E3B}
+\definecolor{Emerald}{HTML}{047857}
+\definecolor{AntiqueGold}{HTML}{B7924A}
+\definecolor{WarmIvory}{HTML}{FAF8F1}
+\definecolor{Charcoal}{HTML}{17211D}
+\definecolor{MutedInk}{HTML}{52605A}
+
+% French document labels
+\renewcommand{\contentsname}{Table des mati\`eres}
+\renewcommand{\listfigurename}{Liste des figures}
+\renewcommand{\listtablename}{Liste des tableaux}
+\renewcommand{\bibname}{Bibliographie et webographie}
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Tableau}
+\renewcommand{\appendixname}{Annexe}
+
+% Compact, restrained heading hierarchy. The standard report class leaves a
+% 50 pt blank area above chapters; the template does not require that padding.
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{0pt}%
+  {\parindent\z@\raggedright\normalfont
+    {\color{Emerald}\large\bfseries
+      \MakeUppercase{Chapitre \thechapter}}\par
+    \vspace{4pt}%
+    {\color{PremiumEmerald}\huge\bfseries #1}\par
+    \vspace{7pt}%
+    {\color{AntiqueGold}\rule{42mm}{1pt}}\par
+    \vspace{13pt}%
+  }}
+\def\@makeschapterhead#1{%
+  \vspace*{0pt}%
+  {\parindent\z@\raggedright\normalfont
+    {\color{PremiumEmerald}\huge\bfseries #1}\par
+    \vspace{7pt}%
+    {\color{AntiqueGold}\rule{42mm}{1pt}}\par
+    \vspace{13pt}%
+  }}
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-2.2ex \@plus -.5ex \@minus -.2ex}%
+  {0.9ex \@plus .2ex}%
+  {\normalfont\Large\bfseries\color{PremiumEmerald}}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {-1.8ex \@plus -.4ex \@minus -.2ex}%
+  {0.7ex \@plus .2ex}%
+  {\normalfont\large\bfseries\color{Emerald}}}
+\makeatother
+
+\captionsetup{
+  font=small,
+  labelfont={bf,color=PremiumEmerald},
+  labelsep=endash,
+  skip=6pt
+}
+
+\begin{document}
+
+\pagenumbering{gobble}
+\input{frontmatter/cover}
+
+% EMSI template: 2.5 cm margins, justified 12 pt body, 0.8 cm first-line
+% indentation, 1.5 line spacing, and 6 pt paragraph separation.
+\newgeometry{margin=2.5cm}
+\onehalfspacing
+\setlength{\parindent}{0.8cm}
+\setlength{\parskip}{6pt}
+\raggedbottom
+
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{14pt}
+\fancyhead[L]{\small\nouppercase{\leftmark}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyfoot[C]{\small\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% Roman counters keep PDF links unique, but the front matter prints no numbers.
+\pagenumbering{roman}
+\pagestyle{empty}
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+\listoffigures
+\thispagestyle{empty}
+\clearpage
+\listoftables
+\thispagestyle{empty}
+\clearpage
+
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\include{chapters/01-cadre-recherche}
+
+\appendix
+\include{appendices/frontend-gallery}
+
+\clearpage
+\addcontentsline{toc}{chapter}{Bibliographie et webographie}
+\bibliographystyle{plainnat}
+\bibliography{sources}
+
+\end{document}

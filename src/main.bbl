@@ -1,0 +1,133 @@
+\begin{thebibliography}{13}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Aouini and Pekar(2022)]{aouini_nfstream_2022}
+Zied Aouini and Adrian Pekar.
+\newblock {NFStream}: A flexible network data analysis framework.
+\newblock \emph{Computer Networks}, 204:\penalty0 108719, February 2022.
+\newblock ISSN 13891286.
+\newblock \doi{10.1016/j.comnet.2021.108719}.
+\newblock URL
+  \url{https://linkinghub.elsevier.com/retrieve/pii/S1389128621005739}.
+
+\bibitem[Breiman(2001)]{breiman_random_2001}
+Leo Breiman.
+\newblock Random {Forests}.
+\newblock \emph{Machine Learning}, 45\penalty0 (1):\penalty0 5--32, October
+  2001.
+\newblock ISSN 0885-6125, 1573-0565.
+\newblock \doi{10.1023/A:1010933404324}.
+\newblock URL \url{https://link.springer.com/10.1023/A:1010933404324}.
+
+\bibitem[Cantone et~al.(2024)Cantone, Marrocco, and Bria]{cantone_machine_2024}
+Marco Cantone, Claudio Marrocco, and Alessandro Bria.
+\newblock Machine {Learning} in {Network} {Intrusion} {Detection}: {A}
+  {Cross}-{Dataset} {Generalization} {Study}.
+\newblock \emph{IEEE Access}, 12:\penalty0 144489--144508, 2024.
+\newblock ISSN 2169-3536.
+\newblock \doi{10.1109/ACCESS.2024.3472907}.
+\newblock URL \url{https://ieeexplore.ieee.org/document/10704637/}.
+
+\bibitem[Friedman(2001)]{friedman_greedy_2001}
+Jerome~H. Friedman.
+\newblock Greedy function approximation: {A} gradient boosting machine.
+\newblock \emph{The Annals of Statistics}, 29\penalty0 (5):\penalty0
+  1189--1232, October 2001.
+\newblock ISSN 0090-5364.
+\newblock \doi{10.1214/aos/1013203451}.
+\newblock URL
+  \url{https://projecteuclid.org/journals/annals-of-statistics/volume-29/issue-5/Greedy-function-approximation-A-gradient-boosting-machine/10.1214/aos/1013203451.full}.
+
+\bibitem[Kaufman et~al.(2012)Kaufman, Rosset, Perlich, and
+  Stitelman]{kaufman_leakage_2012}
+Shachar Kaufman, Saharon Rosset, Claudia Perlich, and Ori Stitelman.
+\newblock Leakage in data mining: {Formulation}, detection, and avoidance.
+\newblock \emph{ACM Transactions on Knowledge Discovery from Data}, 6\penalty0
+  (4):\penalty0 1--21, December 2012.
+\newblock ISSN 1556-4681, 1556-472X.
+\newblock \doi{10.1145/2382577.2382579}.
+\newblock URL \url{https://dl.acm.org/doi/10.1145/2382577.2382579}.
+
+\bibitem[Niculescu-Mizil and Caruana(2005)]{niculescu-mizil_predicting_2005}
+Alexandru Niculescu-Mizil and Rich Caruana.
+\newblock Predicting good probabilities with supervised learning.
+\newblock In \emph{Proceedings of the 22nd international conference on
+  {Machine} learning - {ICML} '05}, pages 625--632, Bonn, Germany, 2005. ACM
+  Press.
+\newblock ISBN 978-1-59593-180-1.
+\newblock \doi{10.1145/1102351.1102430}.
+\newblock URL \url{https://dl.acm.org/doi/10.1145/1102351.1102430}.
+
+\bibitem[Pedregosa et~al.(2011)Pedregosa, Varoquaux, Gramfort, Michel, Thirion,
+  Grisel, Blondel, Prettenhofer, Weiss, Dubourg, Vanderplas, Passos,
+  Cournapeau, Brucher, Perrot, and Duchesnay]{pedregosa_scikit-learn_2011}
+Fabian Pedregosa, Gaël Varoquaux, Alexandre Gramfort, Vincent Michel, Bertrand
+  Thirion, Olivier Grisel, Mathieu Blondel, Peter Prettenhofer, Ron Weiss,
+  Vincent Dubourg, Jake Vanderplas, Alexandre Passos, David Cournapeau,
+  Matthieu Brucher, Matthieu Perrot, and Édouard Duchesnay.
+\newblock {Scikit-learn}: Machine learning in {Python}.
+\newblock \emph{Journal of Machine Learning Research}, 12\penalty0
+  (85):\penalty0 2825--2830, 2011.
+\newblock URL \url{https://jmlr.org/papers/v12/pedregosa11a.html}.
+
+\bibitem[Scarfone and Mell(2007)]{scarfone_guide_2007}
+Karen Scarfone and Peter Mell.
+\newblock Guide to {Intrusion} {Detection} and {Prevention} {Systems} ({IDPS}).
+\newblock Technical Report NIST SP 800-94, National Institute of Standards and
+  Technology, Gaithersburg, MD, 2007.
+\newblock URL
+  \url{https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-94.pdf}.
+
+\bibitem[Sharmila and Nagapadma(2023{\natexlab{a}})]{b_s_rt-iot2022_2023}
+B.~S. Sharmila and Rohini Nagapadma.
+\newblock {RT}-{IoT2022}, 2023{\natexlab{a}}.
+\newblock URL \url{https://archive.ics.uci.edu/dataset/942}.
+
+\bibitem[Sharmila and Nagapadma(2023{\natexlab{b}})]{sharmila_quantized_2023}
+B~S Sharmila and Rohini Nagapadma.
+\newblock Quantized autoencoder ({QAE}) intrusion detection system for anomaly
+  detection in resource-constrained {IoT} devices using {RT}-{IoT2022} dataset.
+\newblock \emph{Cybersecurity}, 6\penalty0 (1):\penalty0 41, September
+  2023{\natexlab{b}}.
+\newblock ISSN 2523-3246.
+\newblock \doi{10.1186/s42400-023-00178-5}.
+\newblock URL
+  \url{https://cybersecurity.springeropen.com/articles/10.1186/s42400-023-00178-5}.
+
+\bibitem[Sokolova and Lapalme(2009)]{sokolova_systematic_2009}
+Marina Sokolova and Guy Lapalme.
+\newblock A systematic analysis of performance measures for classification
+  tasks.
+\newblock \emph{Information Processing \& Management}, 45\penalty0
+  (4):\penalty0 427--437, July 2009.
+\newblock ISSN 03064573.
+\newblock \doi{10.1016/j.ipm.2009.03.002}.
+\newblock URL
+  \url{https://linkinghub.elsevier.com/retrieve/pii/S0306457309000259}.
+
+\bibitem[Watrobski et~al.(2025)Watrobski, Souppaya, Klosterman, and
+  Barker]{watrobski_methodology_2025}
+Paul Watrobski, Murugiah Souppaya, Joshua Klosterman, and William Barker.
+\newblock Methodology for characterizing network behavior of internet of things
+  devices.
+\newblock Technical Report NIST IR 8349, National Institute of Standards and
+  Technology (U.S.), Gaithersburg, MD, August 2025.
+\newblock URL \url{https://nvlpubs.nist.gov/nistpubs/ir/2025/NIST.IR.8349.pdf}.
+
+\bibitem[Zarpelão et~al.(2017)Zarpelão, Miani, Kawakani, and
+  De~Alvarenga]{zarpelao_survey_2017}
+Bruno~Bogaz Zarpelão, Rodrigo~Sanches Miani, Cláudio~Toshio Kawakani, and
+  Sean~Carlisto De~Alvarenga.
+\newblock A survey of intrusion detection in {Internet} of {Things}.
+\newblock \emph{Journal of Network and Computer Applications}, 84:\penalty0
+  25--37, April 2017.
+\newblock ISSN 10848045.
+\newblock \doi{10.1016/j.jnca.2017.02.009}.
+\newblock URL
+  \url{https://linkinghub.elsevier.com/retrieve/pii/S1084804517300802}.
+
+\end{thebibliography}

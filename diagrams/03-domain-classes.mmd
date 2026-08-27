@@ -1,0 +1,63 @@
+classDiagram
+    direction LR
+
+    class Observation {
+        +eventId: UUID
+        +schemaVersion: String
+        +flowStartedAt: DateTime
+        +flowEndedAt: DateTime
+        +ingestionChannel: String
+        +extractorFingerprint: String [0..1]
+        +rawFeatures: JSON
+        +networkContext: JSON [0..1]
+        +groundTruth: String [0..1]
+    }
+
+    class Prediction {
+        +predictionId: UUID
+        +modelVersion: String
+        +detectorModelVersion: String
+        +classifierModelVersion: String [0..1]
+        +binaryPrediction: String
+        +attackClass: String [0..1]
+        +detectionScore: Real
+        +attackClassScore: Real [0..1]
+        +endToEndLatencyMs: Real
+    }
+
+    class Alert {
+        +alertId: UUID
+        +detectionSource: DetectionSource
+        +predictionId: UUID [0..1]
+        +externalEventId: UUID [0..1]
+        +sensorId: String [0..1]
+        +severity: Severity
+        +status: AlertStatus
+        +reasons: JSON
+        +sensorEvidence: JSON [0..1]
+    }
+
+    class AnalystFeedback {
+        +feedbackId: UUID
+        +analyst: String
+        +status: AlertStatus
+        +notes: String [0..1]
+        +createdAt: DateTime
+    }
+
+    class SensorState {
+        +sensorId: String
+        +interface: String
+        +packets: Integer
+        +captureDrops: Integer
+        +eventsSeen: Integer
+        +alertsAccepted: Integer
+        +lastHeartbeatAt: DateTime
+    }
+
+    Observation "1" -- "0..1" Prediction : yields
+    Prediction "0..1" -- "0..1" Alert : supports ML alert
+    SensorState "0..1" -- "0..*" Alert : reports signature alert
+    Alert "1" *-- "0..*" AnalystFeedback : disposition history
+
+    note for Alert "Invariant: an ML alert references a prediction. A Suricata alert carries sensor evidence instead."

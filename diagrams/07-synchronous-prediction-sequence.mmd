@@ -1,0 +1,43 @@
+---
+config:
+  sequence:
+    mirrorActors: false
+    actorMargin: 38
+    messageMargin: 24
+---
+sequenceDiagram
+    autonumber
+    actor Client as Authenticated client
+    participant API as Prediction API
+    participant Schema as Schema validator
+    participant Models as Verified model cascade
+    participant DB as Persistence
+    participant Live as WebSocket manager
+
+    Client->>API: POST /predict
+    activate API
+    API->>Schema: Validate canonical observation
+    alt invalid schema
+        Schema-->>API: Validation errors
+        API-->>Client: 422 Unprocessable Entity
+    else valid schema
+        Schema-->>API: Ordered feature vector
+        API->>DB: Check event ID
+        alt duplicate event ID
+            DB-->>API: Existing observation
+            API-->>Client: 409 Conflict
+        else new event ID
+            API->>Models: Resolve route and run cascade
+            alt incompatible model route
+                Models-->>API: Compatibility error
+                API-->>Client: 409 Conflict
+            else prediction produced
+                Models-->>API: Label, scores, and top-feature summary
+                API->>DB: Commit observation, prediction,<br/>and optional alert atomically
+                DB-->>API: Persisted identifiers
+                API-)Live: Broadcast committed events
+                API-->>Client: 201 PredictionResponse
+            end
+        end
+    end
+    deactivate API

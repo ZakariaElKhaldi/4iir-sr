@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #F2FBF7
+  BorderColor #13795B
+  ArrowColor #0F5132
+}
+
+actor Administrator as Admin
+actor "External IoT system\nor sensor agent" as External
+
+rectangle "IoT IDS prototype" {
+  usecase "Authenticate" as UCAuth
+  usecase "Submit canonical\nflow observations" as UCFlows
+  usecase "Submit Suricata\nsensor events" as UCSensor
+  usecase "Control dataset replay" as UCReplay
+  usecase "Investigate alerts" as UCInvestigate
+  usecase "Record analyst\ndisposition" as UCFeedback
+  usecase "Review system and\nmodel health" as UCHealth
+}
+
+Admin -- UCAuth
+Admin -- UCReplay
+Admin -- UCInvestigate
+Admin -- UCFeedback
+Admin -- UCHealth
+External -- UCFlows
+External -- UCSensor
+UCFeedback ..> UCInvestigate : <<extend>>\n[disposition recorded]
+
+note right of Admin
+  The protected use cases have a valid
+  administrator token as a precondition.
+end note
+@enduml

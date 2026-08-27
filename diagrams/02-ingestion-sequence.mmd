@@ -1,0 +1,47 @@
+---
+config:
+  sequence:
+    mirrorActors: false
+    actorMargin: 38
+    messageMargin: 24
+---
+sequenceDiagram
+    autonumber
+    actor Producer as Authenticated flow producer
+    participant API as Ingestion API
+    participant DB as Jobs and data store
+    participant Worker as Ingestion worker
+    participant Models as Verified model cascade
+    participant Publisher as Outbox publisher
+    actor UI as Dashboard
+
+    Producer->>API: Submit flow batch
+    activate API
+    API->>API: Validate complete request
+    alt request rejected
+        API-->>Producer: 4xx response, nothing enqueued
+    else request accepted
+        API->>DB: Enqueue new event IDs atomically
+        DB-->>API: Accepted and duplicate dispositions
+        API-->>Producer: 202 Accepted
+    end
+    deactivate API
+
+    loop each eligible job
+        Worker->>DB: Claim job with processing lease
+        DB-->>Worker: Canonical observation
+        Worker->>Models: Run compatible model cascade
+        Models-->>Worker: Prediction and optional alert
+        alt processing succeeds
+            Worker->>DB: Commit result, success transition,<br/>and outbox events atomically
+        else processing fails
+            Worker->>DB: Commit retry or dead-letter state
+        end
+    end
+
+    loop each committed outbox event
+        Publisher->>DB: Claim unpublished event
+        DB-->>Publisher: Event payload
+        Publisher-)UI: WebSocket prediction or alert
+        Publisher->>DB: Mark published or schedule retry
+    end

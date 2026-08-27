@@ -1,0 +1,49 @@
+---
+config:
+  sequence:
+    mirrorActors: false
+    actorMargin: 36
+    messageMargin: 24
+---
+sequenceDiagram
+    autonumber
+    actor Network as External IoT network
+    participant Sensor as Suricata
+    participant EVE as EVE log
+    participant Agent as Sensor agent
+    participant API as Sensor API
+    participant DB as Persistence
+    participant Publisher as Outbox publisher
+    actor UI as Dashboard
+
+    Network-)Sensor: Network packets
+    Sensor-)EVE: Append alerts and statistics
+
+    loop each polling cycle
+        Agent->>EVE: Read from durable checkpoint
+        EVE-->>Agent: Normalized records and next offset
+        opt records available or heartbeat due
+            Agent->>API: Submit authenticated batch
+            API->>DB: Update sensor state and deduplicate alerts
+            alt new signature alert
+                API->>DB: Insert alert and outbox event
+            else statistics or duplicate
+                API->>DB: Update counters only
+            end
+            API->>DB: Commit batch
+            alt accepted receipt
+                API-->>Agent: 200 SuricataReceipt
+                Agent->>Agent: Advance checkpoint atomically
+            else delivery failed
+                API--xAgent: No accepted receipt
+                Agent->>Agent: Retain offset and back off
+            end
+        end
+    end
+
+    loop each committed alert event
+        Publisher->>DB: Claim unpublished event
+        DB-->>Publisher: alert.created payload
+        Publisher-)UI: WebSocket alert
+        Publisher->>DB: Mark published or retry
+    end
