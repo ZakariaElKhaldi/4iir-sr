@@ -1,0 +1,48 @@
+classDiagram
+    direction TB
+
+    class DetectionService {
+        <<module>>
+        +stage_observation(observation, registry)
+        +persist_observations(staged, session)
+        +broadcast_staged(staged, live_manager)
+        +process_observation(observation, context)
+    }
+
+    class InferenceEngine {
+        <<module>>
+        +run_inference(route, features)
+    }
+
+    class IngestionService {
+        <<module>>
+        +enqueue_observations(observations, session)
+        +claim_next_job(session, worker_id)
+        +record_transition(session, job, state)
+        +redrive_events(event_ids, operator, reason)
+        +ingestion_status(session, lease_seconds)
+    }
+
+    class ReplayController {
+        +start_dataset(scenario, offset, limit, speed)
+        +start_custom(observations, speed)
+        +pause()
+        +resume(speed)
+        +stop()
+    }
+
+    class ModelHealthService {
+        +evaluate(window)
+        +cohorts()
+        +latest(cohort, window)
+        +history(cohort, window)
+        +component()
+    }
+
+    IngestionService ..> DetectionService : submits claimed observation
+    DetectionService ..> InferenceEngine : executes cascade
+    ReplayController ..> DetectionService : submits replay observation
+    ModelHealthService ..> InferenceEngine : evaluates serving route
+
+    note for DetectionService "Public operations mirror backend/app/service.py."
+    note for IngestionService "Public operations mirror backend/app/ingestion/service.py."

@@ -1,30 +1,63 @@
-\contentsline {chapter}{\numberline {1}Cadre scientifique et probl\'ematique de recherche}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Introduction}{1}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Contexte scientifique}{1}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}D\'etection d'intrusions dans les environnements IoT}{1}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Jeu de donn\'ees RT-IoT2022}{2}{subsection.1.2.2}%
+\contentsline {chapter}{Introduction g\'en\'erale}{1}{chapter*.4}%
+\contentsline {chapter}{\numberline {1}Cadre scientifique et probl\'ematique de recherche}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introduction}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Contexte scientifique}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}D\'etection d'intrusions dans les environnements IoT}{2}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Jeu de donn\'ees RT-IoT2022}{3}{subsection.1.2.2}%
 \contentsline {section}{\numberline {1.3}Analyse des approches existantes}{4}{section.1.3}%
 \contentsline {subsection}{\numberline {1.3.1}D\'etection par signatures et d\'etection statistique}{4}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Classification supervis\'ee des flux}{4}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {1.3.3}Limites des validations usuelles}{4}{subsection.1.3.3}%
-\contentsline {section}{\numberline {1.4}Probl\'ematique et questions de recherche}{5}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Solution propos\'ee et p\'erim\`etre}{5}{section.1.5}%
-\contentsline {section}{\numberline {1.6}D\'emarche de recherche}{6}{section.1.6}%
-\contentsline {section}{\numberline {1.7}Conclusion}{7}{section.1.7}%
-\contentsline {chapter}{\numberline {2}Conception du syst\`eme}{9}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Vue fonctionnelle}{9}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Mod\`ele du domaine}{11}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Ingestion durable des observations}{14}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Authentification et contr\^ole d'acc\`es}{16}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Pr\'ediction et rejeu de donn\'ees}{17}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Investigation des alertes}{19}{section.2.6}%
-\contentsline {section}{\numberline {2.7}Int\'egration du capteur Suricata}{20}{section.2.7}%
-\contentsline {section}{\numberline {2.8}Surveillance de la sant\'e des mod\`eles}{21}{section.2.8}%
-\contentsline {section}{\numberline {2.9}Conclusion}{21}{section.2.9}%
-\contentsline {chapter}{\numberline {A}Principales interfaces du prototype}{22}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Supervision op\'erationnelle}{22}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Investigation des alertes}{23}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Cartographie des communications}{24}{section.A.3}%
-\contentsline {section}{\numberline {A.4}Laboratoire d'observations}{25}{section.A.4}%
-\contentsline {section}{\numberline {A.5}Adaptation aux petits \'ecrans}{26}{section.A.5}%
-\contentsline {chapter}{Bibliographie et webographie}{27}{figure.caption.25}%
+\contentsline {subsection}{\numberline {1.3.2}Classification supervis\'ee des flux}{5}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Limites des validations usuelles}{5}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Probl\'ematique et questions de recherche}{6}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Solution propos\'ee et p\'erim\`etre}{6}{section.1.5}%
+\contentsline {section}{\numberline {1.6}D\'emarche de recherche}{7}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Mode de d\'eveloppement}{7}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Phases de recherche}{7}{subsection.1.6.2}%
+\contentsline {section}{\numberline {1.7}Conclusion}{8}{section.1.7}%
+\contentsline {chapter}{\numberline {2}Sp\'ecification des besoins}{10}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introduction}{10}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Acteurs}{10}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Besoins fonctionnels}{11}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Besoins non fonctionnels}{12}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Diagramme global des cas d'utilisation}{12}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Description des cas d'utilisation}{13}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}UC-01 --- Authenticate}{13}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}UC-02 --- Submit network flow observations}{13}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}UC-03 --- Submit Suricata sensor events}{14}{subsection.2.6.3}%
+\contentsline {subsection}{\numberline {2.6.4}UC-04 --- Control dataset replay}{14}{subsection.2.6.4}%
+\contentsline {subsection}{\numberline {2.6.5}UC-05 --- Investigate alerts and record disposition}{15}{subsection.2.6.5}%
+\contentsline {subsection}{\numberline {2.6.6}UC-06 --- Monitor system and model health}{15}{subsection.2.6.6}%
+\contentsline {section}{\numberline {2.7}Conclusion}{16}{section.2.7}%
+\contentsline {chapter}{\numberline {3}Conception du syst\`eme}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introduction}{17}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Mod\'elisation statique}{17}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Mod\`ele du domaine}{17}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Mod\`ele relationnel}{22}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Dictionnaire de donn\'ees}{23}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Architecture de l'application}{25}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Mod\'elisation dynamique}{27}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Activit\'e de l'op\'erateur}{27}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Communication pendant l'investigation}{27}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Ingestion durable des observations}{27}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Authentification et contr\^ole d'acc\`es}{27}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Pr\'ediction et rejeu de donn\'ees}{33}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.6}Investigation des alertes}{35}{subsection.3.4.6}%
+\contentsline {subsection}{\numberline {3.4.7}Int\'egration du capteur Suricata}{36}{subsection.3.4.7}%
+\contentsline {subsection}{\numberline {3.4.8}Surveillance de la sant\'e des mod\`eles}{37}{subsection.3.4.8}%
+\contentsline {section}{\numberline {3.5}Conclusion}{37}{section.3.5}%
+\contentsline {chapter}{\numberline {4}R\'ealisation du syst\`eme}{38}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction}{38}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Environnement de d\'eveloppement}{38}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Environnement mat\'eriel}{38}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Environnement logiciel}{38}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Organisation de la r\'ealisation}{39}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Principaux choix d'impl\'ementation}{39}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Principales interfaces graphiques}{40}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Supervision op\'erationnelle}{40}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Investigation des alertes}{41}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Analyse des mod\`eles}{42}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}Laboratoire d'observations}{43}{subsection.4.5.4}%
+\contentsline {section}{\numberline {4.6}Validation technique}{43}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Conclusion}{43}{section.4.7}%
+\contentsline {chapter}{Conclusion g\'en\'erale}{44}{chapter*.34}%
+\contentsline {chapter}{Bibliographie et webographie}{45}{chapter*.34}%

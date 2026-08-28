@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[paperwidth=190mm,paperheight=125mm,margin=4mm]{geometry}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\pagestyle{empty}
+
+\definecolor{PremiumEmerald}{HTML}{064E3B}
+\definecolor{Emerald}{HTML}{047857}
+\definecolor{EmeraldMist}{HTML}{EAF5F0}
+\definecolor{EmeraldWash}{HTML}{F5FAF7}
+\definecolor{Charcoal}{HTML}{17211D}
+\definecolor{MutedInk}{HTML}{52605A}
+\definecolor{NoteFill}{HTML}{FFF7C2}
+
+\begin{document}
+\centering
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  state/.style={draw=Emerald,fill=EmeraldWash,rounded corners=1.5pt,
+    minimum width=26mm,minimum height=9mm,align=center,line width=.8pt},
+  flow/.style={-{Latex[length=2mm]},draw=Charcoal,line width=.7pt},
+  edge/.style={font=\sffamily\scriptsize,fill=white,inner sep=1.5pt,align=center},
+  note/.style={draw=PremiumEmerald,fill=NoteFill,rounded corners=1pt,
+    text width=39mm,align=center,inner sep=3mm,line width=.7pt}
+]
+  \fill[Charcoal] (0,5.50) circle (2.2pt);
+  \node[state] (queued) at (0,4.15) {Queued};
+  \node[state] (processing) at (0,1.20) {Processing};
+  \node[state] (retrying) at (-5.0,1.20) {Retrying};
+  \node[state] (dead) at (5.0,1.20) {Dead letter};
+  \node[state] (succeeded) at (0,-1.35) {Succeeded};
+  \draw[Charcoal,line width=.7pt] (0,-2.50) circle (3.2pt);
+  \draw[Charcoal,line width=.7pt] (0,-2.50) circle (5.0pt);
+  \node[note] (redriveNote) at (5.0,-1.35)
+    {Redrive is refused for succeeded jobs, immutable-payload conflicts, partial results, or ineligible permanent failures.};
+
+  \draw[flow] (0,5.43) -- node[edge,left,text width=23mm] {enqueue /\\initial transition} (queued.north);
+  \draw[flow] (queued) -- (processing);
+  \node[edge,text width=26mm] at (0,2.72) {claim [available] /\\lease, attempts++};
+  \draw[flow] (processing) -- node[edge,right] {commitSucceeded / persist result + outbox} (succeeded);
+  \draw[flow] (succeeded.south) -- (0,-2.37);
+
+  \draw[flow] (retrying.east) -- (processing.west);
+  \node[edge,text width=34mm] at (-2.50,1.70) {claim [available] /\\renew lease, attempts++};
+  \draw[flow] (processing.north west) -- ++(-.45,1.30) -| (retrying.north);
+  \node[edge,text width=34mm] at (-3.15,2.82)
+    {processingFailed [retryable,\\budget remains] / delay};
+  \draw[flow] (processing.south west) -- ++(-.45,-.78) -| (retrying.south);
+  \node[edge] at (-2.50,0.08) {leaseExpired / recover};
+
+  \draw[flow] (processing.north east) -- ++(.45,1.30) -| (dead.north);
+  \node[edge,text width=34mm] at (3.10,2.82)
+    {processingFailed [permanent or\\budget exhausted] / retain error};
+  \draw[flow] (dead.north) -- ++(0,3.15) -| (queued.east);
+  \node[edge,text width=32mm] at (3.15,4.82)
+    {redrive [authorized, eligible] / reset attempts};
+  \draw[dashed,draw=MutedInk,line width=.65pt] (dead.south) -- (redriveNote.north);
+\end{tikzpicture}
+\end{document}

@@ -14,16 +14,23 @@
 \usepackage[tracking=true]{microtype}
 \usepackage{xcolor}
 \usepackage{tikz}
-\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta,calc,fit,positioning,shapes.geometric}
+\usepackage{pgfgantt}
 \usepackage{setspace}
 \usepackage{fancyhdr}
 \usepackage{caption}
 \usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{longtable}
 \usepackage{pdflscape}
 \usepackage[authoryear,round]{natbib}
 \usepackage[hidelinks]{hyperref}
 
 % Editable report data
+% Personal and academic facts must be supplied by the author; they are not
+% inferred from the repository.
 \newcommand{\ReportKind}{Projet d\'et\'e}
 \newcommand{\ProgramName}{3\textsuperscript{e} ann\'ee en Ing\'enierie Informatique et R\'eseaux}
 \newcommand{\ReportTitleLead}{IoT Network-Flow}
@@ -38,6 +45,21 @@
 \definecolor{WarmIvory}{HTML}{FAF8F1}
 \definecolor{Charcoal}{HTML}{17211D}
 \definecolor{MutedInk}{HTML}{52605A}
+\definecolor{EmeraldMist}{HTML}{EAF5F0}
+\definecolor{EmeraldWash}{HTML}{F5FAF7}
+\definecolor{SoftRule}{HTML}{C8D9D1}
+
+% Reusable table treatment: restrained rules, comfortable cells, and a
+% flexible final column.  The content remains ordinary text and can still be
+% copied from the generated PDF.
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\ReportTableHeader}[2]{%
+  \rowcolor{PremiumEmerald}\color{white}\bfseries #1 &
+  \color{white}\bfseries #2 \\
+}
+\newcommand{\UCRow}[2]{%
+  \cellcolor{EmeraldMist}\bfseries\color{PremiumEmerald}#1 & #2 \\
+}
 
 % French document labels
 \renewcommand{\contentsname}{Table des mati\`eres}
@@ -89,6 +111,7 @@
 
 \begin{document}
 
+\hypersetup{pageanchor=false}
 \pagenumbering{gobble}
 \input{frontmatter/cover}
 
@@ -113,8 +136,7 @@
   \renewcommand{\headrulewidth}{0pt}
 }
 
-% Roman counters keep PDF links unique, but the front matter prints no numbers.
-\pagenumbering{roman}
+% The template does not print page numbers before the general introduction.
 \pagestyle{empty}
 \tableofcontents
 \thispagestyle{empty}
@@ -127,14 +149,18 @@
 \clearpage
 
 \pagestyle{fancy}
+\hypersetup{pageanchor=true}
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-\include{chapters/01-cadre-recherche}
-\include{chapters/02-conception-systeme}
+\input{frontmatter/introduction-generale}
 
-\appendix
-\include{appendices/frontend-gallery}
+\include{chapters/01-cadre-recherche}
+\include{chapters/02-specification-besoins}
+\include{chapters/03-conception-systeme}
+\include{chapters/04-realisation-systeme}
+
+\input{backmatter/conclusion-generale}
 
 \clearpage
 \addcontentsline{toc}{chapter}{Bibliographie et webographie}

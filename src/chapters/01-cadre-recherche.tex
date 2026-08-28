@@ -74,18 +74,18 @@ prudente des scores agr\'eg\'es.
   \centering
   \caption{R\'esultats de l'audit local du fichier RT-IoT2022 contr\^ol\'e}
   \label{tab:rt-iot2022-audit}
-  \begin{tabular}{@{}lr@{}}
-    \toprule
-    \textbf{Propri\'et\'e v\'erifi\'ee} & \textbf{Valeur observ\'ee} \\
-    \midrule
+  \renewcommand{\arraystretch}{1.20}
+  \rowcolors{2}{EmeraldWash}{white}
+  \begin{tabularx}{0.88\textwidth}{@{}Y>{\raggedleft\arraybackslash\bfseries\color{PremiumEmerald}}p{0.24\textwidth}@{}}
+    \ReportTableHeader{Propri\'et\'e v\'erifi\'ee}{Valeur observ\'ee}
     Observations sources & 123\,117 \\
     Variables utilis\'ees par les mod\`eles & 83 \\
     \'Etiquettes observ\'ees & 12 \\
     Observations normales & 12\,507 \\
     Observations d'attaque & 110\,610 \\
     Vecteurs de caract\'eristiques dupliqu\'es & 5\,202 \\
-    \bottomrule
-  \end{tabular}
+  \end{tabularx}
+  \rowcolors{2}{}{}
 \end{table}
 
 La provenance de l'extraction constitue une limite importante. Les sources
@@ -210,19 +210,22 @@ paquets dans un environnement isol\'e, mais ses alertes de signatures ne sont pa
 des pr\'edictions du mod\`ele. Ces fronti\`eres emp\^echent de transformer une preuve
 d'ing\'enierie en affirmation scientifique non mesur\'ee.
 
-La figure~\ref{fig:application-model-analysis} montre la vue d'analyse des
-mod\`eles telle qu'elle est rendue pendant les essais de bout en bout. Elle
-affiche explicitement le caract\`ere hors ligne de l'\'evaluation et ne la
-pr\'esente pas comme une validation de d\'eploiement.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\textwidth]{assets/screenshots/application-model-analysis.png}
-  \caption{Vue d'analyse des mod\`eles captur\'ee pendant les tests Playwright de l'application}
-  \label{fig:application-model-analysis}
-\end{figure}
+L'interface qui restitue ces limites et les preuves d'\'evaluation est pr\'esent\'ee
+avec les autres vues principales au chapitre~\ref{chap:realisation}.
 
 \section{D\'emarche de recherche}
+
+\subsection{Mode de d\'eveloppement}
+
+Le d\'eveloppement suit une d\'emarche incr\'ementale guid\'ee par les preuves.
+Chaque incr\'ement part d'un contrat ou d'une limite explicite, ajoute les tests
+correspondants, impl\'emente le comportement puis produit un artefact
+v\'erifiable. L'historique du d\'ep\^ot atteste cette progression depuis la
+pr\'eparation des donn\'ees jusqu'à l'ingestion, à la supervision et au
+laboratoire isol\'e. Cette organisation ne pr\'etend pas appliquer un cadre Scrum
+ou un calendrier d'entreprise qui n'ont pas exist\'e.
+
+\subsection{Phases de recherche}
 
 La conduite du projet est organis\'ee en phases tra\c{c}ables:
 
@@ -265,7 +268,34 @@ la progression observ\'ee.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth,height=0.42\textheight,keepaspectratio]{../diagrams/rendered/05-project-timeline.pdf}
+  \begin{ganttchart}[
+      x unit=0.245cm,
+      y unit title=0.58cm,
+      y unit chart=0.68cm,
+      vgrid={*{34}{draw=SoftRule!55}},
+      hgrid=false,
+      title/.style={draw=none,fill=EmeraldMist},
+      title label font=\scriptsize\bfseries\color{PremiumEmerald},
+      bar/.append style={draw=PremiumEmerald,fill=Emerald!78,rounded corners=1.2pt},
+      bar height=0.48,
+      bar label font=\scriptsize\color{Charcoal},
+      bar label node/.append style={align=right,text width=4.75cm},
+      group label font=\scriptsize,
+      link/.style={-Latex,draw=MutedInk},
+      canvas/.append style={draw=none}
+    ]{1}{34}
+    \gantttitle{23 Jul}{7}
+    \gantttitle{30 Jul}{7}
+    \gantttitle{06 Aug}{7}
+    \gantttitle{13 Aug}{7}
+    \gantttitle{20 Aug}{6} \\
+    \ganttbar{Foundations and experiments}{1}{13} \\
+    \ganttbar{API and dashboard}{13}{14} \\
+    \ganttbar{Ingestion, authentication, and security}{16}{20} \\
+    \ganttbar{User experience and operations}{20}{30} \\
+    \ganttbar{Isolated network laboratory}{29}{30} \\
+    \ganttbar{Evidence package and executed notebook}{33}{34}
+  \end{ganttchart}
   \caption{Chronologie de r\'ealisation fond\'ee sur les dates de l'historique Git}
   \label{fig:gantt-realisation}
 \end{figure}

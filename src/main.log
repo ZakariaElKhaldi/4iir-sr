@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.8.26)  27 AUG 2026 21:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.8.26)  28 AUG 2026 21:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -411,10 +411,89 @@ File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 topaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )))
+(/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen266
+\pgfarrowlength=\dimen267
+\pgfarrowwidth=\dimen268
+\pgfarrowlinewidth=\dimen269
+)
 (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
 calc.code.tex
 File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-) (/usr/share/texmf-dist/tex/latex/setspace/setspace.sty
+)
+(/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+fit.code.tex
+File: tikzlibraryfit.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+positioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+shapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/share/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geomet
+ric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)) (/usr/share/texmf-dist/tex/latex/pgfgantt/pgfgantt.sty
+Package: pgfgantt 2024/06/19 v5.0a Draw Gantt diagrams with TikZ
+
+(/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+arrows.code.tex
+File: tikzlibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
+File: pgflibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\arrowsize=\dimen270
+))
+(/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+backgrounds.code.tex
+File: tikzlibrarybackgrounds.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@layerbox@background=\box65
+\pgf@layerboxsaved@background=\box66
+)
+(/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+patterns.code.tex
+File: tikzlibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.code.tex
+File: pgflibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(/usr/share/texmf-dist/tex/latex/pgf/utilities/pgfcalendar.sty
+(/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfcalendar.code.tex
+File: pgfcalendar.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfcalendarcurrentjulian=\count311
+\pgf@cal@easter@Y=\count312
+\pgf@cal@easter@G=\count313
+\pgf@cal@easter@C=\count314
+\pgf@cal@easter@X=\count315
+\pgf@cal@easter@Z=\count316
+\pgf@cal@easter@D=\count317
+\pgf@cal@easter@E=\count318
+\pgf@cal@easter@N=\count319
+\pgf@cal@easter@M=\count320
+\pgf@cal@easter@julianday=\count321
+))
+\gtt@currentline=\count322
+\gtt@lasttitleline=\count323
+\gtt@currgrid=\count324
+\gtt@chartwidth=\count325
+\gtt@lasttitleslot=\count326
+\gtt@elementid=\count327
+\gtt@today@slot=\count328
+\gtt@startjulian=\count329
+\gtt@endjulian=\count330
+\gtt@chartid=\count331
+\gtt@vrule@slot=\count332
+\gtt@calendar@slots=\count333
+\gtt@calendar@weeknumber=\count334
+\gtt@calendar@startofweek=\count335
+\gtt@left@slot=\count336
+\gtt@right@slot=\count337
+)
+(/usr/share/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
 )
 (/usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
@@ -441,38 +520,83 @@ Package: caption 2023/08/05 v3.6o Customizing captions (AR)
 
 (/usr/share/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen266
-\captionmargin=\dimen267
-\caption@leftmargin=\dimen268
-\caption@rightmargin=\dimen269
-\caption@width=\dimen270
-\caption@indent=\dimen271
-\caption@parindent=\dimen272
-\caption@hangindent=\dimen273
+\caption@tempdima=\dimen271
+\captionmargin=\dimen272
+\caption@leftmargin=\dimen273
+\caption@rightmargin=\dimen274
+\caption@width=\dimen275
+\caption@indent=\dimen276
+\caption@parindent=\dimen277
+\caption@hangindent=\dimen278
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count311
-\c@continuedfloat=\count312
+\c@caption@flags=\count338
+\c@continuedfloat=\count339
 )
 (/usr/share/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen274
-\lightrulewidth=\dimen275
-\cmidrulewidth=\dimen276
-\belowrulesep=\dimen277
-\belowbottomsep=\dimen278
-\aboverulesep=\dimen279
-\abovetopsep=\dimen280
-\cmidrulesep=\dimen281
-\cmidrulekern=\dimen282
-\defaultaddspace=\dimen283
-\@cmidla=\count313
-\@cmidlb=\count314
-\@aboverulesep=\dimen284
-\@belowrulesep=\dimen285
-\@thisruleclass=\count315
-\@lastruleclass=\count316
-\@thisrulewidth=\dimen286
+\heavyrulewidth=\dimen279
+\lightrulewidth=\dimen280
+\cmidrulewidth=\dimen281
+\belowrulesep=\dimen282
+\belowbottomsep=\dimen283
+\aboverulesep=\dimen284
+\abovetopsep=\dimen285
+\cmidrulesep=\dimen286
+\cmidrulekern=\dimen287
+\defaultaddspace=\dimen288
+\@cmidla=\count340
+\@cmidlb=\count341
+\@aboverulesep=\dimen289
+\@belowrulesep=\dimen290
+\@thisruleclass=\count342
+\@lastruleclass=\count343
+\@thisrulewidth=\dimen291
+)
+(/usr/share/texmf-dist/tex/latex/tools/array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen292
+\ar@mcellbox=\box67
+\extrarowheight=\dimen293
+\NC@list=\toks36
+\extratabsurround=\skip66
+\backup@length=\skip67
+\ar@cellbox=\box68
+)
+(/usr/share/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+\TX@col@width=\dimen294
+\TX@old@table=\dimen295
+\TX@old@col=\dimen296
+\TX@target=\dimen297
+\TX@delta=\dimen298
+\TX@cols=\count344
+\TX@ftn=\toks37
+)
+(/usr/share/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2024/10/29 v1.0k Color table columns (DPC)
+\everycr=\toks38
+\minrowclearance=\skip68
+\rownum=\count345
+)
+(/usr/share/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
+\LTleft=\skip69
+\LTright=\skip70
+\LTpre=\skip71
+\LTpost=\skip72
+\LTchunksize=\count346
+\LTcapwidth=\dimen299
+\LT@head=\box69
+\LT@firsthead=\box70
+\LT@foot=\box71
+\LT@lastfoot=\box72
+\LT@gbox=\box73
+\LT@cols=\count347
+\LT@rows=\count348
+\c@LT@tables=\count349
+\c@LT@chunks=\count350
+\LT@p@ftn=\toks39
 )
 (/usr/share/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2025-06-23 v0.14 Display of landscape pages in PDF
@@ -488,10 +612,10 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
 (/usr/share/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip66
-\bibsep=\skip67
+\bibhang=\skip73
+\bibsep=\skip74
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count317
+\c@NAT@ctr=\count351
 )
 (/usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2026-01-29 v7.01p Hypertext links for LaTeX
@@ -534,15 +658,15 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 (/usr/share/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count318
+\c@section@level=\count352
 )
 (/usr/share/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen287
-\Hy@linkcounter=\count319
-\Hy@pagecounter=\count320
+\@linkdim=\dimen300
+\Hy@linkcounter=\count353
+\Hy@pagecounter=\count354
 
 (/usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
@@ -552,7 +676,7 @@ Now handling font encoding PD1 ...
 (/usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count321
+\Hy@SavedSpaceFactor=\count355
 
 (/usr/share/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
@@ -566,14 +690,14 @@ Package hyperref Info: Plain pages OFF on input line 4216.
 Package hyperref Info: Backreferencing OFF on input line 4221.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4468.
-\c@Hy@tempcnt=\count322
+\c@Hy@tempcnt=\count356
 
 (/usr/share/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4807.
-\XeTeXLinkMargin=\dimen288
+\XeTeXLinkMargin=\dimen301
 
 (/usr/share/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -582,9 +706,9 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count323
-\Field@Width=\dimen289
-\Fld@charsize=\dimen290
+\Fld@menulength=\count357
+\Field@Width=\dimen302
+\Fld@charsize=\dimen303
 Package hyperref Info: Hyper figures OFF on input line 6084.
 Package hyperref Info: Link nesting OFF on input line 6089.
 Package hyperref Info: Hyper index ON on input line 6092.
@@ -592,16 +716,16 @@ Package hyperref Info: backreferencing OFF on input line 6099.
 Package hyperref Info: Link coloring OFF on input line 6104.
 Package hyperref Info: Link coloring with OCG OFF on input line 6109.
 Package hyperref Info: PDF/A mode OFF on input line 6114.
-\Hy@abspage=\count324
-\c@Item=\count325
-\c@Hfootnote=\count326
+\Hy@abspage=\count358
+\c@Item=\count359
+\c@Hfootnote=\count360
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
 (/usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2026-01-29 v7.01p Hyperref driver for pdfTeX
-\Fld@listcount=\count327
-\c@bookmark@seq@number=\count328
+\Fld@listcount=\count361
+\c@bookmark@seq@number=\count362
 
 (/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
@@ -612,42 +736,41 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 84.
 )
-\Hy@SectionHShift=\skip68
+\Hy@SectionHShift=\skip75
 )
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 90
-.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 11
+2.
 
 (/usr/share/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count329
+\l__color_backend_stack_int=\count363
 ) (./main.aux
-(./chapters/01-cadre-recherche.aux) (./chapters/02-conception-systeme.aux)
-(./appendices/frontend-gallery.aux))
+(./chapters/01-cadre-recherche.aux) (./chapters/02-specification-besoins.aux)
+(./chapters/03-conception-systeme.aux) (./chapters/04-realisation-systeme.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-\big@size=\dimen291
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+\big@size=\dimen304
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -684,17 +807,17 @@ LaTeX Font Info:    ... okay on input line 90.
 
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count330
-\scratchdimen=\dimen292
-\scratchbox=\box65
-\nofMPsegments=\count331
-\nofMParguments=\count332
-\everyMPshowfont=\toks36
-\MPscratchCnt=\count333
-\MPscratchDim=\dimen293
-\MPnumerator=\count334
-\makeMPintoPDFobject=\count335
-\everyMPtoPDFconversion=\toks37
+\scratchcounter=\count364
+\scratchdimen=\dimen305
+\scratchbox=\box74
+\nofMPsegments=\count365
+\nofMParguments=\count366
+\everyMPshowfont=\toks40
+\MPscratchCnt=\count367
+\MPscratchDim=\dimen306
+\MPnumerator=\count368
+\makeMPintoPDFobject=\count369
+\everyMPtoPDFconversion=\toks41
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -704,13 +827,13 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 90.
-Package microtype Info: Applying patch `item' on input line 90.
-Package microtype Info: Applying patch `toc' on input line 90.
-Package microtype Info: Applying patch `eqnum' on input line 90.
-Package microtype Info: Applying patch `footnote' on input line 90.
-Package microtype Info: Applying patch `verbatim' on input line 90.
-LaTeX Info: Redefining \microtypesetup on input line 90.
+LaTeX Info: Redefining \microtypecontext on input line 112.
+Package microtype Info: Applying patch `item' on input line 112.
+Package microtype Info: Applying patch `toc' on input line 112.
+Package microtype Info: Applying patch `eqnum' on input line 112.
+Package microtype Info: Applying patch `footnote' on input line 112.
+Package microtype Info: Applying patch `verbatim' on input line 112.
+LaTeX Info: Redefining \microtypesetup on input line 112.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -728,16 +851,24 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
+Package caption Info: longtable package is loaded.
+
+(/usr/share/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
+)
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 90.
- (./main.out) (./main.out)
+Package hyperref Info: Link coloring OFF on input line 112.
+ (./main.out)
+(./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
+Package hyperref Info: Option `pageanchor' set `false' on input line 114.
  (./frontmatter/cover.tex
 LaTeX Font Info:    Trying to load font information for T1+phv on input line 3.
 
- (/usr/share/texmf-dist/tex/latex/psnfss/t1phv.fd
+
+(/usr/share/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
@@ -746,7 +877,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `phv' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<assets/emsi-logo.png, id=127, 1445.4pt x 316.18124pt>
+<assets/emsi-logo.png, id=259, 1445.4pt x 316.18124pt>
 File: assets/emsi-logo.png Graphic file (type png)
 <use assets/emsi-logo.png>
 Package pdftex.def Info: assets/emsi-logo.png  used on input line 16.
@@ -849,44 +980,49 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 
  (./main.toc
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
  [1
 
 
-])
+] [2])
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
- [2] (./main.lof)
+ [3] (./main.lof [4
+
+
+])
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
- [3
-
-
-] (./main.lot)
+ [5]
+(./main.lot)
 \tf@lot=\write7
 \openout7 = `main.lot'.
 
+ [6
 
-[4
+
+]
+Package hyperref Info: Option `pageanchor' set `true' on input line 152.
+ (./frontmatter/introduction-generale.tex) [1
 
 
 ]
 \openout2 = `chapters/01-cadre-recherche.aux'.
 
- (./chapters/01-cadre-recherche.tex
-Chapter 1.
-[1
 
+(./chapters/01-cadre-recherche.tex
+Chapter 1.
+[2
 
 
 ]
-<assets/external/nist-passive-idps-architecture.png, id=249, 334.851pt x 428.80
+<assets/external/nist-passive-idps-architecture.png, id=449, 334.851pt x 428.80
 2pt>
 File: assets/external/nist-passive-idps-architecture.png Graphic file (type png
 )
@@ -898,9 +1034,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [2{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./assets/e
+ [3{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./assets/e
 xternal/nist-passive-idps-architecture.png (PNG copy)>]
-<assets/external/nist-iot-capture-architecture.png, id=267, 346.896pt x 392.667
+<assets/external/nist-iot-capture-architecture.png, id=466, 346.896pt x 392.667
 pt>
 File: assets/external/nist-iot-capture-architecture.png Graphic file (type png)
 
@@ -908,219 +1044,304 @@ File: assets/external/nist-iot-capture-architecture.png Graphic file (type png)
 Package pdftex.def Info: assets/external/nist-iot-capture-architecture.png  use
 d on input line 106.
 (pdftex.def)             Requested size: 291.35594pt x 329.81407pt.
- [3 <./assets/external/nist-iot-capture-architecture.png (PNG copy)>] [4] [5]
-<assets/screenshots/application-model-analysis.png, id=312, 2409.0pt x 1505.625
-pt>
-File: assets/screenshots/application-model-analysis.png Graphic file (type png)
-
-<use assets/screenshots/application-model-analysis.png>
-Package pdftex.def Info: assets/screenshots/application-model-analysis.png  use
-d on input line 220.
-(pdftex.def)             Requested size: 455.24411pt x 284.50949pt.
- [6 <./assets/screenshots/application-model-analysis.png (PNG copy)>]
-<assets/screenshots/notebook-model-comparison.png, id=324, 1424.32124pt x 486.8
+ [4] [5 <./assets/external/nist-iot-capture-architecture.png (PNG copy)>] [6] [
+7]
+<assets/screenshots/notebook-model-comparison.png, id=523, 1424.32124pt x 486.8
 1876pt>
 File: assets/screenshots/notebook-model-comparison.png Graphic file (type png)
 <use assets/screenshots/notebook-model-comparison.png>
 Package pdftex.def Info: assets/screenshots/notebook-model-comparison.png  used
- on input line 255.
+ on input line 258.
 (pdftex.def)             Requested size: 455.24411pt x 155.59204pt.
-<../diagrams/rendered/05-project-timeline.pdf, id=326, 602.25pt x 195.6108pt>
-File: ../diagrams/rendered/05-project-timeline.pdf Graphic file (type pdf)
-<use ../diagrams/rendered/05-project-timeline.pdf>
-Package pdftex.def Info: ../diagrams/rendered/05-project-timeline.pdf  used on 
-input line 268.
-(pdftex.def)             Requested size: 455.26112pt x 147.8688pt.
-) [7 <./assets/screenshots/notebook-model-comparison.png (PNG copy)> <../diagra
-ms/rendered/05-project-timeline.pdf>] [8]
-\openout2 = `chapters/02-conception-systeme.aux'.
 
- (./chapters/02-conception-systeme.tex
+Underfull \hbox (badness 1342) in paragraph at lines 292--292
+ [][][]|\T1/ptm/m/n/8 (+20) Foundations and ex-per-i-ments
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 293--293
+ [][][]|\T1/ptm/m/n/8 (+20) API and dash-board
+ []
+
+
+Underfull \hbox (badness 2080) in paragraph at lines 296--296
+ [][][]|\T1/ptm/m/n/8 (+20) Isolated net-work lab-o-ra-tory
+ []
+
+
+Underfull \hbox (badness 5519) in paragraph at lines 297--297
+ [][][]|\T1/ptm/m/n/8 (+20) Evidence pack-age and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--297
+ \T1/ptm/m/n/8 (+20) ex-e-cuted note-book
+ []
+
+) [8 <./assets/screenshots/notebook-model-comparison.png (PNG copy)>] [9]
+\openout2 = `chapters/02-specification-besoins.aux'.
+
+
+(./chapters/02-specification-besoins.tex
 Chapter 2.
-[9
+[10
 
 
 
+
+] [11]
+<../diagrams/rendered/01-use-cases.pdf, id=543, 1354.49483pt x 471.1352pt>
+File: ../diagrams/rendered/01-use-cases.pdf Graphic file (type pdf)
+<use ../diagrams/rendered/01-use-cases.pdf>
+Package pdftex.def Info: ../diagrams/rendered/01-use-cases.pdf  used on input l
+ine 85.
+(pdftex.def)             Requested size: 455.23117pt x 158.34348pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 86.
+See the caption package documentation for explanation.
+
+[12 <../diagrams/rendered/01-use-cases.pdf>]
+ignored: Infinite glue shrinkage found in bo
+x being split [13
 
 ]
-<../diagrams/rendered/01-use-cases-user.pdf, id=378, 1354.49483pt x 471.1352pt>
-
-File: ../diagrams/rendered/01-use-cases-user.pdf Graphic file (type pdf)
-<use ../diagrams/rendered/01-use-cases-user.pdf>
-Package pdftex.def Info: ../diagrams/rendered/01-use-cases-user.pdf  used on in
-put line 21.
-(pdftex.def)             Requested size: 688.7371pt x 239.56406pt.
- [10
+ignored: Infinite glue shrinkage found in box being split [14]
+ignored: Infinite glue shrinkage f
+ound in box being split [15]) [16]
+\openout2 = `chapters/03-conception-systeme.aux'.
 
 
- <../diagrams/rendered/01-use-cases-user.pdf>]
-<../diagrams/rendered/03-domain-classes.pdf, id=462, 602.25pt x 605.3817pt>
+(./chapters/03-conception-systeme.tex
+Chapter 3.
+<../diagrams/rendered/03-domain-classes.pdf, id=645, 602.25pt x 605.3817pt>
 File: ../diagrams/rendered/03-domain-classes.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/03-domain-classes.pdf>
 Package pdftex.def Info: ../diagrams/rendered/03-domain-classes.pdf  used on in
-put line 39.
+put line 23.
 (pdftex.def)             Requested size: 455.26112pt x 457.6285pt.
-<../diagrams/rendered/03b-ingestion-classes.pdf, id=463, 602.25pt x 498.90388pt
+<../diagrams/rendered/03b-ingestion-classes.pdf, id=646, 602.25pt x 498.90388pt
 >
 File: ../diagrams/rendered/03b-ingestion-classes.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/03b-ingestion-classes.pdf>
 Package pdftex.def Info: ../diagrams/rendered/03b-ingestion-classes.pdf  used o
-n input line 46.
+n input line 30.
 (pdftex.def)             Requested size: 455.26112pt x 377.1383pt.
-<../diagrams/rendered/03c-model-health-classes.pdf, id=464, 602.25pt x 450.7238
+<../diagrams/rendered/03c-model-health-classes.pdf, id=647, 602.25pt x 450.7238
 8pt>
 File: ../diagrams/rendered/03c-model-health-classes.pdf Graphic file (type pdf)
 
 <use ../diagrams/rendered/03c-model-health-classes.pdf>
 Package pdftex.def Info: ../diagrams/rendered/03c-model-health-classes.pdf  use
-d on input line 53.
+d on input line 37.
 (pdftex.def)             Requested size: 455.26112pt x 340.7174pt.
- [11
+[17
 
 
- <../diagrams/rendered/03-domain-classes.pdf>] [12 <../diagrams/rendered/03b-in
-gestion-classes.pdf>]
-[13 <../diagrams/rendered/03c-model-health-classes.pdf>]
-<../diagrams/rendered/02-ingestion-sequence.pdf, id=519, 602.25pt x 577.19638pt
+
+
+] [18 <../diagrams/rendered/03-domain-classes.pdf>] [19 <../diagrams/rendered/0
+3b-ingestion-classes.pdf>] [20 <../diagrams/rendered/03c-model-health-classes.p
+df>]
+<../diagrams/rendered/03d-service-operations.pdf, id=705, 602.25pt x 418.4433pt
+>
+File: ../diagrams/rendered/03d-service-operations.pdf Graphic file (type pdf)
+<use ../diagrams/rendered/03d-service-operations.pdf>
+Package pdftex.def Info: ../diagrams/rendered/03d-service-operations.pdf  used 
+on input line 50.
+(pdftex.def)             Requested size: 455.26112pt x 316.31543pt.
+ [21
+
+ <../diagrams/rendered/03d-service-operations.pdf>]
+<../diagrams/rendered/16-relational-core.pdf, id=724, 602.25pt x 1034.90631pt>
+File: ../diagrams/rendered/16-relational-core.pdf Graphic file (type pdf)
+<use ../diagrams/rendered/16-relational-core.pdf>
+Package pdftex.def Info: ../diagrams/rendered/16-relational-core.pdf  used on i
+nput line 65.
+(pdftex.def)             Requested size: 278.10434pt x 477.89449pt.
+ [22
+
+ <../diagrams/rendered/16-relational-core.pdf>]
+ignored: Infinite glue shrinkage found in
+ box being split [23
+
+] [24]
+<../diagrams/rendered/14-component-architecture.pdf, id=750, 540.60269pt x 364.
+19562pt>
+File: ../diagrams/rendered/14-component-architecture.pdf Graphic file (type pdf
+)
+<use ../diagrams/rendered/14-component-architecture.pdf>
+Package pdftex.def Info: ../diagrams/rendered/14-component-architecture.pdf  us
+ed on input line 140.
+(pdftex.def)             Requested size: 446.14294pt x 300.55957pt.
+<../diagrams/rendered/15-docker-deployment.pdf, id=752, 531.9875pt x 231.86626p
+t>
+File: ../diagrams/rendered/15-docker-deployment.pdf Graphic file (type pdf)
+<use ../diagrams/rendered/15-docker-deployment.pdf>
+Package pdftex.def Info: ../diagrams/rendered/15-docker-deployment.pdf  used on
+ input line 152.
+(pdftex.def)             Requested size: 446.144pt x 194.45143pt.
+ [25
+
+ <../diagrams/rendered/14-component-architecture.pdf>] [26 <../diagrams/rendere
+d/15-docker-deployment.pdf>]
+<../diagrams/rendered/12-operator-activity.pdf, id=788, 602.25pt x 790.87468pt>
+
+File: ../diagrams/rendered/12-operator-activity.pdf Graphic file (type pdf)
+<use ../diagrams/rendered/12-operator-activity.pdf>
+Package pdftex.def Info: ../diagrams/rendered/12-operator-activity.pdf  used on
+ input line 173.
+(pdftex.def)             Requested size: 385.3284pt x 506.01324pt.
+<../diagrams/rendered/13-alert-communication.pdf, id=790, 340.3917pt x 558.1653
+1pt>
+File: ../diagrams/rendered/13-alert-communication.pdf Graphic file (type pdf)
+<use ../diagrams/rendered/13-alert-communication.pdf>
+Package pdftex.def Info: ../diagrams/rendered/13-alert-communication.pdf  used 
+on input line 186.
+(pdftex.def)             Requested size: 265.7226pt x 435.7249pt.
+<../diagrams/rendered/02-ingestion-sequence.pdf, id=793, 602.25pt x 577.19638pt
 >
 File: ../diagrams/rendered/02-ingestion-sequence.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/02-ingestion-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/02-ingestion-sequence.pdf  used o
-n input line 69.
+n input line 201.
 (pdftex.def)             Requested size: 455.26112pt x 436.32225pt.
-<../diagrams/rendered/04-ingestion-states.pdf, id=520, 602.25pt x 478.66827pt>
+<../diagrams/rendered/04-ingestion-states.pdf, id=794, 395.4775pt x 244.915pt>
 File: ../diagrams/rendered/04-ingestion-states.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/04-ingestion-states.pdf>
 Package pdftex.def Info: ../diagrams/rendered/04-ingestion-states.pdf  used on 
-input line 76.
-(pdftex.def)             Requested size: 455.26112pt x 361.84152pt.
- [14
-
- <../diagrams/rendered/02-ingestion-sequence.pdf>] [15 <../diagrams/rendered/04
--ingestion-states.pdf>]
-<../diagrams/rendered/06-authentication-sequence.pdf, id=556, 602.25pt x 549.01
+input line 208.
+(pdftex.def)             Requested size: 446.14212pt x 276.29105pt.
+<../diagrams/rendered/06-authentication-sequence.pdf, id=796, 602.25pt x 549.01
 106pt>
 File: ../diagrams/rendered/06-authentication-sequence.pdf Graphic file (type pd
 f)
 <use ../diagrams/rendered/06-authentication-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/06-authentication-sequence.pdf  u
-sed on input line 90.
+sed on input line 221.
 (pdftex.def)             Requested size: 455.26112pt x 415.01602pt.
- [16
 
- <../diagrams/rendered/06-authentication-sequence.pdf>]
-<../diagrams/rendered/07-synchronous-prediction-sequence.pdf, id=578, 602.25pt 
+[27
+
+] [28 <../diagrams/rendered/12-operator-activity.pdf>] [29 <../diagrams/rendere
+d/13-alert-communication.pdf>] [30 <../diagrams/rendered/02-ingestion-sequence.
+pdf>] [31 <../diagrams/rendered/04-ingestion-states.pdf>] [32 <../diagrams/rend
+ered/06-authentication-sequence.pdf>]
+<../diagrams/rendered/07-synchronous-prediction-sequence.pdf, id=881, 602.25pt 
 x 542.025pt>
 File: ../diagrams/rendered/07-synchronous-prediction-sequence.pdf Graphic file 
 (type pdf)
 <use ../diagrams/rendered/07-synchronous-prediction-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/07-synchronous-prediction-sequenc
-e.pdf  used on input line 106.
+e.pdf  used on input line 237.
 (pdftex.def)             Requested size: 455.26112pt x 409.73502pt.
-<../diagrams/rendered/08-dataset-replay-sequence.pdf, id=579, 602.25pt x 594.30
+<../diagrams/rendered/08-dataset-replay-sequence.pdf, id=882, 602.25pt x 594.30
 032pt>
 File: ../diagrams/rendered/08-dataset-replay-sequence.pdf Graphic file (type pd
 f)
 <use ../diagrams/rendered/08-dataset-replay-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/08-dataset-replay-sequence.pdf  u
-sed on input line 113.
+sed on input line 244.
 (pdftex.def)             Requested size: 455.26112pt x 449.25171pt.
- [17
+ [33
 
- <../diagrams/rendered/07-synchronous-prediction-sequence.pdf>] [18 <../diagram
+ <../diagrams/rendered/07-synchronous-prediction-sequence.pdf>] [34 <../diagram
 s/rendered/08-dataset-replay-sequence.pdf>]
-<../diagrams/rendered/09-alert-investigation-sequence.pdf, id=620, 602.25pt x 5
+<../diagrams/rendered/09-alert-investigation-sequence.pdf, id=922, 602.25pt x 5
 87.3142pt>
 File: ../diagrams/rendered/09-alert-investigation-sequence.pdf Graphic file (ty
 pe pdf)
 <use ../diagrams/rendered/09-alert-investigation-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/09-alert-investigation-sequence.p
-df  used on input line 128.
+df  used on input line 259.
 (pdftex.def)             Requested size: 455.26112pt x 443.97066pt.
- [19
+ [35
 
  <../diagrams/rendered/09-alert-investigation-sequence.pdf>]
-<../diagrams/rendered/10-suricata-sensor-sequence.pdf, id=641, 602.25pt x 570.2
+<../diagrams/rendered/10-suricata-sensor-sequence.pdf, id=943, 602.25pt x 570.2
 1031pt>
 File: ../diagrams/rendered/10-suricata-sensor-sequence.pdf Graphic file (type p
 df)
 <use ../diagrams/rendered/10-suricata-sensor-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/10-suricata-sensor-sequence.pdf  
-used on input line 143.
+used on input line 274.
 (pdftex.def)             Requested size: 455.26112pt x 431.04126pt.
- [20
+
+[36
 
  <../diagrams/rendered/10-suricata-sensor-sequence.pdf>]
-<../diagrams/rendered/11-model-health-sequence.pdf, id=664, 602.25pt x 602.25pt
+<../diagrams/rendered/11-model-health-sequence.pdf, id=966, 602.25pt x 602.25pt
 >
 File: ../diagrams/rendered/11-model-health-sequence.pdf Graphic file (type pdf)
 
 <use ../diagrams/rendered/11-model-health-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/11-model-health-sequence.pdf  use
-d on input line 157.
+d on input line 288.
 (pdftex.def)             Requested size: 455.26112pt x 455.26112pt.
-)
-[21
+) [37
 
  <../diagrams/rendered/11-model-health-sequence.pdf>]
-\openout2 = `appendices/frontend-gallery.aux'.
+\openout2 = `chapters/04-realisation-systeme.aux'.
+
+ (./chapters/04-realisation-systeme.tex
+Chapter 4.
+[38
 
 
-(./appendices/frontend-gallery.tex
-Annexe A.
-<assets/screenshots/application-monitoring.png, id=684, 2409.0pt x 1505.625pt>
+
+
+] [39]
+<assets/screenshots/application-monitoring.png, id=996, 2409.0pt x 1505.625pt>
 File: assets/screenshots/application-monitoring.png Graphic file (type png)
 <use assets/screenshots/application-monitoring.png>
 Package pdftex.def Info: assets/screenshots/application-monitoring.png  used on
- input line 22.
-(pdftex.def)             Requested size: 455.24411pt x 284.50949pt.
-[22
-
-
-
+ input line 93.
+(pdftex.def)             Requested size: 455.2152pt x 284.50949pt.
+ [40
 
  <./assets/screenshots/application-monitoring.png (PNG copy)>]
-<assets/screenshots/application-alert-investigation.png, id=689, 2409.0pt x 150
-5.625pt>
+<assets/screenshots/application-alert-investigation.png, id=1002, 2409.0pt x 15
+05.625pt>
 File: assets/screenshots/application-alert-investigation.png Graphic file (type
  png)
 <use assets/screenshots/application-alert-investigation.png>
 Package pdftex.def Info: assets/screenshots/application-alert-investigation.png
-  used on input line 37.
-(pdftex.def)             Requested size: 455.24411pt x 284.50949pt.
- [23
+  used on input line 108.
+(pdftex.def)             Requested size: 455.2152pt x 284.50949pt.
+
+[41
 
  <./assets/screenshots/application-alert-investigation.png (PNG copy)>]
-<assets/screenshots/application-topology.png, id=694, 2409.0pt x 1505.625pt>
-File: assets/screenshots/application-topology.png Graphic file (type png)
-<use assets/screenshots/application-topology.png>
-Package pdftex.def Info: assets/screenshots/application-topology.png  used on i
-nput line 52.
-(pdftex.def)             Requested size: 455.24411pt x 284.50949pt.
- [24
-
- <./assets/screenshots/application-topology.png (PNG copy)>]
-<assets/screenshots/application-observation-lab.png, id=699, 2409.0pt x 1505.62
+<assets/screenshots/application-model-analysis.png, id=1008, 2409.0pt x 1505.62
 5pt>
+File: assets/screenshots/application-model-analysis.png Graphic file (type png)
+
+<use assets/screenshots/application-model-analysis.png>
+Package pdftex.def Info: assets/screenshots/application-model-analysis.png  use
+d on input line 123.
+(pdftex.def)             Requested size: 455.2152pt x 284.50949pt.
+
+[42
+
+ <./assets/screenshots/application-model-analysis.png (PNG copy)>]
+<assets/screenshots/application-observation-lab.png, id=1015, 2409.0pt x 1505.6
+25pt>
 File: assets/screenshots/application-observation-lab.png Graphic file (type png
 )
 <use assets/screenshots/application-observation-lab.png>
 Package pdftex.def Info: assets/screenshots/application-observation-lab.png  us
-ed on input line 67.
-(pdftex.def)             Requested size: 455.24411pt x 284.50949pt.
- [25
+ed on input line 137.
+(pdftex.def)             Requested size: 455.2152pt x 284.50949pt.
+) [43
 
  <./assets/screenshots/application-observation-lab.png (PNG copy)>]
-<assets/screenshots/application-alerts-mobile.png, id=704, 782.925pt x 1694.33p
-t>
-File: assets/screenshots/application-alerts-mobile.png Graphic file (type png)
-<use assets/screenshots/application-alerts-mobile.png>
-Package pdftex.def Info: assets/screenshots/application-alerts-mobile.png  used
- on input line 82.
-(pdftex.def)             Requested size: 220.81833pt x 477.88734pt.
-) [26
+(./backmatter/conclusion-generale.tex) [44
 
- <./assets/screenshots/application-alerts-mobile.png (PNG copy)>] (./main.bbl
+
+
+
+] (./main.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 36--44
 \T1/ptm/m/n/12 (+20) URL []$\T1/cmtt/m/n/12 https : / / projecteuclid . org / j
 ournals / annals-[]of-[]statistics / volume-[]29 /
@@ -1132,37 +1353,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 36--44
 boosting-[]machine / 10 .
  []
 
-[27
+[45
 
 
-
-
-]) [28] (./main.aux (./chapters/01-cadre-recherche.aux)
-(./chapters/02-conception-systeme.aux) (./appendices/frontend-gallery.aux))
+]) [46] (./main.aux (./chapters/01-cadre-recherche.aux)
+(./chapters/02-specification-besoins.aux) (./chapters/03-conception-systeme.aux
+) (./chapters/04-realisation-systeme.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 77146AFBF6B105CD010DC0314A842896;6235.
+(rerunfilecheck)             Checksum: 86DBC651A16F0B9E546638BE1D821EBB;12402.
  ) 
 Here is how much of TeX's memory you used:
- 24909 strings out of 469515
- 464172 string characters out of 5470807
- 874805 words of memory out of 5000000
- 52696 multiletter control sequences out of 15000+600000
- 713778 words of font info for 307 fonts, out of 8000000 for 9000
+ 27958 strings out of 469515
+ 540830 string characters out of 5470807
+ 985751 words of memory out of 5000000
+ 55593 multiletter control sequences out of 15000+600000
+ 720013 words of font info for 322 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 84i,13n,94p,1001b,759s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/t
-exmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type
-1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.p
-fb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-di
-st/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (33 pages, 3304280 bytes).
+ 84i,13n,94p,1001b,1027s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fo
+nts/type1/public/cm-super/sftt1200.pfb></usr/share/texmf-dist/fonts/type1/urw/h
+elvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><
+/usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/f
+onts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/ut
+mri8a.pfb>
+Output written on main.pdf (53 pages, 2981409 bytes).
 PDF statistics:
- 797 PDF objects out of 1000 (max. 8388607)
- 615 compressed objects within 7 object streams
- 113 named destinations out of 1000 (max. 500000)
- 106352 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 1126 PDF objects out of 1200 (max. 8388607)
+ 924 compressed objects within 10 object streams
+ 173 named destinations out of 1000 (max. 500000)
+ 114823 words of extra memory for PDF output out of 128383 (max. 10000000)
 

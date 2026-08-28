@@ -1,0 +1,46 @@
+%%{init: {"flowchart": {"curve": "stepAfter", "nodeSpacing": 40, "rankSpacing": 52}, "themeVariables": {"fontSize": "14px"}}}%%
+flowchart TB
+    subgraph Sources[Actors and interface]
+        direction LR
+        External[External IoT system<br/>or sensor agent]
+        UI[React dashboard]
+    end
+
+    subgraph Boundary[API boundary]
+        direction LR
+        API[FastAPI REST and<br/>WebSocket API]
+        Live[WebSocket manager]
+    end
+
+    subgraph Services[Application services]
+        direction LR
+        Queue[Durable ingestion worker]
+        Detection[Detection service]
+        Health[Model-health worker]
+        Registry[Checksum-verified<br/>model registry]
+    end
+
+    subgraph Persistence[Persistence and artifacts]
+        direction LR
+        DB[(SQLite or PostgreSQL)]
+        Artifacts[(Model and<br/>schema artifacts)]
+    end
+
+    External -->|Observations or sensor events| API
+    UI -->|Authenticated HTTP| API
+    API --> Queue
+    API --> Detection
+    Queue --> Detection
+    Detection --> Registry
+    Registry --> Artifacts
+    Detection --> DB
+    Queue --> DB
+    Health --> DB
+    Health --> Registry
+    DB -->|Committed events| Live
+    Live -->|Live events| UI
+
+    classDef boundary fill:#eaf5f0,stroke:#047857,color:#17211d,stroke-width:1.5px;
+    classDef service fill:#f5faf7,stroke:#13795b,color:#17211d,stroke-width:1.25px;
+    class API,Live boundary;
+    class Queue,Detection,Health,Registry service;

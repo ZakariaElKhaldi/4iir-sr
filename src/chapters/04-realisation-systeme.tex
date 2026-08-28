@@ -1,0 +1,158 @@
+\chapter{R\'ealisation du syst\`eme}
+\label{chap:realisation}
+
+\section{Introduction}
+
+Ce chapitre pr\'esente l'environnement reproductible, l'organisation du code et
+les interfaces essentielles du prototype. Il d\'ecrit uniquement les composants
+pr\'esents dans le d\'ep\^ot et distingue le mode local du mode de d\'emonstration
+conteneuris\'e.
+
+\section{Environnement de d\'eveloppement}
+
+\subsection{Environnement mat\'eriel}
+
+Le d\'ep\^ot ne fixe pas un mod\`ele de poste ni une quantit\'e de m\'emoire comme
+pr\'econdition. Les caract\'eristiques d'une machine de d\'eveloppement ne sont donc
+pas invent\'ees ici. La reproductibilit\'e repose sur les fichiers de verrouillage,
+les images Docker à somme de contr\^ole et les contr\^oles pr\'ealables qui
+enregistrent les r\'esultats propres à l'h\^ote d'ex\'ecution.
+
+\subsection{Environnement logiciel}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Outils logiciels attest\'es par les manifestes du projet}
+  \label{tab:software-environment}
+  \renewcommand{\arraystretch}{1.20}
+  \rowcolors{2}{EmeraldWash}{white}
+  \begin{tabularx}{\textwidth}{@{}>{\bfseries\color{PremiumEmerald}}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}Y@{}}
+    \rowcolor{PremiumEmerald}\color{white}\bfseries Couche &
+    \color{white}\bfseries Technologies & \color{white}\bfseries R\^ole \\
+    Apprentissage & Python 3.12, pandas, scikit-learn, SciPy, SHAP & Pr\'eparation, entra\^inement, \'evaluation, promotion et explication des mod\`eles. \\
+    API & FastAPI, Pydantic, Uvicorn & Validation des contrats, routes HTTP et canal WebSocket. \\
+    Persistance & SQLAlchemy, Alembic, SQLite, PostgreSQL 17 & Mod\`eles relationnels, transactions, migrations et file durable. \\
+    Interface & TypeScript, React 19, Vite, D3, ECharts, Cytoscape & Espaces op\'erateur, visualisations et cartographie d'investigation. \\
+    Validation & pytest, Vitest, Playwright, Ruff, TypeScript & Tests unitaires, int\'egration, navigateur, accessibilit\'e et analyse statique. \\
+    Ex\'ecution & uv, npm, Docker Compose, NGINX & D\'ependances verrouill\'ees, construction et d\'emonstration locale. \\
+  \end{tabularx}
+  \rowcolors{2}{}{}
+\end{table}
+
+\section{Organisation de la r\'ealisation}
+
+\begin{description}
+  \item[Machine learning.] Le paquet \texttt{iot\_ids\_ml} s\'epare sch\'ema,
+  pr\'eparation, entra\^inement, \'evaluation, promotion et validation des
+  artefacts. Le manifeste de production lie mod\`eles, m\'etadonn\'ees et rapport
+  par sommes de contr\^ole.
+
+  \item[Backend.] L'application FastAPI s\'epare routes, validation des
+  caract\'eristiques, registre de mod\`eles, inf\'erence, ingestion, surveillance
+  et persistance. Le traitement durable associe une bo\^ite de r\'eception, des
+  transitions immuables et une outbox transactionnelle.
+
+  \item[Frontend.] L'application React est organis\'ee par espaces fonctionnels:
+  supervision, alertes, mod\`eles, laboratoire d'observations et topologie. Les
+  adaptateurs de \texttt{api.ts} conservent la s\'eparation entre contrats r\'eseau
+  et composants visuels.
+\end{description}
+
+\section{Principaux choix d'impl\'ementation}
+
+La cascade ex\'ecute toujours le d\'etecteur binaire. Le classifieur de famille
+n'est appel\'e que si le premier \'etage retourne une attaque; cette d\'ependance
+est conserv\'ee dans les versions et les mesures retourn\'ees. Le registre refuse
+un artefact dont le sch\'ema, l'ordre des variables ou les sommes de contr\^ole ne
+correspondent pas au manifeste actif.
+
+L'ingestion HTTP valide un lot complet avant toute insertion. L'identifiant
+d'\'ev\'enement et l'empreinte du contenu assurent l'idempotence. Le travailleur
+r\'eserve ensuite un travail, ex\'ecute la cascade et valide dans une transaction
+l'observation, la pr\'ediction, l'alerte \'eventuelle, la transition et les
+messages d'outbox. La diffusion temps r\'eel ne commence qu'apr\`es cette
+validation.
+
+L'interface conserve trois port\'ees distinctes: les agr\'egats persist\'es du
+tableau de bord, la page d'alertes charg\'ee et les \'ev\'enements re\c{c}us pendant
+la session. Cette distinction \'evite de pr\'esenter une activit\'e locale du
+navigateur comme une mesure historique globale.
+
+\clearpage
+\section{Principales interfaces graphiques}
+
+\subsection{Supervision op\'erationnelle}
+
+La figure~\ref{fig:implementation-monitoring} regroupe l'\'etat de la cha\^ine de
+service, la progression du rejeu et les indicateurs d'ingestion. Les valeurs
+sont associ\'ees à leur port\'ee afin de distinguer historique persist\'e et
+activit\'e de la session.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{assets/screenshots/application-monitoring.png}
+  \caption{Espace principal de supervision du prototype}
+  \label{fig:implementation-monitoring}
+\end{figure}
+
+\clearpage
+\subsection{Investigation des alertes}
+
+La figure~\ref{fig:implementation-alerts} pr\'esente la file filtrable et le
+point d'entr\'ee de l'investigation. Le d\'etail distingue l'origine ML de
+l'origine Suricata et conserve la provenance, les scores, les versions et
+l'historique de qualification disponibles.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{assets/screenshots/application-alert-investigation.png}
+  \caption{Espace d'investigation des alertes}
+  \label{fig:implementation-alerts}
+\end{figure}
+
+\clearpage
+\subsection{Analyse des mod\`eles}
+
+La figure~\ref{fig:implementation-models} expose les artefacts actifs et leur
+protocole d'\'evaluation. Les mesures sont pr\'esent\'ees avec leur partage, leurs
+graines et leurs limites pour ne pas transformer un score interne au jeu de
+donn\'ees en promesse de d\'eploiement.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{assets/screenshots/application-model-analysis.png}
+  \caption{Espace d'analyse et de tra\c{c}abilit\'e des mod\`eles}
+  \label{fig:implementation-models}
+\end{figure}
+
+\clearpage
+\subsection{Laboratoire d'observations}
+
+La figure~\ref{fig:implementation-lab} permet de contr\^oler une observation ou
+un petit lot avant soumission. La validation locale fournit un retour pr\'ecis,
+mais l'API authentifi\'ee reste l'autorit\'e finale pour l'acceptation.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{assets/screenshots/application-observation-lab.png}
+  \caption{Laboratoire de validation et de soumission d'observations}
+  \label{fig:implementation-lab}
+\end{figure}
+
+\section{Validation technique}
+
+La validation automatis\'ee est r\'epartie entre trois suites. Les tests Python
+contr\^olent pr\'eparation, sch\'emas, promotion, registre, API, persistance,
+ingestion, rejeu, sant\'e des mod\`eles et Suricata. Les tests Vitest couvrent les
+adaptateurs et composants React. Les sc\'enarios Playwright exercent le parcours
+de bout en bout avec les services et les artefacts r\'eels. Les commandes
+\texttt{make test}, \texttt{make lint}, \texttt{make build} et
+\texttt{make project-preflight} constituent les portes de validation d\'eclar\'ees
+par le d\'ep\^ot.
+
+\section{Conclusion}
+
+La r\'ealisation conserve une s\'eparation nette entre apprentissage, service,
+persistance et interface. Les m\'ecanismes de validation et de tra\c{c}abilit\'e
+rendent la d\'emonstration reproductible, sans supprimer les limites
+scientifiques et op\'erationnelles rappel\'ees dans la conclusion g\'en\'erale.

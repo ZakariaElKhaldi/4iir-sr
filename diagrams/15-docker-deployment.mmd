@@ -1,0 +1,28 @@
+%%{init: {"flowchart": {"curve": "stepAfter", "nodeSpacing": 34, "rankSpacing": 52}, "themeVariables": {"fontSize": "16px"}}}%%
+flowchart LR
+    Browser[Operator browser]
+    Sensor[External sensor agent]
+
+    subgraph Host[Docker demonstration host]
+        direction TB
+        subgraph PrivateNetwork[Private Compose network]
+            direction LR
+            Frontend[frontend container<br/>NGINX :8080] -->|Same-origin proxy| Backend[backend container<br/>FastAPI :8000]
+            Backend -->|SQL| Database[(PostgreSQL 17 container)]
+            Worker[worker container<br/>ingestion and outbox] -->|SQL| Database
+            Migration[migration container<br/>Alembic one-shot] -->|Schema upgrade| Database
+        end
+        Volume[(postgres-data volume)]
+        Bundle[Verified model bundle<br/>and feature schema]
+    end
+
+    Browser -->|Host port 5173<br/>HTTP and WebSocket| Frontend
+    Sensor -->|Sensor-token HTTP<br/>protected route| Backend
+    Database --- Volume
+    Bundle -. packaged in .-> Backend
+    Bundle -. packaged in .-> Worker
+
+    classDef external fill:#ffffff,stroke:#52605a,color:#17211d,stroke-width:1.25px;
+    classDef container fill:#f5faf7,stroke:#047857,color:#17211d,stroke-width:1.25px;
+    class Browser,Sensor external;
+    class Frontend,Backend,Worker,Migration container;

@@ -1,0 +1,299 @@
+\chapter{Conception du syst\`eme}
+\label{chap:conception-systeme}
+
+\section{Introduction}
+
+Ce chapitre d\'ecrit comment les besoins sont r\'ealis\'es par les composants, les
+interactions et les donn\'ees du prototype. Les diagrammes restent en anglais
+pour reprendre exactement les noms techniques du code. Chaque vue isole une
+pr\'eoccupation afin de rester lisible sur une page A4.
+
+\section{Mod\'elisation statique}
+
+\subsection{Mod\`ele du domaine}
+
+La vue principale de la figure~\ref{fig:domain-classes} organise les concepts
+m\'etier persistants: observations de flux, pr\'edictions, alertes, jeux de
+donn\'ees et mod\`eles. Les associations expriment les relations structurelles;
+les d\'etails propres aux traitements asynchrones sont isol\'es dans des vues
+compl\'ementaires pour conserver une lecture exploitable sur une page A4.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/03-domain-classes.pdf}
+  \caption{Diagramme de classes du domaine principal}
+  \label{fig:domain-classes}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/03b-ingestion-classes.pdf}
+  \caption{Classes associ\'ees à l'ingestion durable}
+  \label{fig:ingestion-classes}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/03c-model-health-classes.pdf}
+  \caption{Classes associ\'ees au suivi de l'\'etat des mod\`eles}
+  \label{fig:model-health-classes}
+\end{figure}
+
+Les entit\'es persistantes portent les donn\'ees et leurs associations. Les
+op\'erations sont volontairement regroup\'ees dans les services qui ex\'ecutent
+les transactions et les r\`egles m\'etier. La figure~\ref{fig:service-operations}
+pr\'esente uniquement leurs op\'erations publiques attest\'ees par le code.
+
+\clearpage
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/03d-service-operations.pdf}
+  \caption{Services et op\'erations principales}
+  \label{fig:service-operations}
+\end{figure}
+
+\clearpage
+\subsection{Mod\`ele relationnel}
+
+Le mod\`ele de la figure~\ref{fig:relational-core} reprend les cl\'es primaires,
+\'etrang\`eres et uniques d\'eclar\'ees dans les mod\`eles SQLAlchemy. Les tables de
+sant\'e, de version de mod\`ele, d'outbox et d'\'etat du capteur sont autonomes et
+ne sont pas reli\'ees artificiellement par des cl\'es que le sch\'ema n'impose pas.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/16-relational-core.pdf}
+  \caption{Mod\`ele relationnel du noyau de d\'etection et d'ingestion}
+  \label{fig:relational-core}
+\end{figure}
+
+\clearpage
+\subsection{Dictionnaire de donn\'ees}
+
+Le tableau~\ref{tab:data-dictionary} documente tous les champs visibles dans le
+mod\`ele relationnel pr\'ec\'edent. Les longueurs proviennent directement des
+d\'eclarations SQLAlchemy; \emph{nullable} signifie que la valeur peut être
+absente.
+
+\renewcommand{\arraystretch}{1.18}
+\rowcolors{3}{EmeraldWash}{white}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}@{}}
+  \caption{Dictionnaire des donn\'ees du noyau relationnel}\label{tab:data-dictionary}\\
+  \rowcolor{PremiumEmerald}\color{white}\bfseries Table & \color{white}\bfseries Colonne & \color{white}\bfseries Type & \color{white}\bfseries Contrainte \\
+  \endfirsthead
+  \rowcolor{PremiumEmerald}\color{white}\bfseries Table & \color{white}\bfseries Colonne & \color{white}\bfseries Type & \color{white}\bfseries Contrainte \\
+  \endhead
+  observations & event\_id & varchar(36) & cl\'e primaire \\
+  observations & schema\_version & varchar(64) & obligatoire \\
+  observations & flow\_started\_at & date-heure avec fuseau & obligatoire \\
+  observations & flow\_ended\_at & date-heure avec fuseau & obligatoire \\
+  observations & ingestion\_channel & varchar(32) & obligatoire, valeur par d\'efaut \\
+  observations & raw\_features & JSON & obligatoire \\
+  observations & network\_context & JSON & nullable \\
+  predictions & prediction\_id & varchar(36) & cl\'e primaire \\
+  predictions & event\_id & varchar(36) & cl\'e \'etrang\`ere, unique \\
+  predictions & \path{detector_model_version} & varchar(128) & obligatoire \\
+  predictions & \path{classifier_model_version} & varchar(128) & nullable \\
+  predictions & binary\_prediction & varchar(16) & obligatoire \\
+  predictions & attack\_class & varchar(128) & nullable \\
+  predictions & detection\_score & r\'eel & obligatoire \\
+  alerts & alert\_id & varchar(36) & cl\'e primaire \\
+  alerts & event\_id & varchar(36) & cl\'e \'etrang\`ere, nullable \\
+  alerts & prediction\_id & varchar(36) & cl\'e \'etrang\`ere, unique, nullable \\
+  alerts & detection\_source & varchar(32) & obligatoire \\
+  alerts & severity & varchar(16) & obligatoire \\
+  alerts & status & varchar(24) & obligatoire, valeur par d\'efaut \\
+  alerts & sensor\_evidence & JSON & nullable \\
+  analyst\_feedback & feedback\_id & varchar(36) & cl\'e primaire \\
+  analyst\_feedback & alert\_id & varchar(36) & cl\'e \'etrang\`ere \\
+  analyst\_feedback & analyst & varchar(128) & obligatoire \\
+  analyst\_feedback & status & varchar(24) & obligatoire \\
+  analyst\_feedback & notes & texte & nullable \\
+  analyst\_feedback & created\_at & date-heure avec fuseau & obligatoire \\
+  ingestion\_jobs & job\_id & varchar(36) & cl\'e primaire \\
+  ingestion\_jobs & event\_id & varchar(36) & unique \\
+  ingestion\_jobs & payload\_hash & varchar(64) & obligatoire \\
+  ingestion\_jobs & payload & JSON & obligatoire \\
+  ingestion\_jobs & state & varchar(24) & obligatoire, valeur par d\'efaut \\
+  ingestion\_jobs & attempts & entier & obligatoire, valeur par d\'efaut \\
+  \path{ingestion_job_transitions} & transition\_id & varchar(36) & cl\'e primaire \\
+  \path{ingestion_job_transitions} & job\_id & varchar(36) & cl\'e \'etrang\`ere \\
+  \path{ingestion_job_transitions} & event\_id & varchar(36) & obligatoire \\
+  \path{ingestion_job_transitions} & from\_state & varchar(24) & nullable \\
+  \path{ingestion_job_transitions} & to\_state & varchar(24) & obligatoire \\
+  \path{ingestion_job_transitions} & reason\_code & varchar(64) & obligatoire \\
+  \path{ingestion_job_transitions} & occurred\_at & date-heure avec fuseau & obligatoire \\
+  \bottomrule
+\end{longtable}
+\rowcolors{2}{}{}
+
+\clearpage
+\section{Architecture de l'application}
+
+La vue de composants de la figure~\ref{fig:component-architecture} s\'epare
+l'interface, les services applicatifs, la d\'etection et la persistance. Elle ne
+fait appara\^itre ni courtier distribu\'e ni service de r\'eputation, car ces
+composants ne sont pas impl\'ement\'es.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.58\textheight,keepaspectratio]{../diagrams/rendered/14-component-architecture.pdf}
+  \caption{Architecture logicielle par composants}
+  \label{fig:component-architecture}
+\end{figure}
+
+La figure~\ref{fig:docker-deployment} repr\'esente uniquement le mode de
+d\'emonstration Docker Compose: une passerelle web, l'API, le travailleur, la
+migration et PostgreSQL. Le laboratoire Suricata isol\'e reste un environnement
+de pr\'esentation distinct.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.54\textheight,keepaspectratio]{../diagrams/rendered/15-docker-deployment.pdf}
+  \caption{D\'eploiement du mode de d\'emonstration Docker}
+  \label{fig:docker-deployment}
+\end{figure}
+
+\clearpage
+\section{Mod\'elisation dynamique}
+
+Les vues dynamiques sont organis\'ees en trois niveaux de lecture. L'activit\'e
+pr\'esente d'abord les objectifs de l'op\'erateur; les vues d'interaction montrent
+ensuite les messages \'echang\'es; la machine à \'etats isole enfin le cycle de vie
+persistant d'un travail d'ingestion. Cette s\'eparation \'evite de r\'ep\'eter les
+m\^emes d\'etails dans chaque diagramme.
+
+\subsection{Activit\'e de l'op\'erateur}
+
+La figure~\ref{fig:operator-activity} synth\'etise les choix de l'op\'erateur sans
+dupliquer les d\'etails internes des diagrammes de s\'equence.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.72\textheight,keepaspectratio]{../diagrams/rendered/12-operator-activity.pdf}
+  \caption{Activit\'e principale de l'op\'erateur}
+  \label{fig:operator-activity}
+\end{figure}
+
+\subsection{Communication pendant l'investigation}
+
+La vue de communication de la figure~\ref{fig:alert-communication} privil\'egie
+les liens entre objets. La num\'erotation hi\'erarchique conserve l'ordre des
+messages sans reproduire un second diagramme de s\'equence.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{../diagrams/rendered/13-alert-communication.pdf}
+  \caption{Communication entre objets lors de l'investigation d'une alerte}
+  \label{fig:alert-communication}
+\end{figure}
+
+\subsection{Ingestion durable des observations}
+
+La figure~\ref{fig:ingestion-sequence} s\'epare l'acceptation HTTP, le traitement
+asynchrone et la diffusion temps r\'eel. Les transactions rendent visibles les
+fronti\`eres d'atomicit\'e, tandis que les fragments alternatifs explicitent le
+rejet, la r\'eussite et la reprise apr\`es erreur. Le cycle de vie persistant
+correspondant est synth\'etis\'e par la figure~\ref{fig:ingestion-states}.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/02-ingestion-sequence.pdf}
+  \caption{S\'equence d'ingestion durable et de diffusion des r\'esultats}
+  \label{fig:ingestion-sequence}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.52\textheight,keepaspectratio]{../diagrams/rendered/04-ingestion-states.pdf}
+  \caption{Machine à \'etats d'un travail d'ingestion}
+  \label{fig:ingestion-states}
+\end{figure}
+
+\subsection{Authentification et contr\^ole d'acc\`es}
+
+La figure~\ref{fig:authentication-sequence} d\'ecrit l'\'emission d'une session,
+son utilisation sur une ressource prot\'eg\'ee et le refus des requ\^etes qui ne
+satisfont pas les contr\^oles d'identit\'e ou d'autorisation.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/06-authentication-sequence.pdf}
+  \caption{S\'equence d'authentification et d'autorisation}
+  \label{fig:authentication-sequence}
+\end{figure}
+
+\clearpage
+\subsection{Pr\'ediction et rejeu de donn\'ees}
+
+Deux parcours sont distingu\'es. La pr\'ediction synchrone de la
+figure~\ref{fig:synchronous-prediction} fournit une r\'eponse imm\'ediate pour une
+observation. Le rejeu de la figure~\ref{fig:dataset-replay} traite une suite
+d'observations sous le contr\^ole de l'utilisateur, avec progression et
+possibilit\'e d'arr\^et.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/07-synchronous-prediction-sequence.pdf}
+  \caption{S\'equence de pr\'ediction synchrone}
+  \label{fig:synchronous-prediction}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/08-dataset-replay-sequence.pdf}
+  \caption{S\'equence de rejeu contr\^ol\'e d'un jeu de donn\'ees}
+  \label{fig:dataset-replay}
+\end{figure}
+
+\clearpage
+\subsection{Investigation des alertes}
+
+L'investigation d'une alerte est d\'etaill\'ee dans la
+figure~\ref{fig:alert-investigation}. Elle relie la consultation des preuves à
+la d\'ecision de l'analyste et conserve une trace de l'interpr\'etation humaine
+du r\'esultat automatique.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/09-alert-investigation-sequence.pdf}
+  \caption{S\'equence d'investigation et de qualification d'une alerte}
+  \label{fig:alert-investigation}
+\end{figure}
+
+\clearpage
+\subsection{Int\'egration du capteur Suricata}
+
+La figure~\ref{fig:suricata-sequence} repr\'esente le capteur comme un syst\`eme
+externe. L'agent transforme les messages EVE pris en charge en alertes de
+signature, distinctes des observations de flux et des pr\'edictions du mod\`ele,
+puis applique sa politique de reprise en cas d'indisponibilit\'e.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/10-suricata-sensor-sequence.pdf}
+  \caption{S\'equence d'int\'egration des \'ev\'enements Suricata}
+  \label{fig:suricata-sequence}
+\end{figure}
+
+\clearpage
+\subsection{Surveillance de la sant\'e des mod\`eles}
+
+Le parcours de la figure~\ref{fig:model-health-sequence} rassemble les mesures
+n\'ecessaires à l'examen d'un mod\`ele en service et à la restitution de son
+\'etat dans l'interface d'administration.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/11-model-health-sequence.pdf}
+  \caption{S\'equence de consultation de la sant\'e d'un mod\`ele}
+  \label{fig:model-health-sequence}
+\end{figure}
+
+\section{Conclusion}
+
+La d\'ecomposition en vues fonctionnelle, structurelle et dynamique limite la
+densit\'e de chaque diagramme tout en couvrant les fonctions majeures du syst\`eme.
+Les fronti\`eres externes, les responsabilit\'es des composants et les sc\'enarios
+d'erreur sont ainsi visibles sans reproduire les d\'etails d'impl\'ementation dans
+une seule figure surcharg\'ee.

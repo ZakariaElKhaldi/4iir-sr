@@ -1,0 +1,24 @@
+\clearpage
+\chapter*{Conclusion g\'en\'erale}
+\addcontentsline{toc}{chapter}{Conclusion g\'en\'erale}
+\markboth{Conclusion g\'en\'erale}{Conclusion g\'en\'erale}
+
+Ce projet d'\'et\'e avait pour objectif de construire une cha\^ine reproductible
+de d\'etection d'intrusions à partir d'observations de flux IoT. Le travail a
+abouti à un prototype coh\'erent qui v\'erifie la provenance du jeu de donn\'ees,
+entra\^ine et promeut une cascade binaire puis multiclasse, valide les contrats
+d'entr\'ee, conserve observations, pr\'edictions et alertes, et fournit une
+interface d'investigation. L'ingestion durable ajoute l'idempotence, les
+reprises contr\^ol\'ees et une diffusion post-transactionnelle; le laboratoire
+Suricata constitue une voie de signature distincte des pr\'edictions du mod\`ele.
+
+Sur le partage de test RT-IoT2022 d\'eclar\'e, la cascade compl\`ete atteint un
+macro-F1 de 0,9931 pour la graine 42 et une moyenne de 0,9873 sur les trois
+graines \'evalu\'ees. Ces valeurs forment une r\'ef\'erence reproductible interne
+au jeu de donn\'ees, non une preuve d'efficacit\'e sur un r\'eseau r\'eel. Les
+limites principales restent l'absence de corpus NFStream natif \'etiquet\'e,
+l'absence d'\'evaluation temporelle ou externe et l'absence de mesure de capacit\'e
+sur un mat\'eriel cible. La suite logique consiste donc à collecter des flux
+autoris\'es et repr\'esentatifs, figer des partitions par session, \'evaluer la
+cha\^ine sur ces donn\'ees puis d\'ecider, à partir de preuves mesur\'ees, si une
+exp\'erimentation de d\'eploiement peut être envisag\'ee.

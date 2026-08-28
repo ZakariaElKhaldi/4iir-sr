@@ -1,0 +1,15 @@
+flowchart TB
+    Analyst["analyst: Security Analyst"]
+    UI["workspace: AlertWorkspace"]
+    API["controller: Alerts API"]
+    Service["service: Investigation Service"]
+    Store[("store: Database")]
+
+    Analyst -->|"1: selectAlert / 3: confirmDisposition"| UI
+    UI -->|"1.1: GET detail / 3.1: POST feedback"| API
+    API -->|"1.1.1: loadAlert / 3.1.1: appendFeedback"| Service
+    Service -->|"1.1.1.1: query / 3.1.1.1: commit"| Store
+    Store -.->|"1.1.1.2: record / 3.1.1.2: committed"| Service
+    Service -.->|"1.1.2: investigation view"| API
+    API -.->|"1.2: detail / 3.2: updated alert"| UI
+    UI -.->|"2: present evidence"| Analyst

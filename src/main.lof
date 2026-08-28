@@ -1,25 +1,30 @@
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Architecture de r\'ef\'erence d'un IDPS r\'eseau passif}}{2}{figure.caption.4}%
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Exemple d'architecture de capture IoT}}{3}{figure.caption.6}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Vue d'analyse des mod\`eles captur\'ee pendant les tests Playwright de l'application}}{6}{figure.caption.7}%
-\contentsline {figure}{\numberline {1.4}{\ignorespaces Comparaison des mod\`eles dans le carnet de recherche ex\'ecut\'e}}{7}{figure.caption.8}%
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Chronologie de r\'ealisation fond\'ee sur les dates de l'historique Git}}{7}{figure.caption.9}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Architecture de r\'ef\'erence d'un IDPS r\'eseau passif}}{3}{figure.caption.5}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Exemple d'architecture de capture IoT}}{5}{figure.caption.7}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Comparaison des mod\`eles dans le carnet de recherche ex\'ecut\'e}}{8}{figure.caption.8}%
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Chronologie de r\'ealisation fond\'ee sur les dates de l'historique Git}}{8}{figure.caption.9}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Cas d'utilisation du syst\`eme de d\'etection}}{10}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Diagramme de classes du domaine principal}}{11}{figure.caption.10}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Classes associ\'ees à l'ingestion durable}}{12}{figure.caption.11}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Classes associ\'ees au suivi de l'\'etat des mod\`eles}}{13}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces S\'equence d'ingestion durable et de diffusion des r\'esultats}}{14}{figure.caption.13}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Machine à \'etats d'un travail d'ingestion}}{15}{figure.caption.14}%
-\contentsline {figure}{\numberline {2.7}{\ignorespaces S\'equence d'authentification et d'autorisation}}{16}{figure.caption.15}%
-\contentsline {figure}{\numberline {2.8}{\ignorespaces S\'equence de pr\'ediction synchrone}}{17}{figure.caption.16}%
-\contentsline {figure}{\numberline {2.9}{\ignorespaces S\'equence de rejeu contr\^ol\'e d'un jeu de donn\'ees}}{18}{figure.caption.17}%
-\contentsline {figure}{\numberline {2.10}{\ignorespaces S\'equence d'investigation et de qualification d'une alerte}}{19}{figure.caption.18}%
-\contentsline {figure}{\numberline {2.11}{\ignorespaces S\'equence d'int\'egration des \'ev\'enements Suricata}}{20}{figure.caption.19}%
-\contentsline {figure}{\numberline {2.12}{\ignorespaces S\'equence de consultation de la sant\'e d'un mod\`ele}}{21}{figure.caption.20}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Cas d'utilisation du syst\`eme de d\'etection}}{12}{figure.2.1}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Vue principale de supervision pendant un sc\'enario Playwright aliment\'e}}{22}{figure.caption.21}%
-\contentsline {figure}{\numberline {A.2}{\ignorespaces Liste filtrable des alertes de s\'ecurit\'e dans l'interface d'investigation}}{23}{figure.caption.22}%
-\contentsline {figure}{\numberline {A.3}{\ignorespaces Cartographie des routes d\'eriv\'ee des alertes charg\'ees pendant le sc\'enario E2E}}{24}{figure.caption.23}%
-\contentsline {figure}{\numberline {A.4}{\ignorespaces Contr\^ole local d'un exemple d'attaque conforme au sch\'ema RT-IoT2022}}{25}{figure.caption.24}%
-\contentsline {figure}{\numberline {A.5}{\ignorespaces Espace d'investigation adapt\'e \`a une largeur mobile de 390 pixels}}{26}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Diagramme de classes du domaine principal}}{18}{figure.caption.12}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Classes associ\'ees à l'ingestion durable}}{19}{figure.caption.13}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Classes associ\'ees au suivi de l'\'etat des mod\`eles}}{20}{figure.caption.14}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Services et op\'erations principales}}{21}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Mod\`ele relationnel du noyau de d\'etection et d'ingestion}}{22}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Architecture logicielle par composants}}{25}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces D\'eploiement du mode de d\'emonstration Docker}}{26}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Activit\'e principale de l'op\'erateur}}{28}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Communication entre objets lors de l'investigation d'une alerte}}{29}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces S\'equence d'ingestion durable et de diffusion des r\'esultats}}{30}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Machine à \'etats d'un travail d'ingestion}}{31}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces S\'equence d'authentification et d'autorisation}}{32}{figure.caption.23}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces S\'equence de pr\'ediction synchrone}}{33}{figure.caption.24}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces S\'equence de rejeu contr\^ol\'e d'un jeu de donn\'ees}}{34}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces S\'equence d'investigation et de qualification d'une alerte}}{35}{figure.caption.26}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces S\'equence d'int\'egration des \'ev\'enements Suricata}}{36}{figure.caption.27}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces S\'equence de consultation de la sant\'e d'un mod\`ele}}{37}{figure.caption.28}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Espace principal de supervision du prototype}}{40}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Espace d'investigation des alertes}}{41}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Espace d'analyse et de tra\c {c}abilit\'e des mod\`eles}}{42}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Laboratoire de validation et de soumission d'observations}}{43}{figure.caption.33}%

@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage[paperwidth=190mm,paperheight=128mm,margin=4mm]{geometry}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,backgrounds,fit,positioning,shapes.geometric}
+\pagestyle{empty}
+
+\definecolor{PremiumEmerald}{HTML}{064E3B}
+\definecolor{Emerald}{HTML}{047857}
+\definecolor{EmeraldMist}{HTML}{EAF5F0}
+\definecolor{EmeraldWash}{HTML}{F5FAF7}
+\definecolor{Charcoal}{HTML}{17211D}
+\definecolor{MutedInk}{HTML}{52605A}
+\definecolor{SoftRule}{HTML}{C8D9D1}
+
+\begin{document}
+\centering
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  component/.style={draw=Emerald,fill=EmeraldWash,rounded corners=1.5pt,
+    minimum width=30mm,minimum height=10mm,align=center,line width=.8pt},
+  external/.style={draw=MutedInk,fill=white,rounded corners=1.5pt,
+    minimum width=31mm,minimum height=11mm,align=center,line width=.8pt},
+  store/.style={draw=Emerald,fill=EmeraldMist,cylinder,shape border rotate=90,
+    aspect=.28,minimum width=30mm,minimum height=12mm,align=center,line width=.8pt},
+  boundary/.style={draw=SoftRule,fill=EmeraldWash!55,rounded corners=2pt,
+    inner sep=5mm,line width=.8pt},
+  flow/.style={-{Latex[length=2mm]},draw=Charcoal,line width=.7pt},
+  edge/.style={font=\sffamily\tiny,fill=white,inner sep=1.5pt,align=center}
+]
+  \node[external] (external) at (-7.0,2.0) {External IoT system\\or sensor agent};
+  \node[external] (ui) at (-7.0,-3.3) {React dashboard};
+
+  \node[component] (api) at (-2.5,2.0) {FastAPI REST and\\WebSocket API};
+  \node[component] (live) at (-2.5,-3.3) {WebSocket manager};
+
+  \node[component] (queue) at (2.2,3.0) {Durable ingestion\\worker};
+  \node[component] (detection) at (2.2,1.0) {Detection service};
+  \node[component] (health) at (2.2,-1.0) {Model-health worker};
+  \node[component] (registry) at (2.2,-3.0) {Checksum-verified\\model registry};
+
+  \node[store] (db) at (6.55,1.1) {SQLite or\\PostgreSQL};
+  \node[store] (artifacts) at (6.55,-2.9) {Model and\\schema artifacts};
+
+  \begin{scope}[on background layer]
+    \node[boundary,fit=(external)(ui),label={[font=\sffamily\bfseries\small\color{PremiumEmerald}]above:Actors and interface}] {};
+    \node[boundary,fit=(api)(live),label={[font=\sffamily\bfseries\small\color{PremiumEmerald}]above:API boundary}] {};
+    \node[boundary,fit=(queue)(registry),label={[font=\sffamily\bfseries\small\color{PremiumEmerald}]above:Application services}] {};
+    \node[boundary,fit=(db)(artifacts),label={[font=\sffamily\bfseries\small\color{PremiumEmerald}]above:Persistence and artifacts}] {};
+  \end{scope}
+
+  \draw[flow] (external.east) -- node[edge,above] {observations or\\sensor events} (api.west);
+  \draw[flow] (ui.north) -- ++(0,.65) -| node[edge,pos=.78,left] {authenticated\\HTTP} (api.south);
+  \draw[flow] (live.west) -- node[edge,above] {live events} (ui.east);
+
+  \draw[flow] (api.east) -- ++(.45,0) |- (queue.west);
+  \draw[flow] (api.east) -- ++(.45,0) |- (detection.west);
+  \draw[flow] (queue.south) -- (detection.north);
+  \draw[flow] (detection.west) -- ++(-.35,0) |- (registry.west);
+  \draw[flow] (health.south) -- (registry.north);
+
+  \draw[flow] (queue.east) -- ++(.45,0) |- (db.west);
+  \draw[flow] (detection.east) -- (db.west);
+  \draw[flow] (health.east) -- ++(.65,0) |- (db.west);
+  \draw[flow] (registry.east) -- (artifacts.west);
+
+  \draw[flow] (db.east) -- ++(0.85,0) |- node[edge,pos=.68,below] {committed events} (live.south);
+  \draw[flow] (live.north) -- (api.south);
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,65 @@
+---
+config:
+  layout: elk
+  theme: base
+  flowchart:
+    curve: stepAfter
+    nodeSpacing: 34
+    rankSpacing: 34
+  themeVariables:
+    fontFamily: "Arial, sans-serif"
+    fontSize: "16px"
+    primaryTextColor: "#17211d"
+    lineColor: "#17211d"
+---
+flowchart TB
+    Start((Start)) --> SignIn[Authenticate operator]
+    SignIn --> Valid{Session valid?}
+    Valid -- Yes --> Goal{Select operational<br/>goal}
+    Valid -- No --> Refused[Show refusal and retry timing]
+    Refused --> DeniedEnd((End))
+
+    subgraph MonitorPath[Monitor]
+        direction TB
+        Monitor[Review system, sensor,<br/>and model health]
+    end
+
+    subgraph InvestigationPath[Investigate]
+        direction TB
+        Alerts[Filter and open an alert] --> Evidence[Review prediction or<br/>sensor evidence]
+        Evidence --> Decision{Disposition required?}
+        Decision -- Yes --> Record[Confirm status and reasoning]
+        Decision -- No --> Investigated[Finish review]
+        Record --> Investigated
+    end
+
+    subgraph TestPath[Test flow]
+        direction TB
+        Validate[Validate canonical<br/>observation locally] --> Accepted{Input valid?}
+        Accepted -- No --> Correct[Correct reported fields]
+        Correct --> Validate
+        Accepted -- Yes --> Submit[Choose immediate, durable,<br/>or replay mode]
+        Submit --> Result[Review receipt or prediction]
+    end
+
+    Goal -- Monitor --> Monitor
+    Goal -- Investigate --> Alerts
+    Goal -- Test flow --> Validate
+    Monitor --> Return[Return to workspace]
+    Investigated --> Return
+    Result --> Return
+    Return --> Continue{Continue working?}
+    Continue -- Yes --> Goal
+    Continue -- No --> WorkEnd((End))
+    Goal -- Sign out --> SignedOut((End))
+
+    classDef action fill:#f5faf7,stroke:#047857,color:#17211d,stroke-width:1.25px;
+    classDef decision fill:#eaf5f0,stroke:#047857,color:#17211d,stroke-width:1.4px;
+    classDef terminal fill:#eaf5f0,stroke:#047857,color:#17211d,stroke-width:1.4px;
+    class SignIn,Refused,Monitor,Alerts,Evidence,Record,Investigated,Validate,Correct,Submit,Result,Return action;
+    class Valid,Goal,Decision,Accepted,Continue decision;
+    class Start,DeniedEnd,WorkEnd,SignedOut terminal;
+
+    style MonitorPath fill:#f5faf7,stroke:#c8d9d1,stroke-width:1px
+    style InvestigationPath fill:#f5faf7,stroke:#c8d9d1,stroke-width:1px
+    style TestPath fill:#f5faf7,stroke:#c8d9d1,stroke-width:1px

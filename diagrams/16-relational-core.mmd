@@ -1,0 +1,59 @@
+erDiagram
+    OBSERVATIONS ||--o| PREDICTIONS : yields
+    OBSERVATIONS ||--o| ALERTS : may_trigger
+    PREDICTIONS ||--o| ALERTS : supports
+    ALERTS ||--o{ ANALYST_FEEDBACK : receives
+    INGESTION_JOBS ||--|{ INGESTION_JOB_TRANSITIONS : records
+
+    OBSERVATIONS {
+        string event_id PK
+        string schema_version
+        datetime flow_started_at
+        datetime flow_ended_at
+        string ingestion_channel
+        json raw_features
+        json network_context
+    }
+    PREDICTIONS {
+        string prediction_id PK
+        string event_id FK,UK
+        string detector_model_version
+        string classifier_model_version
+        string binary_prediction
+        string attack_class
+        float detection_score
+    }
+    ALERTS {
+        string alert_id PK
+        string event_id FK
+        string prediction_id FK,UK
+        string detection_source
+        string severity
+        string status
+        json sensor_evidence
+    }
+    ANALYST_FEEDBACK {
+        string feedback_id PK
+        string alert_id FK
+        string analyst
+        string status
+        text notes
+        datetime created_at
+    }
+    INGESTION_JOBS {
+        string job_id PK
+        string event_id UK
+        string payload_hash
+        json payload
+        string state
+        int attempts
+    }
+    INGESTION_JOB_TRANSITIONS {
+        string transition_id PK
+        string job_id FK
+        string event_id
+        string from_state
+        string to_state
+        string reason_code
+        datetime occurred_at
+    }
