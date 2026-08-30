@@ -11,30 +11,43 @@ mermaid_image=${MERMAID_IMAGE:-ghcr.io/mermaid-js/mermaid-cli/mermaid-cli:11.16.
 
 mkdir -p "$rendered_dir"
 
-docker run --rm \
-  --volume "$diagram_dir:/data:ro" \
-  "$mermaid_image" \
-  --input /data/12-operator-activity.mmd \
-  --output /tmp/12-operator-activity.pdf \
-  --backgroundColor transparent \
-  --pdfFit
-
-docker run --rm \
-  --volume "$diagram_dir:/data:ro" \
-  --volume "$staging_dir:/output" \
-  "$mermaid_image" \
-  --input /data/12-operator-activity.mmd \
-  --output /output/12-operator-activity.pdf \
-  --backgroundColor transparent \
-  --pdfFit
-
 rsvg-convert \
   --format pdf \
   --output "$staging_dir/01-use-cases.pdf" \
   "$diagram_dir/uscase_diagrame.svg"
 
 install -m 0644 "$staging_dir/01-use-cases.pdf" "$rendered_dir/01-use-cases.pdf"
-install -m 0644 "$staging_dir/12-operator-activity.pdf" "$rendered_dir/12-operator-activity.pdf"
+diagrams=(
+  02-ingestion-sequence
+  03-domain-classes
+  03b-ingestion-classes
+  03c-model-health-classes
+  03d-service-operations
+  04-ingestion-states
+  07-synchronous-prediction-sequence
+  09-alert-investigation-sequence
+  11-model-health-sequence
+  12-operator-activity
+  13-alert-communication
+  14-component-architecture
+  15-docker-deployment
+  16-relational-core
+)
+
+for diagram in "${diagrams[@]}"; do
+  docker run --rm \
+    --volume "$diagram_dir:/data:ro" \
+    --volume "$staging_dir:/output" \
+    "$mermaid_image" \
+    --configFile /data/report-mermaid-config.json \
+    --input "/data/$diagram.mmd" \
+    --output "/output/$diagram.pdf" \
+    --backgroundColor white \
+    --pdfFit
+  install -m 0644 "$staging_dir/$diagram.pdf" "$rendered_dir/$diagram.pdf"
+done
 
 printf 'Rendered %s\n' "$rendered_dir/01-use-cases.pdf"
-printf 'Rendered %s\n' "$rendered_dir/12-operator-activity.pdf"
+for diagram in "${diagrams[@]}"; do
+  printf 'Rendered %s\n' "$rendered_dir/$diagram.pdf"
+done

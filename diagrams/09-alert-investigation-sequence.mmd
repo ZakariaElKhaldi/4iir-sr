@@ -2,44 +2,37 @@
 config:
   sequence:
     mirrorActors: false
-    actorMargin: 42
-    messageMargin: 24
+    actorMargin: 52
+    messageMargin: 32
 ---
 sequenceDiagram
-    autonumber
-    actor Analyst as Administrator / analyst
+    actor Analyst
     participant UI as Alert workspace
-    participant API as Alerts API
-    participant DB as Persistence
+    participant API as Investigation API
+    participant Store as Evidence store
     participant XAI as Explanation service
 
-    Analyst->>UI: Filter alerts
-    UI->>API: GET /alerts/page
-    API->>DB: Query matching alert evidence
-    DB-->>API: Alert page and total
-    API-->>UI: AlertPage
+    Analyst->>UI: Open a filtered alert
+    UI->>API: Request alert detail
+    API->>Store: Load evidence and feedback history
+    Store-->>API: Alert evidence
+    API-->>UI: Present investigation view
 
-    Analyst->>UI: Open an alert
-    UI->>API: GET /alerts/{id}
-    API->>DB: Load alert evidence and feedback history
-    DB-->>API: AlertDetail evidence
-    API-->>UI: AlertDetail
-
-    opt request ML explanation
-        UI->>API: GET /alerts/{id}/explanation
-        alt eligible ML alert and active artifacts
+    opt analyst requests an explanation
+        UI->>API: Request local explanation
+        alt eligible ML alert
             API->>XAI: Compute local attributions
             XAI-->>API: Non-causal SHAP evidence
-            API-->>UI: ExplanationResponse
-        else not applicable or unavailable
-            API-->>UI: 409 or 503 response
+            API-->>UI: Present explanation evidence
+        else explanation unavailable
+            API-->>UI: Present explicit unavailability reason
         end
     end
 
-    opt record disposition
-        Analyst->>UI: Select status and notes
-        UI->>API: POST /alerts/{id}/feedback
-        API->>DB: Commit feedback and current status
-        DB-->>API: Saved feedback
-        API-->>UI: 201 FeedbackResponse
+    opt analyst records a disposition
+        Analyst->>UI: Confirm status and justification
+        UI->>API: Submit disposition
+        API->>Store: Commit immutable feedback
+        Store-->>API: Saved feedback
+        API-->>UI: Present updated alert
     end

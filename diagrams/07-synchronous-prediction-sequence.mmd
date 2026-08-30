@@ -2,42 +2,33 @@
 config:
   sequence:
     mirrorActors: false
-    actorMargin: 30
-    messageMargin: 24
+    actorMargin: 52
+    messageMargin: 32
 ---
 sequenceDiagram
-    autonumber
     actor Client
     participant API as Prediction API
-    participant Schema as Validator
-    participant Models as Model cascade
-    participant DB as Store
-    participant Live as Live events
+    participant Validator as Schema validator
+    participant Cascade as Model cascade
+    participant Store as Transactional store
 
-    Client->>API: POST /predict
+    Client->>API: Submit canonical observation
     activate API
-    API->>Schema: Validate canonical observation
-    alt invalid schema
-        Schema-->>API: Validation errors
-        API-->>Client: 422 Unprocessable Entity
-    else valid schema
-        Schema-->>API: Ordered feature vector
-        API->>DB: Check event ID
-        alt duplicate event ID
-            DB-->>API: Existing observation
-            API-->>Client: 409 Conflict
-        else new event ID
-            API->>Models: Resolve route and run cascade
-            alt incompatible model route
-                Models-->>API: Compatibility error
-                API-->>Client: 409 Conflict
-            else prediction produced
-                Models-->>API: Label, scores, and top-feature summary
-                API->>DB: Commit observation, prediction,<br/>and optional alert atomically
-                DB-->>API: Persisted identifiers
-                API-)Live: Broadcast committed events
-                API-->>Client: 201 PredictionResponse
-            end
+    API->>Validator: Validate schema and feature order
+    alt invalid observation
+        Validator-->>API: Validation failure
+        API-->>Client: Reject observation
+    else valid observation
+        Validator-->>API: Ordered feature vector
+        API->>Cascade: Resolve compatible route and infer
+        alt incompatible artifacts
+            Cascade-->>API: Compatibility failure
+            API-->>Client: Reject model route
+        else prediction produced
+            Cascade-->>API: Label, scores, and explanation summary
+            API->>Store: Commit observation, prediction, and optional alert
+            Store-->>API: Persisted identifiers
+            API-->>Client: Prediction response
         end
     end
     deactivate API

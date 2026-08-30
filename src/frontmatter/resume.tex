@@ -1,0 +1,27 @@
+\chapter*{R\'esum\'e}
+\addcontentsline{toc}{chapter}{R\'esum\'e}
+\markboth{R\'esum\'e}{R\'esum\'e}
+
+Ce projet pr\'esente un prototype reproductible de d\'etection d'intrusions fond\'e
+sur des observations de flux r\'eseau IoT. Le jeu de donn\'ees RT-IoT2022 est
+contr\^ol\'e, d\'edupliqu\'e et transform\'e selon un sch\'ema versionn\'e. Une cascade
+supervis\'ee associe un d\'etecteur binaire \`a un classifieur multiclasse de familles
+d'attaque. Les candidats sont compar\'es sur des partitions distinctes
+d'entra\^inement, de validation et de test, avec calibration et conservation des
+artefacts promus.
+
+Le prototype comprend une API FastAPI, une ingestion durable et idempotente,
+une persistance transactionnelle, une diffusion temps r\'eel apr\`es validation et
+une interface React destin\'ee \`a la supervision et \`a l'investigation. Une voie
+Suricata distincte conserve les alertes issues de signatures sans les confondre
+avec les pr\'edictions du mod\`ele. Le syst\`eme restitue aussi les versions des
+artefacts, les preuves d'\'evaluation et des indicateurs de sant\'e du mod\`ele.
+
+Sur le partage de test interne RT-IoT2022, la cascade atteint un macro-F1 de
+0,9520 pour la graine~42 et une moyenne de 0,9686 sur trois graines. Ce r\'esultat
+ne constitue toutefois pas une validation
+sur un r\'eseau IoT r\'eel. L'absence de corpus NFStream natif \'etiquet\'e et
+d'\'evaluation externe demeure la principale limite du travail.
+
+\noindent\textbf{Mots-cl\'es :} Internet des objets, d\'etection d'intrusions,
+flux r\'eseau, apprentissage automatique, RT-IoT2022, reproductibilit\'e.

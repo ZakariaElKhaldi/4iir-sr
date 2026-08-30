@@ -2,40 +2,32 @@
 config:
   sequence:
     mirrorActors: false
-    actorMargin: 30
-    messageMargin: 25
+    actorMargin: 52
+    messageMargin: 32
 ---
 sequenceDiagram
-    autonumber
     participant Scheduler
-    participant Health as Health subsystem
-    participant Models as Model evidence
-    participant DB as Store
-    participant UI as Health view
+    participant Health as Health service
+    participant Registry as Model registry
+    participant Store as Evidence store
+    participant View as Health view
 
-    loop each interval and monitoring window
-        Scheduler->>Health: Evaluate observed cohorts
-        Health->>Models: Resolve route and verified reference
-        Models-->>Health: Compatibility and reference evidence
-        Health->>DB: Load bounded cohort observations
-        DB-->>Health: Inputs, outputs, and reviewed feedback
+    loop each monitoring interval
+        Scheduler->>Health: Evaluate eligible cohort
+        Health->>Registry: Resolve route and verified reference
+        Registry-->>Health: Compatible reference evidence
+        Health->>Store: Load bounded observations and feedback
+        Store-->>Health: Cohort evidence
         Health->>Health: Compute quality and drift evidence
-        Health->>DB: Commit shadow-mode snapshot
+        Health->>Store: Commit shadow-mode snapshot
         opt status changed
-            Health-)UI: WebSocket health update
+            Health-)View: Publish health update
         end
     end
 
-    par latest snapshot
-        UI->>Health: Request cohort and window
-        Health->>DB: Read latest snapshot
-        DB-->>Health: Snapshot or none
-        Health-->>UI: Snapshot or 404
-    and bounded history
-        UI->>Health: Request recent history
-        Health->>DB: Read matching snapshots
-        DB-->>Health: Bounded history
-        Health-->>UI: History response
+    opt analyst opens model health
+        View->>Health: Request cohort and window
+        Health->>Store: Read latest snapshot and history
+        Store-->>Health: Bounded health evidence
+        Health-->>View: Present scoped result
     end
-
-    note over Health,UI: The subsystem abstracts the API, service,<br/>and WebSocket manager boundaries.

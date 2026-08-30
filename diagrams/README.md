@@ -22,22 +22,33 @@ These files are editable diagram sources derived from the implemented repository
 - `15-docker-deployment.mmd`: Docker demonstration nodes and communication paths; and
 - `16-relational-core.mmd`: keys and relationships in the persisted detection core.
 
-The two report-facing sources are:
+The authentication, dataset-replay, and Suricata sequence sources remain as
+engineering references, but are intentionally excluded from the report. Their
+interaction mechanics are already covered by the use-case descriptions and the
+retained prediction or durable-ingestion sequences.
+
+The report-facing sources are generated from the Mermaid files listed above,
+with one supplied vector exception:
 
 - `uscase_diagrame.svg` is the exact use-case artwork embedded by the report
   after lossless vector conversion to PDF; and
-- `12-operator-activity.mmd` is the authoritative operator-flow source and is
-  rendered by Mermaid CLI 11.16.1 with the ELK layout engine.
+- the remaining report diagrams are rendered from their authoritative `.mmd`
+  sources by Mermaid CLI 11.16.1.
 
-The report still uses native TikZ exports for the other layouts that require
-deterministic orthogonal routing at A4 size:
+All Mermaid report figures share `report-mermaid-config.json`, which applies the
+report's emerald, ivory, charcoal, and muted-ink palette consistently. Pale gold
+is reserved for warning and explanatory notes.
 
-- `04-ingestion-states.tex`: compact report state machine;
-- `14-component-architecture.tex`: layered component architecture; and
-- `15-docker-deployment.tex`: compact Docker deployment topology.
+The report uses Mermaid's adaptive ELK layout for the layouts that need
+collision-aware routing at A4 size:
 
-Their Mermaid counterparts remain editable alternatives, but the PDFs under
-`rendered/` for these three figures are built from the TikZ sources.  The
+- `04-ingestion-states.mmd`: ingestion state machine; and
+- `15-docker-deployment.mmd`: Docker deployment topology.
+
+They are rendered directly to fitted vector PDFs by the pinned Mermaid CLI
+11.16.1 container. ELK assigns layers, ports, and routing lanes together, so
+cyclic transitions remain separate without manual coordinates.
+Figure 3.6 (`14-component-architecture.mmd`) uses the same ELK workflow. The
 retrospective timeline is drawn directly with `pgfgantt` in Chapter~1 so its
 labels and weekly ticks follow the report typography.
 

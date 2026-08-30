@@ -1,23 +1,41 @@
-stateDiagram-v2
-    direction LR
+---
+config:
+  layout: elk
+  flowchart:
+    curve: linear
+    nodeSpacing: 48
+    rankSpacing: 66
+  themeVariables:
+    fontSize: 16px
+---
+flowchart LR
+    Start(( ))
+    Queued[Queued]
+    Processing[Processing]
+    Retrying[Retrying]
+    Succeeded[Succeeded]
+    DeadLetter[Dead letter]
+    Finish((( )))
+    Refusal["Redrive refused<br/>Succeeded job, immutable-payload conflict,<br/>partial result, or ineligible permanent failure"]
 
-    state "Queued" as queued
-    state "Processing" as processing
-    state "Retrying" as retrying
-    state "Dead letter" as deadLetter
-    state "Succeeded" as succeeded
-    [*] --> queued : enqueue / initial transition
-    queued --> processing : claim [available] / lease, attempts++
-    retrying --> processing : claim [available] / renew lease, attempts++
-    processing --> succeeded : commitSucceeded / persist result + outbox
-    processing --> retrying : processingFailed [retryable, budget remains] / delay
-    processing --> deadLetter : processingFailed [permanent or budget exhausted] / retain error
-    processing --> retrying : leaseExpired / recover
-    deadLetter --> queued : redrive [authorized, eligible] / reset attempts
-    succeeded --> [*]
+    Start -->|"enqueue / initial transition"| Queued
+    Queued -->|"claim [available] / lease; attempts++"| Processing
+    Processing -->|"commitSucceeded / persist result + outbox"| Succeeded
+    Succeeded --> Finish
 
-    note right of deadLetter
-        Redrive is refused for succeeded jobs,
-        immutable-payload conflicts, partial results,
-        or ineligible permanent failures.
-    end note
+    Processing -->|"retryable failure [budget remains] / delay"| Retrying
+    Processing -->|"leaseExpired / recover"| Retrying
+    Retrying -->|"claim [available] / renew lease; attempts++"| Processing
+
+    Processing -->|"permanent failure or budget exhausted / retain error"| DeadLetter
+    DeadLetter -->|"manual redrive [authorized, eligible] / reset attempts"| Queued
+    DeadLetter -.-> Refusal
+
+    classDef state fill:#f5faf7,stroke:#047857,color:#17211d,stroke-width:1.5px;
+    classDef marker fill:#17211d,stroke:#17211d,color:#17211d;
+    classDef finish fill:#ffffff,stroke:#17211d,color:#17211d,stroke-width:2px;
+    classDef note fill:#fff8d6,stroke:#b7924a,color:#17211d,stroke-width:1.25px;
+    class Queued,Processing,Retrying,Succeeded,DeadLetter state;
+    class Start marker;
+    class Finish finish;
+    class Refusal note;

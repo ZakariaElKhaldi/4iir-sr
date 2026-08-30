@@ -1,8 +1,8 @@
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {1.1}{\ignorespaces R\'esultats de l'audit local du fichier RT-IoT2022 contr\^ol\'e}}{4}{table.caption.6}%
+\contentsline {table}{\numberline {1.1}{\ignorespaces R\'esultats de l'audit local du fichier RT-IoT2022 contr\^ol\'e}}{4}{table.caption.9}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Besoins fonctionnels du prototype}}{11}{table.caption.10}%
-\contentsline {table}{\numberline {2.2}{\ignorespaces Besoins non fonctionnels et crit\`eres observables}}{12}{table.caption.11}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Besoins fonctionnels du prototype}}{11}{table.caption.13}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Besoins non fonctionnels et crit\`eres observables}}{12}{table.caption.14}%
 \contentsline {table}{\numberline {2.3}{\ignorespaces Description du cas UC-01 --- Authenticate}}{13}{table.2.3}%
 \contentsline {table}{\numberline {2.4}{\ignorespaces Description du cas UC-02 --- Submit network flow observations}}{13}{table.2.4}%
 \contentsline {table}{\numberline {2.5}{\ignorespaces Description du cas UC-03 --- Submit Suricata sensor events}}{14}{table.2.5}%
@@ -10,6 +10,11 @@
 \contentsline {table}{\numberline {2.7}{\ignorespaces Description du cas UC-05 --- Investigate alerts and record disposition}}{15}{table.2.7}%
 \contentsline {table}{\numberline {2.8}{\ignorespaces Description du cas UC-06 --- Monitor system and model health}}{15}{table.2.8}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Dictionnaire des donn\'ees du noyau relationnel}}{23}{table.3.1}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Dictionnaire des donn\'ees du noyau relationnel}}{22}{table.3.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Outils logiciels attest\'es par les manifestes du projet}}{38}{table.caption.29}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Outils logiciels attest\'es par les manifestes du projet}}{33}{table.caption.28}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Comparaison du d\'etecteur binaire sur les trois graines}}{40}{table.caption.33}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Comparaison du classifieur des familles d'attaque}}{40}{table.caption.34}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Comparaison contr\^ol\'ee des traitements du d\'es\'equilibre}}{41}{table.caption.36}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Classes les plus fragiles dans la cascade, graine 42}}{41}{table.caption.37}%

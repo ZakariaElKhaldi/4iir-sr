@@ -1,0 +1,27 @@
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\markboth{Abstract}{Abstract}
+
+This project presents a reproducible intrusion-detection prototype based on
+IoT network-flow observations. The RT-IoT2022 dataset is verified,
+deduplicated, and transformed under a versioned feature schema. A supervised
+cascade combines a binary detector with a multiclass attack-family classifier.
+Candidate models are compared using separate training, validation, and test
+partitions, with probability calibration and controlled promotion of the
+resulting artifacts.
+
+The prototype includes a FastAPI service, durable and idempotent ingestion,
+transactional persistence, post-commit real-time publication, and a React
+interface for monitoring and investigation. A separate Suricata path preserves
+signature-based alerts without presenting them as model predictions. The
+system also exposes artifact versions, evaluation evidence, and model-health
+indicators.
+
+On the declared internal RT-IoT2022 test split, the complete cascade reaches a
+macro-F1 score of 0.9520 for seed~42 and a three-seed mean of 0.9686. This result
+does not demonstrate effectiveness on a real IoT network. The absence of a labelled native NFStream
+corpus and of external evaluation remains the principal limitation of the
+work.
+
+\noindent\textbf{Keywords:} Internet of Things, intrusion detection, network
+flows, machine learning, RT-IoT2022, reproducibility.

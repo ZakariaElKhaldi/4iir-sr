@@ -1,12 +1,21 @@
-%%{init: {"flowchart": {"curve": "stepAfter", "nodeSpacing": 34, "rankSpacing": 52}, "themeVariables": {"fontSize": "16px"}}}%%
-flowchart LR
+---
+config:
+  layout: elk
+  flowchart:
+    curve: linear
+    nodeSpacing: 38
+    rankSpacing: 58
+  themeVariables:
+    fontSize: 16px
+---
+flowchart TB
     Browser[Operator browser]
     Sensor[External sensor agent]
 
     subgraph Host[Docker demonstration host]
-        direction TB
+        direction LR
         subgraph PrivateNetwork[Private Compose network]
-            direction LR
+            direction TB
             Frontend[frontend container<br/>NGINX :8080] -->|Same-origin proxy| Backend[backend container<br/>FastAPI :8000]
             Backend -->|SQL| Database[(PostgreSQL 17 container)]
             Worker[worker container<br/>ingestion and outbox] -->|SQL| Database

@@ -5,11 +5,12 @@ A level-1 auxiliary file: chapters/01-cadre-recherche.aux
 A level-1 auxiliary file: chapters/02-specification-besoins.aux
 A level-1 auxiliary file: chapters/03-conception-systeme.aux
 A level-1 auxiliary file: chapters/04-realisation-systeme.aux
+A level-1 auxiliary file: chapters/05-resultats-experimentaux.aux
 The style file: plainnat.bst
 Database file #1: sources.bib
 You've used 13 entries,
             2773 wiz_defined-function locations,
-            716 strings with 8849 characters,
+            717 strings with 8888 characters,
 and the built_in function-call counts, 7060 in all, are:
 = -- 682
 > -- 440

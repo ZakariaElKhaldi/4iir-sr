@@ -147,12 +147,13 @@ d\'emonstration Docker Compose: une passerelle web, l'API, le travailleur, la
 migration et PostgreSQL. Le laboratoire Suricata isol\'e reste un environnement
 de pr\'esentation distinct.
 
-\begin{figure}[!htbp]
+\clearpage
+\noindent\begin{minipage}{\textwidth}
   \centering
-  \includegraphics[width=0.98\textwidth,height=0.54\textheight,keepaspectratio]{../diagrams/rendered/15-docker-deployment.pdf}
-  \caption{D\'eploiement du mode de d\'emonstration Docker}
+  \includegraphics[width=0.98\textwidth,height=0.72\textheight,keepaspectratio]{../diagrams/rendered/15-docker-deployment.pdf}
+  \captionof{figure}{D\'eploiement du mode de d\'emonstration Docker}
   \label{fig:docker-deployment}
-\end{figure}
+\end{minipage}
 
 \clearpage
 \section{Mod\'elisation dynamique}
@@ -210,40 +211,19 @@ correspondant est synth\'etis\'e par la figure~\ref{fig:ingestion-states}.
   \label{fig:ingestion-states}
 \end{figure}
 
-\subsection{Authentification et contr\^ole d'acc\`es}
-
-La figure~\ref{fig:authentication-sequence} d\'ecrit l'\'emission d'une session,
-son utilisation sur une ressource prot\'eg\'ee et le refus des requ\^etes qui ne
-satisfont pas les contr\^oles d'identit\'e ou d'autorisation.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/06-authentication-sequence.pdf}
-  \caption{S\'equence d'authentification et d'autorisation}
-  \label{fig:authentication-sequence}
-\end{figure}
-
 \clearpage
-\subsection{Pr\'ediction et rejeu de donn\'ees}
+\subsection{Pr\'ediction synchrone}
 
-Deux parcours sont distingu\'es. La pr\'ediction synchrone de la
-figure~\ref{fig:synchronous-prediction} fournit une r\'eponse imm\'ediate pour une
-observation. Le rejeu de la figure~\ref{fig:dataset-replay} traite une suite
-d'observations sous le contr\^ole de l'utilisateur, avec progression et
-possibilit\'e d'arr\^et.
+La figure~\ref{fig:synchronous-prediction} isole le parcours central de la
+recherche: validation du sch\'ema, r\'esolution d'une cascade compatible,
+inf\'erence puis persistance atomique. Les erreurs techniques internes qui ne
+modifient pas cette responsabilit\'e ne sont pas reproduites.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/07-synchronous-prediction-sequence.pdf}
   \caption{S\'equence de pr\'ediction synchrone}
   \label{fig:synchronous-prediction}
-\end{figure}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/08-dataset-replay-sequence.pdf}
-  \caption{S\'equence de rejeu contr\^ol\'e d'un jeu de donn\'ees}
-  \label{fig:dataset-replay}
 \end{figure}
 
 \clearpage
@@ -262,21 +242,6 @@ du r\'esultat automatique.
 \end{figure}
 
 \clearpage
-\subsection{Int\'egration du capteur Suricata}
-
-La figure~\ref{fig:suricata-sequence} repr\'esente le capteur comme un syst\`eme
-externe. L'agent transforme les messages EVE pris en charge en alertes de
-signature, distinctes des observations de flux et des pr\'edictions du mod\`ele,
-puis applique sa politique de reprise en cas d'indisponibilit\'e.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/10-suricata-sensor-sequence.pdf}
-  \caption{S\'equence d'int\'egration des \'ev\'enements Suricata}
-  \label{fig:suricata-sequence}
-\end{figure}
-
-\clearpage
 \subsection{Surveillance de la sant\'e des mod\`eles}
 
 Le parcours de la figure~\ref{fig:model-health-sequence} rassemble les mesures
@@ -289,6 +254,18 @@ n\'ecessaires à l'examen d'un mod\`ele en service et à la restitution de son
   \caption{S\'equence de consultation de la sant\'e d'un mod\`ele}
   \label{fig:model-health-sequence}
 \end{figure}
+
+\subsection{Sc\'enarios couverts sans diagramme suppl\'ementaire}
+
+Trois parcours restent sp\'ecifi\'es sans ajouter de s\'equence redondante.
+L'authentification applique un contr\^ole d'identit\'e avant les fonctions
+prot\'eg\'ees; son comportement est d\'ej\`a d\'ecrit par UC-01. Le rejeu orchestre
+une suite born\'ee d'appels au parcours de pr\'ediction de la
+figure~\ref{fig:synchronous-prediction}. Enfin, l'agent Suricata normalise et
+transmet des alertes de signature, puis r\'eutilise les garanties de transaction
+et de publication de la figure~\ref{fig:ingestion-sequence}. Ces trois cas
+n'introduisent donc pas une collaboration suffisamment distincte pour justifier
+un diagramme de s\'equence suppl\'ementaire.
 
 \section{Conclusion}
 

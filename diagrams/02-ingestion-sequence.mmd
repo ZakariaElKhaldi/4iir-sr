@@ -2,43 +2,39 @@
 config:
   sequence:
     mirrorActors: false
-    actorMargin: 30
-    messageMargin: 25
+    actorMargin: 52
+    messageMargin: 32
 ---
 sequenceDiagram
-    autonumber
     actor Producer
     participant API as Ingestion API
-    participant DB as Store
-    participant Workers as Workers
-    actor UI as Dashboard
+    participant Worker as Background worker
+    participant Store as Transactional store
+    participant UI as Dashboard
 
-    Producer->>API: Submit flow batch
-    API->>API: Validate complete request
-    alt request rejected
-        API-->>Producer: 4xx response, nothing enqueued
-    else request accepted
-        API->>DB: Enqueue new event IDs atomically
-        DB-->>API: Accepted and duplicate dispositions
-        API-->>Producer: 202 Accepted
+    Producer->>API: Submit observation batch
+    activate API
+    API->>API: Validate complete batch
+    alt invalid batch or conflicting event ID
+        API-->>Producer: Reject without persistence
+    else accepted batch
+        API->>Store: Create jobs atomically
+        Store-->>API: Commit receipt
+        API-->>Producer: Accept batch
     end
+    deactivate API
 
-    loop each eligible job
-        Workers->>DB: Claim job with processing lease
-        DB-->>Workers: Canonical observation
-        Workers->>Workers: Run verified model cascade
-        alt processing succeeds
-            Workers->>DB: Commit result, transition,<br/>and outbox events atomically
-        else processing fails
-            Workers->>DB: Commit retry or dead-letter state
+    loop each available job
+        Worker->>Store: Claim with processing lease
+        Store-->>Worker: Canonical observation
+        Worker->>Worker: Execute verified cascade
+        alt inference committed
+            Worker->>Store: Commit result, transition, and outbox event
+            Store-->>Worker: Transaction committed
+            Worker-)UI: Publish committed prediction or alert
+        else processing failed
+            Worker->>Store: Commit retry or dead-letter transition
         end
     end
 
-    opt committed outbox event available
-        Workers->>DB: Claim unpublished event
-        DB-->>Workers: Event payload
-        Workers-)UI: WebSocket prediction or alert
-        Workers->>DB: Mark published or schedule retry
-    end
-
-    note over Workers: This subsystem contains separate ingestion-worker<br/>and outbox-publisher executions.
+    note over Worker,Store: Publication occurs only after the database transaction commits.
