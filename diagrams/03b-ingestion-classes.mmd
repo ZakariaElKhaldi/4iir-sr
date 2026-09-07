@@ -2,46 +2,46 @@ classDiagram
     direction TB
 
     class IngestionJob {
-        +jobId: UUID
-        +batchId: UUID
-        +eventId: UUID
-        +payloadHash: String
-        +payload: JSON
-        +ingestionChannel: String
-        +state: JobState
-        +attempts: Integer
-        +availableAt: DateTime
-        +leaseExpiresAt: DateTime [0..1]
-        +workerId: String [0..1]
-        +errorCode: String [0..1]
+        jobId: UUID
+        batchId: UUID
+        eventId: UUID
+        payloadHash: String
+        payload: JSON
+        ingestionChannel: String
+        state: JobState
+        attempts: Integer
+        availableAt: DateTime
+        leaseExpiresAt: DateTime [0..1]
+        workerId: String [0..1]
+        errorCode: String [0..1]
     }
 
     class IngestionJobTransition {
-        +transitionId: UUID
-        +eventId: UUID
-        +fromState: JobState [0..1]
-        +toState: JobState
-        +reasonCode: String
-        +retryable: Boolean [0..1]
-        +operator: String [0..1]
-        +occurredAt: DateTime
+        transitionId: UUID
+        eventId: UUID
+        fromState: JobState [0..1]
+        toState: JobState
+        reasonCode: String
+        retryable: Boolean [0..1]
+        operator: String [0..1]
+        occurredAt: DateTime
     }
 
     class Observation {
-        +eventId: UUID
-        +ingestionChannel: String
+        eventId: UUID
+        ingestionChannel: String
     }
 
     class OutboxEvent {
-        +outboxId: UUID
-        +eventId: UUID
-        +eventType: String
-        +payload: JSON
-        +publishedAt: DateTime [0..1]
-        +publishAttempts: Integer
-        +claimToken: UUID [0..1]
-        +claimExpiresAt: DateTime [0..1]
-        +nextAttemptAt: DateTime [0..1]
+        outboxId: UUID
+        eventId: UUID
+        eventType: String
+        payload: JSON
+        publishedAt: DateTime [0..1]
+        publishAttempts: Integer
+        claimToken: UUID [0..1]
+        claimExpiresAt: DateTime [0..1]
+        nextAttemptAt: DateTime [0..1]
     }
 
     IngestionJob "1" *-- "1..*" IngestionJobTransition : audit trail

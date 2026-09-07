@@ -325,7 +325,6 @@ INPUT /usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvr8t.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvr8t.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvr8t.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
 INPUT /usr/share/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 INPUT /usr/share/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
@@ -376,6 +375,8 @@ INPUT /usr/share/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
 INPUT /usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
 INPUT /usr/share/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
 INPUT /usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
+INPUT /usr/share/texmf-dist/fonts/vf/adobe/helvetic/phvr8t.vf
+INPUT /usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvr8r.tfm
 INPUT /usr/share/texmf-dist/fonts/vf/adobe/helvetic/phvr8t.vf
 INPUT /usr/share/texmf-dist/fonts/tfm/adobe/helvetic/phvr8r.tfm
 INPUT /usr/share/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
@@ -479,12 +480,6 @@ INPUT ./assets/screenshots/notebook-model-comparison.png
 INPUT ./assets/screenshots/notebook-model-comparison.png
 INPUT ./assets/screenshots/notebook-model-comparison.png
 INPUT ./assets/screenshots/notebook-model-comparison.png
-INPUT /usr/share/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm
-INPUT /usr/share/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
-INPUT /usr/share/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
-INPUT /usr/share/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
-INPUT /usr/share/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT ./chapters/02-specification-besoins.tex
 INPUT ./chapters/02-specification-besoins.tex
 OUTPUT chapters/02-specification-besoins.aux
@@ -522,11 +517,6 @@ INPUT ../diagrams/rendered/03d-service-operations.pdf
 INPUT ../diagrams/rendered/03d-service-operations.pdf
 INPUT ../diagrams/rendered/03d-service-operations.pdf
 INPUT ../diagrams/rendered/03d-service-operations.pdf
-INPUT ../diagrams/rendered/16-relational-core.pdf
-INPUT ../diagrams/rendered/16-relational-core.pdf
-INPUT ../diagrams/rendered/16-relational-core.pdf
-INPUT ../diagrams/rendered/16-relational-core.pdf
-INPUT ../diagrams/rendered/16-relational-core.pdf
 INPUT ../diagrams/rendered/14-component-architecture.pdf
 INPUT ../diagrams/rendered/14-component-architecture.pdf
 INPUT ../diagrams/rendered/14-component-architecture.pdf

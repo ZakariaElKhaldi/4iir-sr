@@ -8,18 +8,6 @@ exigences sont tir\'ees des contrats d'API, des contr\^oles d'entr\'ee, des vues
 op\'erateur et des limites d\'eclar\'ees dans le d\'ep\^ot. Elles ne supposent ni
 d\'eploiement de production ni compatibilit\'e NFStream en direct.
 
-\section{Acteurs}
-
-\begin{description}
-  \item[Security Analyst / Administrator.] Op\'erateur humain qui s'authentifie,
-  supervise le syst\`eme, contr\^ole le rejeu, examine les alertes, consulte les
-  preuves des mod\`eles et enregistre une qualification.
-
-  \item[External IoT system / sensor agent.] Syst\`eme externe qui transmet soit
-  des observations de flux conformes au sch\'ema canonique, soit des \'ev\'enements
-  Suricata avec le jeton r\'eserv\'e au capteur. L'attaquant n'est pas un acteur du
-  logiciel: son activit\'e \'eventuelle est une donn\'ee observ\'ee par le syst\`eme.
-\end{description}
 
 \noindent\begin{minipage}{\textwidth}
 \section{Besoins fonctionnels}
@@ -69,6 +57,22 @@ d\'eploiement de production ni compatibilit\'e NFStream en direct.
 \end{center}
 \end{minipage}
 
+\section{Pr\'esentation des cas d'utilisation}
+
+Les cas d'utilisation relient les objectifs des acteurs aux fonctions du
+prototype. Le diagramme global donne la vue d'ensemble; les descriptions
+textuelles suivantes sont limitées aux parcours qui comportent des validations,
+des alternatives ou des effets persistants.
+
+\section{Pr\'esentation des acteurs}
+
+Les acteurs sont pr\'esent\'es bri\`evement, conform\'ement au guide. L'analyste
+ou l'administrateur est l'acteur humain qui s'authentifie, contr\^ole le rejeu,
+examine les alertes et consulte les preuves. Le syst\`eme IoT externe ou l'agent
+capteur transmet des observations conformes au sch\'ema ou des \`evenements
+Suricata authentifi\'es. L'attaquant n'est pas un acteur du logiciel : son
+activit\'e est une donn\'ee observ\'ee.
+
 \begin{samepage}
 \section{Diagramme global des cas d'utilisation}
 
@@ -94,21 +98,6 @@ utilise pour sa part une identit\'e machine distincte.
 Les tableaux suivants d\'ecrivent les parcours qui poss\`edent des validations,
 des alternatives ou des effets persistants. Les chemins machine et op\'erateur
 restent s\'epar\'es.
-
-\subsection{UC-01 --- Authenticate}
-
-\renewcommand{\arraystretch}{1.22}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.70\textwidth}@{}}
-  \caption{Description du cas UC-01 --- Authenticate}\label{tab:uc-auth}\\
-  \arrayrulecolor{SoftRule}\toprule
-  \UCRow{Acteur}{Security Analyst / Administrator}
-  \UCRow{Objectif}{Obtenir une session autoris\'ee sans exposer le secret.}
-  \UCRow{Pr\'econditions}{L'authentification est configur\'ee et l'interface conna\^it son \'etat public.}
-  \UCRow{Postconditions}{Un jeton à dur\'ee limit\'ee identifie l'op\'erateur; aucune donn\'ee m\'etier n'est modifi\'ee.}
-  \UCRow{Sc\'enario nominal}{1. L'op\'erateur ouvre la connexion. 2. Il saisit ses identifiants. 3. L'API v\'erifie le secret. 4. L'interface affiche l'identit\'e et l'expiration retourn\'ees.}
-  \UCRow{Alternatives}{Identifiants invalides: refus sans session. Tentatives trop nombreuses: refus temporaire avec d\'elai de reprise. Session expir\'ee: nouvelle authentification requise.}
-  \bottomrule
-\end{longtable}
 
 \subsection{UC-02 --- Submit network flow observations}
 
@@ -167,21 +156,6 @@ restent s\'epar\'es.
   \UCRow{Postconditions}{La consultation ne modifie pas l'alerte; une qualification confirm\'ee ajoute une entr\'ee immuable associ\'ee à l'identit\'e authentifi\'ee.}
   \UCRow{Sc\'enario nominal}{1. L'op\'erateur filtre la liste. 2. Il ouvre une alerte. 3. Il examine provenance, mod\`ele ou signature et explication disponible. 4. Il choisit un statut. 5. Il confirme la justification.}
   \UCRow{Alternatives}{Alerte absente: signalement sans modification. Explication indisponible: les autres preuves restent consultables. Justification obligatoire manquante: qualification refus\'ee.}
-  \bottomrule
-\end{longtable}
-
-\subsection{UC-06 --- Monitor system and model health}
-
-\renewcommand{\arraystretch}{1.22}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.70\textwidth}@{}}
-  \caption{Description du cas UC-06 --- Monitor system and model health}\label{tab:uc-health}\\
-  \arrayrulecolor{SoftRule}\toprule
-  \UCRow{Acteur}{Security Analyst / Administrator.}
-  \UCRow{Objectif}{Examiner l'\'etat des composants, de l'ingestion, du capteur et des cohortes de mod\`eles.}
-  \UCRow{Pr\'econditions}{Application accessible; session valide pour les preuves m\'etier prot\'eg\'ees.}
-  \UCRow{Postconditions}{Aucun \'etat m\'etier n'est modifi\'e; l'interface restitue l'instantan\'e et sa port\'ee.}
-  \UCRow{Sc\'enario nominal}{1. L'op\'erateur ouvre la supervision. 2. L'interface charge sant\'e, file, capteur et cohortes. 3. Il choisit une cohorte et une fen\^etre. 4. Le syst\`eme retourne l'instantan\'e et l'historique disponibles.}
-  \UCRow{Alternatives}{Composant indisponible: raison explicite. Instantan\'e absent ou observations insuffisantes: \'etat non concluant, sans pr\'etendre à une d\'erive mesur\'ee.}
   \bottomrule
 \end{longtable}
 

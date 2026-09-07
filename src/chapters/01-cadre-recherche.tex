@@ -260,43 +260,44 @@ de comparaison, sans ressaisir ni recalculer les valeurs dans le rapport.
   \label{fig:notebook-model-comparison}
 \end{figure}
 
-La chronologie de la figure~\ref{fig:gantt-realisation} est r\'etrospective.
-Ses bornes proviennent de l'historique Git: du premier commit dat\'e du
-23~juillet~2026 au paquet de preuves et au carnet ex\'ecut\'e finalis\'es le
-25~ao\^ut~2026. Elle ne constitue pas un planning pr\'evisionnel: elle documente
-la progression observ\'ee.
+La figure~\ref{fig:gantt-realisation} synth\'etise le d\'eroulement du projet
+par semaines indicatives. Le d\'eveloppement du tableau de bord a commenc\'e
+apr\`es les premi\`eres exp\'erimentations, puis s'est poursuivi en parall\`ele
+de la recherche et de l'int\'egration de l'API. Les phases se chevauchent:
+elles repr\'esentent les principales p\'eriodes de travail et non des dur\'ees
+exactes d\'eduites des dates de commit.
 
 \begin{figure}[htbp]
   \centering
   \begin{ganttchart}[
-      x unit=0.245cm,
-      y unit title=0.58cm,
-      y unit chart=0.68cm,
-      vgrid={*{34}{draw=SoftRule!55}},
+      x unit=1.65cm,
+      y unit title=0.65cm,
+      y unit chart=0.78cm,
+      vgrid={draw=SoftRule!65},
       hgrid=false,
       title/.style={draw=none,fill=EmeraldMist},
-      title label font=\scriptsize\bfseries\color{PremiumEmerald},
+      title label font=\small\bfseries\color{PremiumEmerald},
       bar/.append style={draw=PremiumEmerald,fill=Emerald!78,rounded corners=1.2pt},
       bar height=0.48,
-      bar label font=\scriptsize\color{Charcoal},
-      bar label node/.append style={align=right,text width=4.75cm},
+      bar label font=\small\color{Charcoal},
+      bar label node/.append style={align=right,text width=4.5cm},
       group label font=\scriptsize,
       link/.style={-Latex,draw=MutedInk},
       canvas/.append style={draw=none}
-    ]{1}{34}
-    \gantttitle{23 Jul}{7}
-    \gantttitle{30 Jul}{7}
-    \gantttitle{06 Aug}{7}
-    \gantttitle{13 Aug}{7}
-    \gantttitle{20 Aug}{6} \\
-    \ganttbar{Foundations and experiments}{1}{13} \\
-    \ganttbar{API and dashboard}{13}{14} \\
-    \ganttbar{Ingestion, authentication, and security}{16}{20} \\
-    \ganttbar{User experience and operations}{20}{30} \\
-    \ganttbar{Isolated network laboratory}{29}{30} \\
-    \ganttbar{Evidence package and executed notebook}{33}{34}
+    ]{1}{5}
+    \gantttitle{S1}{1}
+    \gantttitle{S2}{1}
+    \gantttitle{S3}{1}
+    \gantttitle{S4}{1}
+    \gantttitle{S5}{1} \\
+    \ganttbar{Recherche et essais}{1}{3} \\
+    \ganttbar{Tableau de bord}{2}{5} \\
+    \ganttbar{API et mod\`eles}{2}{4} \\
+    \ganttbar{Ingestion et s\'ecurit\'e}{3}{4} \\
+    \ganttbar{Ergonomie et supervision}{4}{5} \\
+    \ganttbar{Laboratoire r\'eseau isol\'e}{5}{5}
   \end{ganttchart}
-  \caption{Chronologie de r\'ealisation fond\'ee sur les dates de l'historique Git}
+  \caption{Phases indicatives de r\'ealisation et chevauchement des travaux}
   \label{fig:gantt-realisation}
 \end{figure}
 

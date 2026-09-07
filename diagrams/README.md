@@ -9,7 +9,7 @@ These files are editable diagram sources derived from the implemented repository
 - `03c-model-health-classes.mmd`: model-health snapshot and JSON value objects;
 - `03d-service-operations.mmd`: implemented service operations and dependencies;
 - `04-ingestion-states.mmd`: implemented ingestion-job lifecycle;
-- `05-project-timeline.mmd`: timeline reconstructed from Git commit dates;
+- `05-project-timeline.mmd`: indicative overlapping phases, following the author's account;
 - `06-authentication-sequence.mmd`: login, throttling, and token validation;
 - `07-synchronous-prediction-sequence.mmd`: synchronous cascade inference;
 - `08-dataset-replay-sequence.mmd`: bounded dataset replay and controls;
@@ -26,6 +26,10 @@ The authentication, dataset-replay, and Suricata sequence sources remain as
 engineering references, but are intentionally excluded from the report. Their
 interaction mechanics are already covered by the use-case descriptions and the
 retained prediction or durable-ingestion sequences.
+
+The relational-core diagram (`16-relational-core.mmd`) remains an engineering
+reference for the concise relational-model and data-dictionary sections in the
+report.
 
 The report-facing sources are generated from the Mermaid files listed above,
 with one supplied vector exception:
@@ -48,9 +52,11 @@ collision-aware routing at A4 size:
 They are rendered directly to fitted vector PDFs by the pinned Mermaid CLI
 11.16.1 container. ELK assigns layers, ports, and routing lanes together, so
 cyclic transitions remain separate without manual coordinates.
-Figure 3.6 (`14-component-architecture.mmd`) uses the same ELK workflow. The
+The component diagram (`14-component-architecture.mmd`) uses the same ELK workflow. The
 retrospective timeline is drawn directly with `pgfgantt` in Chapter~1 so its
-labels and weekly ticks follow the report typography.
+labels and weekly ticks follow the report typography. Its S1–S5 bands are
+indicative phases, not exact dates inferred from Git. Dashboard development
+overlaps research and continues through integration and interface refinement.
 
 ## Notation and scope
 
@@ -72,6 +78,11 @@ The revisions apply the following rules:
   multiplicities, and unrelated concerns are split into separate diagrams; and
 - state transitions use `trigger [guard] / effect`, with a choice pseudostate for
   mutually exclusive failure outcomes.
+
+Domain attributes deliberately omit visibility markers: these figures model
+persisted data, not Python access modifiers. Public service operations retain
+`+`. Neither `+` nor `-` in a diagram establishes API authorization; the backend
+enforces authentication and access controls independently.
 
 Mermaid does not implement a native UML use-case diagram. Consequently,
 `01-use-cases.mmd` is a carefully styled approximation for Mermaid-only workflows,

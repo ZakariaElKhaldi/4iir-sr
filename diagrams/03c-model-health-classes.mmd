@@ -2,44 +2,44 @@ classDiagram
     direction TB
 
     class DriftSnapshot {
-        +snapshotId: UUID
-        +status: ModelHealthStatus
-        +reason: String
-        +window: MonitoringWindow
-        +cohortKey: String
-        +observationCount: Integer
-        +aggregateScore: Real [0..1]
-        +aggregateThreshold: Real [0..1]
-        +deploymentEligible: Boolean
-        +shadowMode: Boolean
-        +checkedAt: DateTime
+        snapshotId: UUID
+        status: ModelHealthStatus
+        reason: String
+        window: MonitoringWindow
+        cohortKey: String
+        observationCount: Integer
+        aggregateScore: Real [0..1]
+        aggregateThreshold: Real [0..1]
+        deploymentEligible: Boolean
+        shadowMode: Boolean
+        checkedAt: DateTime
     }
 
     class CohortIdentity {
         <<ValueObject>>
-        +modelVersion: String
-        +detectorModelVersion: String
-        +classifierModelVersion: String [0..1]
-        +schemaVersion: String
-        +ingestionChannel: String
-        +extractorFingerprint: String [0..1]
+        modelVersion: String
+        detectorModelVersion: String
+        classifierModelVersion: String [0..1]
+        schemaVersion: String
+        ingestionChannel: String
+        extractorFingerprint: String [0..1]
     }
 
     class ReferenceIdentity {
         <<ValueObject>>
-        +schemaVersion: String
-        +artifactSha256: String [0..1]
-        +detectorModelVersion: String
-        +classifierModelVersion: String [0..1]
+        schemaVersion: String
+        artifactSha256: String [0..1]
+        detectorModelVersion: String
+        classifierModelVersion: String [0..1]
     }
 
     class HealthEvidence {
         <<ValueObject>>
-        +features: JSON
-        +unseenCategories: JSON
-        +outputs: JSON
-        +quality: JSON
-        +performance: JSON
+        features: JSON
+        unseenCategories: JSON
+        outputs: JSON
+        quality: JSON
+        performance: JSON
     }
 
     DriftSnapshot "1" *-- "1" CohortIdentity : scope

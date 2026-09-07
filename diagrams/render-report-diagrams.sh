@@ -31,7 +31,6 @@ diagrams=(
   13-alert-communication
   14-component-architecture
   15-docker-deployment
-  16-relational-core
 )
 
 for diagram in "${diagrams[@]}"; do

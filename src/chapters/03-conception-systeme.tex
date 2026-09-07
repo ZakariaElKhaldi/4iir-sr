@@ -18,6 +18,13 @@ donn\'ees et mod\`eles. Les associations expriment les relations structurelles;
 les d\'etails propres aux traitements asynchrones sont isol\'es dans des vues
 compl\'ementaires pour conserver une lecture exploitable sur une page A4.
 
+Ces vues d\'ecrivent les donn\'ees du domaine et omettent la visibilit\'e des
+attributs. Elles n'affirment donc ni un acc\`es public depuis l'ext\'erieur ni
+une encapsulation priv\'ee impos\'ee par Python. Le signe \texttt{+} est
+r\'eserv\'e aux op\'erations publiques des services. La protection des donn\'ees
+repose sur l'authentification, les contr\^oles d'acc\`es des routes et les
+transactions du backend, et non sur la notation d'un attribut dans un diagramme.
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/03-domain-classes.pdf}
@@ -52,80 +59,52 @@ pr\'esente uniquement leurs op\'erations publiques attest\'ees par le code.
   \label{fig:service-operations}
 \end{figure}
 
-\clearpage
+
 \subsection{Mod\`ele relationnel}
 
-Le mod\`ele de la figure~\ref{fig:relational-core} reprend les cl\'es primaires,
-\'etrang\`eres et uniques d\'eclar\'ees dans les mod\`eles SQLAlchemy. Les tables de
-sant\'e, de version de mod\`ele, d'outbox et d'\'etat du capteur sont autonomes et
-ne sont pas reli\'ees artificiellement par des cl\'es que le sch\'ema n'impose pas.
+Le mod\`ele relationnel traduit les classes persistantes en tables. Une
+observation poss\`ede une cl\'e primaire \texttt{event\_id}; une pr\'ediction lui
+est associ\'ee par une cl\'e \`etrang\`ere unique. Une alerte peut provenir d'une
+pr\'ediction ML ou d'un capteur Suricata. Les travaux d'ingestion, leurs
+transitions et les messages d'outbox sont s\'epar\'es afin de conserver
+l'idempotence, l'historique et la publication apr\`es transaction.
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{../diagrams/rendered/16-relational-core.pdf}
-  \caption{Mod\`ele relationnel du noyau de d\'etection et d'ingestion}
-  \label{fig:relational-core}
-\end{figure}
+La r\`egle de passage est la suivante : chaque entit\'e devient une table,
+chaque identifiant devient une cl\'e primaire, les relations un-\`a-un utilisent
+une cl\'e \`etrang\`ere unique et les relations un-\`a-plusieurs placent la cl\'e
+\`etrang\`ere du c\^ot\'e plusieurs. Les objets JSON regroupent les attributs
+variables sans inventer de tables qui ne sont pas exig\'ees par le comportement.
 
-\clearpage
 \subsection{Dictionnaire de donn\'ees}
 
-Le tableau~\ref{tab:data-dictionary} documente tous les champs visibles dans le
-mod\`ele relationnel pr\'ec\'edent. Les longueurs proviennent directement des
-d\'eclarations SQLAlchemy; \emph{nullable} signifie que la valeur peut être
-absente.
+Le dictionnaire suivant reprend les champs principaux du mod\`ele. Les champs
+JSON contiennent les caract\'eristiques ou les preuves variables; les colonnes
+de statut et d'identit\'e sont contr\^ol\'ees par les contrats et contraintes du
+backend.
 
-\renewcommand{\arraystretch}{1.18}
-\rowcolors{3}{EmeraldWash}{white}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}@{}}
-  \caption{Dictionnaire des donn\'ees du noyau relationnel}\label{tab:data-dictionary}\\
-  \rowcolor{PremiumEmerald}\color{white}\bfseries Table & \color{white}\bfseries Colonne & \color{white}\bfseries Type & \color{white}\bfseries Contrainte \\
-  \endfirsthead
-  \rowcolor{PremiumEmerald}\color{white}\bfseries Table & \color{white}\bfseries Colonne & \color{white}\bfseries Type & \color{white}\bfseries Contrainte \\
-  \endhead
-  observations & event\_id & varchar(36) & cl\'e primaire \\
-  observations & schema\_version & varchar(64) & obligatoire \\
-  observations & flow\_started\_at & date-heure avec fuseau & obligatoire \\
-  observations & flow\_ended\_at & date-heure avec fuseau & obligatoire \\
-  observations & ingestion\_channel & varchar(32) & obligatoire, valeur par d\'efaut \\
-  observations & raw\_features & JSON & obligatoire \\
-  observations & network\_context & JSON & nullable \\
-  predictions & prediction\_id & varchar(36) & cl\'e primaire \\
-  predictions & event\_id & varchar(36) & cl\'e \'etrang\`ere, unique \\
-  predictions & \path{detector_model_version} & varchar(128) & obligatoire \\
-  predictions & \path{classifier_model_version} & varchar(128) & nullable \\
-  predictions & binary\_prediction & varchar(16) & obligatoire \\
-  predictions & attack\_class & varchar(128) & nullable \\
-  predictions & detection\_score & r\'eel & obligatoire \\
-  alerts & alert\_id & varchar(36) & cl\'e primaire \\
-  alerts & event\_id & varchar(36) & cl\'e \'etrang\`ere, nullable \\
-  alerts & prediction\_id & varchar(36) & cl\'e \'etrang\`ere, unique, nullable \\
-  alerts & detection\_source & varchar(32) & obligatoire \\
-  alerts & severity & varchar(16) & obligatoire \\
-  alerts & status & varchar(24) & obligatoire, valeur par d\'efaut \\
-  alerts & sensor\_evidence & JSON & nullable \\
-  analyst\_feedback & feedback\_id & varchar(36) & cl\'e primaire \\
-  analyst\_feedback & alert\_id & varchar(36) & cl\'e \'etrang\`ere \\
-  analyst\_feedback & analyst & varchar(128) & obligatoire \\
-  analyst\_feedback & status & varchar(24) & obligatoire \\
-  analyst\_feedback & notes & texte & nullable \\
-  analyst\_feedback & created\_at & date-heure avec fuseau & obligatoire \\
-  ingestion\_jobs & job\_id & varchar(36) & cl\'e primaire \\
-  ingestion\_jobs & event\_id & varchar(36) & unique \\
-  ingestion\_jobs & payload\_hash & varchar(64) & obligatoire \\
-  ingestion\_jobs & payload & JSON & obligatoire \\
-  ingestion\_jobs & state & varchar(24) & obligatoire, valeur par d\'efaut \\
-  ingestion\_jobs & attempts & entier & obligatoire, valeur par d\'efaut \\
-  \path{ingestion_job_transitions} & transition\_id & varchar(36) & cl\'e primaire \\
-  \path{ingestion_job_transitions} & job\_id & varchar(36) & cl\'e \'etrang\`ere \\
-  \path{ingestion_job_transitions} & event\_id & varchar(36) & obligatoire \\
-  \path{ingestion_job_transitions} & from\_state & varchar(24) & nullable \\
-  \path{ingestion_job_transitions} & to\_state & varchar(24) & obligatoire \\
-  \path{ingestion_job_transitions} & reason\_code & varchar(64) & obligatoire \\
-  \path{ingestion_job_transitions} & occurred\_at & date-heure avec fuseau & obligatoire \\
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.14}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}@{}}
+  \caption{Dictionnaire synthétique des données persistées}\label{tab:data-dictionary}\\
+  \rowcolor{PremiumEmerald}\color{white}\bfseries Table & \color{white}\bfseries Colonne & \color{white}\bfseries Type / taille & \color{white}\bfseries Contraintes et rôle \\
+  observations & event\_id & UUID / 36 & clé primaire, obligatoire \\
+  observations & schema\_version & texte / 64 & obligatoire, contrat versionné \\
+  observations & raw\_features & JSON & obligatoire, 83 variables validées \\
+  observations & network\_context & JSON & facultatif, contexte réseau \\
+  predictions & prediction\_id & UUID / 36 & clé primaire \\
+  predictions & event\_id & UUID / 36 & clé étrangère unique vers observations \\
+  predictions & detector\_model\_version & texte / 128 & obligatoire, artefact servi \\
+  predictions & binary\_prediction & texte / 16 & obligatoire, normal ou attack \\
+  alerts & alert\_id & UUID / 36 & clé primaire \\
+  alerts & detection\_source & texte / 32 & obligatoire, ML ou Suricata \\
+  alerts & prediction\_id & UUID / 36 & clé étrangère facultative et unique \\
+  ingestion\_jobs & event\_id & UUID / 36 & unique, clé d'idempotence \\
+  ingestion\_jobs & state & texte / 24 & état du cycle de traitement \\
+  outbox\_events & event\_id & UUID / 36 & identité de publication \\
   \bottomrule
 \end{longtable}
-\rowcolors{2}{}{}
+\endgroup
 
 \clearpage
 \section{Architecture de l'application}
