@@ -1,6 +1,6 @@
 \begin{titlepage}
   \thispagestyle{empty}
-  \sffamily
+  \rmfamily
 
   \begin{tikzpicture}[remember picture,overlay]
     \fill[WarmIvory] (current page.south west) rectangle (current page.north east);
@@ -15,64 +15,57 @@
       at ([xshift=30mm,yshift=-27mm]current page.north west)
       {\includegraphics[width=101mm]{assets/emsi-logo.png}};
 
-    % A short gold keyline anchors the project label to the title block.
-    \draw[AntiqueGold,line width=1.1pt]
-      ([xshift=30mm,yshift=-72mm]current page.north west)
-      -- ([xshift=43mm,yshift=-72mm]current page.north west);
-
+    % Text hierarchy follows the supplied EMSI Word cover while retaining the
+    % existing ivory, emerald, gold and side-stripe treatment.
     \node[
-      anchor=west,
-      text=PremiumEmerald,
-      font=\fontsize{9.5}{11}\selectfont\bfseries,
-      inner sep=0pt
-    ] at ([xshift=48mm,yshift=-72mm]current page.north west)
-      {\textls[125]{\MakeUppercase{\ReportKind}}};
-
-    \node[
-      anchor=north west,
+      anchor=north,
       text width=152mm,
-      align=left,
+      align=center,
       inner sep=0pt
-    ] at ([xshift=30mm,yshift=-85mm]current page.north west) {%
+    ] at ([xshift=106mm,yshift=-65mm]current page.north west) {%
+      {\color{PremiumEmerald}\fontsize{12}{15}\selectfont\bfseries
+        \ReportKind\par}
+      \vspace{2mm}
+      {\color{MutedInk}\small\ProgramName\par}
+    };
+
+    \node[
+      anchor=north,
+      text width=152mm,
+      align=center,
+      inner sep=0pt
+    ] at ([xshift=106mm,yshift=-91mm]current page.north west) {%
       {\color{MutedInk}\fontsize{21.5}{25.5}\selectfont\ReportTitleLead\par}
       \vspace{1.5mm}
-      {\color{PremiumEmerald}\fontsize{31.5}{35.5}\selectfont\bfseries
+      {\color{PremiumEmerald}\fontsize{29}{33}\selectfont\bfseries
         \ReportTitleFocus\par}
+      \vspace{5mm}
+      {\color{AntiqueGold}\rule{30mm}{1pt}\par}
     };
-
-    \draw[AntiqueGold,line width=1pt]
-      ([xshift=30mm,yshift=-127mm]current page.north west)
-      -- ([xshift=60mm,yshift=-127mm]current page.north west);
 
     \node[
       anchor=north west,
-      text width=150mm,
+      text width=132mm,
       align=left,
-      text=Charcoal
-    ] at ([xshift=30mm,yshift=-143mm]current page.north west) {%
-      {\small\color{MutedInk}R\'EALIS\'E PAR :}\par
-      \vspace{2.5mm}
-      {\Large\bfseries \StudentName}\par
-      \vspace{5mm}
-      {\small\color{MutedInk}TUTEUR(S) :}\par
-      \vspace{1.5mm}
-      {\normalsize\bfseries Encadrant professionnel :}\par
-      {\normalsize \ProfessionalSupervisor}\par
-      \vspace{2.5mm}
-      {\normalsize\bfseries Encadrant p\'edagogique :}\par
-      {\normalsize \PedagogicalSupervisor}
+      text=Charcoal,
+      inner sep=0pt
+    ] at ([xshift=40mm,yshift=-240mm]current page.north west) {%
+      \begin{tabular}{@{}p{64mm}p{64mm}@{}}
+        {\small\color{MutedInk}R\'ealis\'e par :} &
+        {\small\color{MutedInk}Encadrant acad\'emique :} \\
+        \rule{0pt}{9mm}{\large\bfseries \StudentName} &
+        {\large\bfseries \PedagogicalSupervisor}
+      \end{tabular}
     };
 
     \node[
-      anchor=south west,
-      text width=150mm,
+      anchor=south,
+      text width=152mm,
       text=MutedInk,
-      align=left,
+      align=center,
       inner sep=0pt
-    ] at ([xshift=30mm,yshift=29mm]current page.south west) {%
-      {\small \ProgramName}\par
-      \vspace{3mm}
-      {\small Ann\'ee universitaire \textbf{\AcademicYear}}
+    ] at ([xshift=106mm,yshift=19mm]current page.south west) {%
+      {\small Ann\'ee universitaire : \AcademicYear}
     };
   \end{tikzpicture}
 
