@@ -1,20 +1,30 @@
 \chapter{R\'esultats exp\'erimentaux}
 \label{chap:resultats}
 
-\section{Objectif et source de preuve}
+\section{Données et fichiers de référence}
 
-Ce chapitre restitue le rapport d'\'evaluation promu avec les mod\`eles servis.
-Toutes les valeurs proviennent du fichier \texttt{models/production/evaluation-report.json},
-li\'e aux artefacts par sommes SHA-256. Le fichier source RT-IoT2022 contient
-123\,117 lignes et 83 variables de mod\`ele. Son empreinte commence par
-\texttt{956956c09c17}; elle correspond au manifeste de donn\'ees du projet.
+Les résultats de ce chapitre proviennent de
+\path{models/production/evaluation-report.json}. Le manifeste de production
+associe ce rapport aux deux modèles sélectionnés par leurs empreintes SHA-256.
+Le CSV RT-IoT2022 contient 123\,117 lignes et 83 variables explicatives;
+son empreinte commence par \texttt{956956c09c17}.
+
+Le rapport d'entraînement référence le commit \texttt{531fe6ae0443}.
+Le champ \path{code_worktree_dirty} vaut \texttt{true} : des modifications
+non commitées étaient présentes lors de sa génération. Les empreintes identifient les fichiers
+conservés, mais le commit seul ne permet pas de retrouver exactement le code
+qui les a produits.
 
 \section{Qualit\'e, nettoyage et d\'es\'equilibre}
 
-L'audit ne trouve aucune valeur manquante ou infinie. Il identifie toutefois six
-signatures de variables associ\'ees \`a des labels contradictoires, soit 128 lignes.
-Toutes ces lignes sont supprim\'ees afin de ne pas choisir arbitrairement un label.
-Le nettoyage conserve ensuite un seul exemplaire de 5\,080 doublons de m\^eme label.
+L'audit ne relève aucune valeur manquante ou infinie. Il trouve six groupes de
+vecteurs identiques portant des étiquettes contradictoires, soit 128 lignes.
+Le nettoyage supprime toutes ces lignes, puis retire 5\,080 copies
+supplémentaires de vecteurs ayant la même étiquette. Il reste donc
+117\,909 observations. Le nombre de 5\,202 indiqué au
+tableau~\ref{tab:rt-iot2022-audit} compte les lignes excédentaires à
+caractéristiques identiques avant ces deux opérations; il ne désigne pas
+5\,202 groupes de doublons.
 
 La distribution source est tr\`es d\'es\'equilibr\'ee: \texttt{DOS\_SYN\_Hping}
 repr\'esente 94\,659 lignes, alors que \texttt{NMAP\_FIN\_SCAN} n'en contient que
@@ -30,18 +40,33 @@ interpr\'et\'ees comme des causes d'attaque.
 
 \section{Protocole exp\'erimental}
 
-Apr\`es nettoyage, chaque graine (42, 1337 et 2026) produit un partage stratifi\'e
-60\,/\,20\,/\,20 en entra\^inement, validation et test. Les indices sont communs
-aux candidats d'une graine. Le pr\'etraitement et la calibration sigmo\"ide par
-validation crois\'ee sont ajust\'es uniquement sur l'entra\^inement. La s\'election
-maximise la macro-F1 moyenne de validation; le taux de faux positifs, la taille
-s\'erialis\'ee et le nom stable d\'epartagent ensuite les candidats. Le test ne
-participe jamais \`a ce choix.
+Pour chaque graine (42, 1337 et 2026), les observations nettoyées sont réparties
+par tirage stratifié selon l'étiquette d'origine : 70\,745 lignes pour
+l'entraînement, 23\,582 pour la validation et 23\,582 pour le test, soit environ
+60\,\% / 20\,\% / 20\,\%. Tous les candidats utilisent les mêmes partitions pour
+une graine donnée. Le second étage utilise uniquement les attaques de ces
+partitions, tandis que la cascade est évaluée sur l'ensemble du test.
 
-Le fichier ne fournit aucun identifiant de session, d'appareil ou horodatage dont
-la s\'emantique soit assez fiable pour construire un partage temporel ou group\'e.
-Le protocole est donc une r\'ef\'erence interne r\'ep\'et\'ee, non une validation de
-d\'eploiement.
+Le prétraitement et la calibration sigmoïde à trois plis sont ajustés sur
+l'entraînement. Chaque famille de modèles est classée selon sa macro-F1 moyenne
+de validation sur les trois graines. En cas d'égalité, la procédure utilise
+successivement le taux de faux positifs, la taille sérialisée et l'ordre
+alphabétique du nom du modèle. Les scores de test sont calculés pour les
+candidats, mais n'entrent pas dans cette règle de sélection.
+
+La F1 combine la précision (la part des prédictions correctes pour une classe)
+et le rappel par leur moyenne harmonique. La macro-F1 est la moyenne non
+pondérée des F1 par classe. Elle donne le même
+poids à chaque classe, quel que soit son effectif. Le rappel mesure la part des
+observations d'une classe correctement reconnues; le support est le nombre
+d'observations de cette classe. Pour le détecteur, le taux de faux positifs
+(FPR) est la proportion de flux normaux classés comme attaques. Pour les
+familles, le FPR macro est la moyenne des taux calculés en opposant chaque
+famille à toutes les autres. Ces deux FPR n'ont donc pas le même dénominateur.
+
+Le tableau de données ne permet pas une partition fiable par session, appareil
+ou date. Les trois tirages mesurent la sensibilité au partage de ce même corpus;
+ils ne constituent pas trois collectes indépendantes.
 
 \section{Comparaison des classifieurs}
 
@@ -50,16 +75,16 @@ d\'eploiement.
   \caption{Comparaison du d\'etecteur binaire sur les trois graines}
   \label{tab:binary-comparison}
   \renewcommand{\arraystretch}{1.15}
-  \begin{tabular}{lrrrr}
+  \begin{tabularx}{\textwidth}{@{}Yrrrr@{}}
     \toprule
-    Mod\`ele & F1 validation & $\sigma$ & FPR validation & F1 test 42 \\
+    Mod\`ele & Macro-F1 val. & $\sigma$ & FPR val. & Macro-F1 test 42 \\
     \midrule
     R\'egression logistique & 0,9702 & 0,0028 & 5,5371\% & 0,9684 \\
     Arbre de d\'ecision & 0,9947 & 0,0006 & 0,7494\% & 0,9945 \\
     For\^et al\'eatoire & 0,9954 & 0,0006 & 0,9992\% & 0,9949 \\
     \textbf{Gradient boosting} & \textbf{0,9955} & 0,0003 & 0,8604\% & \textbf{0,9961} \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
 
 \begin{table}[htbp]
@@ -67,23 +92,27 @@ d\'eploiement.
   \caption{Comparaison du classifieur des familles d'attaque}
   \label{tab:multiclass-comparison}
   \renewcommand{\arraystretch}{1.15}
-  \begin{tabular}{lrrrr}
+  \begin{tabularx}{\textwidth}{@{}Yrrrr@{}}
     \toprule
-    Mod\`ele & F1 validation & $\sigma$ & FPR macro & F1 test 42 \\
+    Mod\`ele & Macro-F1 val. & $\sigma$ & FPR macro val. & Macro-F1 test 42 \\
     \midrule
     R\'egression logistique & 0,6222 & 0,0745 & 0,2357\% & 0,6308 \\
     Arbre de d\'ecision & 0,9375 & 0,0060 & 0,0124\% & 0,9602 \\
     Gradient boosting & 0,9659 & 0,0070 & \textbf{0,0072\%} & 0,9619 \\
     \textbf{For\^et al\'eatoire} & \textbf{0,9668} & 0,0039 & 0,0104\% & \textbf{0,9642} \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
 
 Le gradient boosting est retenu pour la d\'etection et la for\^et al\'eatoire pour
-les familles. Les \`ecarts de validation entre les meilleurs candidats sont
+les familles. Les écarts de validation entre les meilleurs candidats sont
 faibles; la r\`egle de s\'election d\'eclar\'ee, et non le score de test, d\'etermine
-les champions. La figure~\ref{fig:notebook-comparison} montre la restitution
-graphique g\'en\'er\'ee par le notebook ex\'ecutable.
+les modèles retenus. La figure~\ref{fig:notebook-comparison} montre la restitution
+graphique produite par le carnet d'analyse. Dans les deux tableaux, les
+colonnes de validation sont des moyennes sur les trois graines et $\sigma$ est
+l'écart-type de leurs macro-F1, calculé avec un diviseur de trois. La dernière
+colonne rapporte seulement le test de la graine~42. Les faibles écarts de
+validation ne suffisent pas à établir une supériorité statistique.
 
 \begin{figure}[htbp]
   \centering
@@ -106,7 +135,7 @@ l'entra\^inement. Cette exp\'erience ne participe pas \`a la promotion.
   \renewcommand{\arraystretch}{1.12}
   \begin{tabular}{llrrr}
     \toprule
-    \`Etage & Traitement & Lignes fit & F1 validation & F1 test \\
+    Étage & Traitement & Lignes ajustées & Macro-F1 val. & Macro-F1 test \\
     \midrule
     Binaire & Sans correction & 70\,745 & 0,9955 & 0,9969 \\
     Binaire & Pond\'eration & 70\,745 & 0,9946 & 0,9961 \\
@@ -118,18 +147,20 @@ l'entra\^inement. Cette exp\'erience ne participe pas \`a la promotion.
   \end{tabular}
 \end{table}
 
-La pond\'eration am\'eliore l\'eg\`erement le rappel de la classe binaire minoritaire
-(0,9975 contre 0,9946 sans correction), sans maximiser la macro-F1. Le
-sous-\'echantillonnage conserve le support de la classe la plus rare pour chaque
-classe et d\'etruit donc trop d'information, surtout au second \`etage o\`u seules
-153 lignes subsistent. Cette comparaison montre qu'un r\'esultat agr\'eg\'e doit
-toujours \^etre lu avec le rappel et le support des classes rares.
+La pondération augmente le rappel du trafic normal, classe binaire minoritaire,
+de 0,9946 à 0,9975. Dans ce diagnostic, elle réduit donc les fausses alertes,
+mais ne maximise pas la macro-F1. Le sous-échantillonnage ramène chaque classe à
+l'effectif de la plus rare : il ne conserve que 153 lignes pour l'apprentissage
+des familles, dont la macro-F1 de test tombe à 0,7150. Ce résultat concerne ce
+réglage et ce partage; il ne permet pas d'écarter toute forme de
+sous-échantillonnage.
 
-\section{Erreurs des champions et de la cascade}
+\section{Erreurs des modèles retenus et de la cascade}
 
 La matrice binaire du test 42 contient 21\,159 attaques correctement d\'etect\'ees,
 20 attaques manqu\'ees, 14 faux positifs et 2\,389 flux normaux correctement
-reconnus. Le taux de faux positifs vaut ainsi 0,5826\%.
+reconnus. Le taux de faux positifs vaut donc
+$14 / (14 + 2\,389)$, soit 0,5826\,\%.
 
 \begin{table}[htbp]
   \centering
@@ -147,38 +178,57 @@ reconnus. Le taux de faux positifs vaut ainsi 0,5826\%.
   \end{tabular}
 \end{table}
 
-La cascade compl\`ete atteint 0,9520 de macro-F1 pour la graine 42 et 0,9686 en
-moyenne sur les trois graines. Le score 42 est sensible \`a une seule erreur parmi
-six ou sept observations rares. Les supports sont donc indissociables des scores;
-la valeur 0,9520 ne traduit pas une baisse uniforme sur les classes fr\'equentes.
+La cascade obtient une macro-F1 de 0,9520 pour la graine~42 et de 0,9686 en
+moyenne sur les trois graines. Les trois étiquettes normales sont regroupées en
+une classe, ce qui donne dix classes pour cette mesure. Une erreur sur les six
+flux \texttt{NMAP\_FIN\_SCAN} fait varier le rappel de 16,7 points de pourcentage;
+deux des sept attaques SSH sont mal classées. Ces petits effectifs expliquent
+pourquoi les résultats par classe sont nécessaires pour lire le score global.
 
 \section{Calibration, seuil et co\^ut op\'erationnel}
 
-Les deux champions sont calibr\'es par sigmoid sur l'entra\^inement. Sur le test
-42, le d\'etecteur obtient un Brier de 0,0020 et une erreur de calibration attendue
-de 0,0008; le classifieur obtient respectivement 0,0015 et 0,0010. Ces nombres ne
-garantissent pas une calibration sur un autre r\'eseau. Le seuil de service 0,5 est
-document\'e avec une courbe validation reliant faux positifs et attaques manqu\'ees.
+Les deux modèles retenus utilisent une calibration sigmoïde. Sur le test de la
+graine~42, le score de Brier vaut 0,0020 pour le détecteur et 0,0015 pour le
+classifieur de familles. L'implémentation calcule la moyenne, sur les lignes,
+de la somme des erreurs quadratiques de probabilité sur toutes les classes.
+Cette convention inclut les deux classes dans le cas binaire. L'erreur de
+calibration attendue (ECE), calculée sur la confiance maximale avec dix intervalles de même largeur,
+vaut respectivement
+0,0008 et 0,0010. Ces mesures décrivent les probabilités sur ce test; la
+calibration devra être réévaluée en cas de changement de trafic
+\citep{sklearn_calibration}.
 
-Sur la machine de mesure, le p95 moyen par observation vaut 19,27~ms pour le
-d\'etecteur et 31,79~ms pour le classifieur. Les artefacts occupent 418\,481 et
-1\,325\,252 octets. Ces mesures comparent les candidats sur un h\^ote donn\'e et ne
-constituent pas un objectif de capacit\'e en production.
+Le seuil de service du détecteur reste fixé à 0,5. Le rapport conserve une
+courbe calculée sur la validation pour examiner le compromis entre fausses
+alertes et attaques manquées. Cette analyse n'a pas modifié le seuil.
+
+La mesure de latence appelle \texttt{predict} séparément sur chacune des
+1\,000 premières observations de validation, après un appel de préparation.
+La moyenne des trois p95 vaut 19,27~ms pour le détecteur et 31,79~ms pour le
+classifieur de familles. Il s'agit de la moyenne de trois percentiles, et non
+du p95 de toutes les durées réunies. Les fichiers des modèles de la graine~42
+occupent respectivement 418\,481 et 1\,325\,252 octets. Ces durées portent sur
+l'inférence seule; elles n'incluent ni le transport HTTP ni l'écriture en base.
 
 \section{Menaces \`a la validit\'e}
 
-Les r\'esultats restent internes \`a RT-IoT2022. Les classes rares rendent certaines
-mesures instables; les doublons et artefacts de sc\'enario peuvent faciliter la
-s\'eparation; aucune validation temporelle, par appareil, inter-r\'eseau ou
-inter-jeu n'est disponible. La compatibilit\'e de noms avec un extracteur NFStream
-ne prouve pas l'\'equivalence des valeurs. Enfin, la calibration et la latence sont
-d\'ependantes du contexte de mesure. Ces limites interdisent de pr\'esenter le
-prototype comme un contr\^ole de s\'ecurit\'e valid\'e sur un r\'eseau r\'eel.
+L'évaluation reste limitée à RT-IoT2022. Le nettoyage élimine les doublons
+exacts, mais ne garantit pas l'indépendance entre des flux d'un même scénario.
+Les classes rares ont peu de représentants dans le test et les partitions
+aléatoires peuvent partager des caractéristiques propres à la collecte.
+Une évaluation par session, par appareil ou sur un autre réseau reste à mener.
+
+La reproduction de l'expérience rencontre aussi deux limites : le code
+comprenait des modifications non commitées et le rapport ne décrit pas
+précisément le matériel de mesure. Enfin, aucun nombre de fausses
+alertes par heure ne peut être déduit de ce test sans horodatages fiables et
+sans cadence de trafic représentative du réseau cible.
 
 \section{Conclusion}
 
-L'exp\'erience r\'epond au cahier des charges: elle analyse les donn\'ees, compare
-quatre mod\`eles, traite et mesure le d\'es\'equilibre, puis \`evalue les deux \`etages
-et la cascade. Le meilleur r\'esultat reste une r\'ef\'erence reproductible interne;
-une collecte autoris\'ee, group\'ee par session et s\'epar\'ee chronologiquement est
-la prochaine preuve scientifique n\'ecessaire.
+La règle de sélection retient le gradient boosting par histogrammes au premier
+étage et la forêt aléatoire au second. Leurs erreurs montrent que le score
+global masque des difficultés sur les classes les moins représentées.
+Le résultat fournit un point de comparaison pour une prochaine collecte,
+à condition d'enregistrer les paramètres d'extraction et de séparer les sessions
+entre entraînement et test.

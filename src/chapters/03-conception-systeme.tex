@@ -3,27 +3,20 @@
 
 \section{Introduction}
 
-Ce chapitre d\'ecrit comment les besoins sont r\'ealis\'es par les composants, les
-interactions et les donn\'ees du prototype. Les diagrammes restent en anglais
-pour reprendre exactement les noms techniques du code. Chaque vue isole une
-pr\'eoccupation afin de rester lisible sur une page A4.
+La conception relie chaque observation à sa prédiction et, le cas échéant, à
+une alerte. Elle prévoit aussi la reprise des traitements interrompus et la
+publication des résultats enregistrés. Les diagrammes utilisent les noms
+techniques du code pour faciliter le passage du modèle à l'implémentation.
 
 \section{Mod\'elisation statique}
 
 \subsection{Mod\`ele du domaine}
 
-La vue principale de la figure~\ref{fig:domain-classes} organise les concepts
-m\'etier persistants: observations de flux, pr\'edictions, alertes, jeux de
-donn\'ees et mod\`eles. Les associations expriment les relations structurelles;
-les d\'etails propres aux traitements asynchrones sont isol\'es dans des vues
-compl\'ementaires pour conserver une lecture exploitable sur une page A4.
-
-Ces vues d\'ecrivent les donn\'ees du domaine et omettent la visibilit\'e des
-attributs. Elles n'affirment donc ni un acc\`es public depuis l'ext\'erieur ni
-une encapsulation priv\'ee impos\'ee par Python. Le signe \texttt{+} est
-r\'eserv\'e aux op\'erations publiques des services. La protection des donn\'ees
-repose sur l'authentification, les contr\^oles d'acc\`es des routes et les
-transactions du backend, et non sur la notation d'un attribut dans un diagramme.
+La figure~\ref{fig:domain-classes} relie les observations de flux, les prédictions,
+les alertes, les jeux de données et les modèles. Les vues suivantes détaillent
+les travaux d'ingestion et le suivi des modèles. Les attributs sont présentés
+sans indication de visibilité; le signe \texttt{+} désigne les opérations
+publiques des services.
 
 \begin{figure}[htbp]
   \centering
@@ -49,7 +42,7 @@ transactions du backend, et non sur la notation d'un attribut dans un diagramme.
 Les entit\'es persistantes portent les donn\'ees et leurs associations. Les
 op\'erations sont volontairement regroup\'ees dans les services qui ex\'ecutent
 les transactions et les r\`egles m\'etier. La figure~\ref{fig:service-operations}
-pr\'esente uniquement leurs op\'erations publiques attest\'ees par le code.
+présente leurs principales opérations publiques.
 
 \clearpage
 \begin{figure}[htbp]
@@ -73,7 +66,7 @@ La r\`egle de passage est la suivante : chaque entit\'e devient une table,
 chaque identifiant devient une cl\'e primaire, les relations un-\`a-un utilisent
 une cl\'e \`etrang\`ere unique et les relations un-\`a-plusieurs placent la cl\'e
 \`etrang\`ere du c\^ot\'e plusieurs. Les objets JSON regroupent les attributs
-variables sans inventer de tables qui ne sont pas exig\'ees par le comportement.
+variables dont la structure dépend du type d'observation ou de preuve.
 
 \subsection{Dictionnaire de donn\'ees}
 
@@ -82,11 +75,13 @@ JSON contiennent les caract\'eristiques ou les preuves variables; les colonnes
 de statut et d'identit\'e sont contr\^ol\'ees par les contrats et contraintes du
 backend.
 
-\begingroup
-\small
-\renewcommand{\arraystretch}{1.14}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}@{}}
-  \caption{Dictionnaire synthétique des données persistées}\label{tab:data-dictionary}\\
+\begin{table}[!t]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.14}
+  \caption{Dictionnaire synthétique des données persistées}
+  \label{tab:data-dictionary}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}Y@{}}
   \rowcolor{PremiumEmerald}\color{white}\bfseries Table & \color{white}\bfseries Colonne & \color{white}\bfseries Type / taille & \color{white}\bfseries Contraintes et rôle \\
   observations & event\_id & UUID / 36 & clé primaire, obligatoire \\
   observations & schema\_version & texte / 64 & obligatoire, contrat versionné \\
@@ -103,16 +98,16 @@ backend.
   ingestion\_jobs & state & texte / 24 & état du cycle de traitement \\
   outbox\_events & event\_id & UUID / 36 & identité de publication \\
   \bottomrule
-\end{longtable}
-\endgroup
+  \end{tabularx}
+\end{table}
 
 \clearpage
 \section{Architecture de l'application}
 
-La vue de composants de la figure~\ref{fig:component-architecture} s\'epare
-l'interface, les services applicatifs, la d\'etection et la persistance. Elle ne
-fait appara\^itre ni courtier distribu\'e ni service de r\'eputation, car ces
-composants ne sont pas impl\'ement\'es.
+La figure~\ref{fig:component-architecture} situe l'interface, les services de
+l'API, la cascade et la base de données. La file de traitement et l'outbox
+utilisent cette base. L'outbox est une table de messages à publier, écrits dans
+la même transaction que les résultats auxquels ils se rapportent.
 
 \begin{figure}[!htbp]
   \centering
@@ -137,16 +132,15 @@ de pr\'esentation distinct.
 \clearpage
 \section{Mod\'elisation dynamique}
 
-Les vues dynamiques sont organis\'ees en trois niveaux de lecture. L'activit\'e
-pr\'esente d'abord les objectifs de l'op\'erateur; les vues d'interaction montrent
-ensuite les messages \'echang\'es; la machine à \'etats isole enfin le cycle de vie
-persistant d'un travail d'ingestion. Cette s\'eparation \'evite de r\'ep\'eter les
-m\^emes d\'etails dans chaque diagramme.
+Les diagrammes dynamiques suivent les actions de l'opérateur puis les échanges
+entre services. La machine à états détaille le cycle de traitement d'une
+observation acceptée dans la file.
 
 \subsection{Activit\'e de l'op\'erateur}
 
-La figure~\ref{fig:operator-activity} synth\'etise les choix de l'op\'erateur sans
-dupliquer les d\'etails internes des diagrammes de s\'equence.
+Depuis la supervision, l'opérateur peut lancer un rejeu, consulter une alerte
+ou examiner les modèles. La figure~\ref{fig:operator-activity} présente ces
+choix et les étapes de l'investigation.
 
 \begin{figure}[!htbp]
   \centering
@@ -157,9 +151,9 @@ dupliquer les d\'etails internes des diagrammes de s\'equence.
 
 \subsection{Communication pendant l'investigation}
 
-La vue de communication de la figure~\ref{fig:alert-communication} privil\'egie
-les liens entre objets. La num\'erotation hi\'erarchique conserve l'ordre des
-messages sans reproduire un second diagramme de s\'equence.
+La figure~\ref{fig:alert-communication} montre les objets sollicités pendant
+l'examen d'une alerte. Les numéros donnent l'ordre des messages, de la demande
+de détail à l'enregistrement de la qualification.
 
 \begin{figure}[!htbp]
   \centering
@@ -193,10 +187,10 @@ correspondant est synth\'etis\'e par la figure~\ref{fig:ingestion-states}.
 \clearpage
 \subsection{Pr\'ediction synchrone}
 
-La figure~\ref{fig:synchronous-prediction} isole le parcours central de la
-recherche: validation du sch\'ema, r\'esolution d'une cascade compatible,
-inf\'erence puis persistance atomique. Les erreurs techniques internes qui ne
-modifient pas cette responsabilit\'e ne sont pas reproduites.
+Dans le parcours synchrone, l'API valide le schéma, charge une cascade compatible
+et exécute l'inférence. Elle enregistre ensuite les résultats dans une
+transaction avant de répondre au client
+(figure~\ref{fig:synchronous-prediction}).
 
 \begin{figure}[htbp]
   \centering
@@ -234,22 +228,18 @@ n\'ecessaires à l'examen d'un mod\`ele en service et à la restitution de son
   \label{fig:model-health-sequence}
 \end{figure}
 
-\subsection{Sc\'enarios couverts sans diagramme suppl\'ementaire}
+\subsection{Authentification, rejeu et capteur}
 
-Trois parcours restent sp\'ecifi\'es sans ajouter de s\'equence redondante.
-L'authentification applique un contr\^ole d'identit\'e avant les fonctions
-prot\'eg\'ees; son comportement est d\'ej\`a d\'ecrit par UC-01. Le rejeu orchestre
-une suite born\'ee d'appels au parcours de pr\'ediction de la
-figure~\ref{fig:synchronous-prediction}. Enfin, l'agent Suricata normalise et
-transmet des alertes de signature, puis r\'eutilise les garanties de transaction
-et de publication de la figure~\ref{fig:ingestion-sequence}. Ces trois cas
-n'introduisent donc pas une collaboration suffisamment distincte pour justifier
-un diagramme de s\'equence suppl\'ementaire.
+L'authentification précède l'accès aux fonctions protégées, comme l'exige
+BF-01. Le rejeu applique le parcours de prédiction à une suite bornée de lignes
+du jeu de données. L'agent Suricata dispose de sa propre route d'entrée : il
+transmet des alertes de signature qui sont enregistrées puis publiées sans
+appel aux modèles de classification.
 
 \section{Conclusion}
 
-La d\'ecomposition en vues fonctionnelle, structurelle et dynamique limite la
-densit\'e de chaque diagramme tout en couvrant les fonctions majeures du syst\`eme.
-Les fronti\`eres externes, les responsabilit\'es des composants et les sc\'enarios
-d'erreur sont ainsi visibles sans reproduire les d\'etails d'impl\'ementation dans
-une seule figure surcharg\'ee.
+La base relie les observations aux décisions et conserve les transitions des
+travaux d'ingestion. Les services encadrent ces écritures par des transactions;
+l'outbox reporte la publication après leur validation. Cette organisation
+permet à l'interface de retrouver un résultat même si sa diffusion immédiate
+a été interrompue.

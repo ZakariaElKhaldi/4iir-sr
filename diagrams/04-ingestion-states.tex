@@ -11,7 +11,6 @@
 \definecolor{EmeraldWash}{HTML}{F5FAF7}
 \definecolor{Charcoal}{HTML}{17211D}
 \definecolor{MutedInk}{HTML}{52605A}
-\definecolor{NoteFill}{HTML}{FFF7C2}
 
 \begin{document}
 \centering
@@ -20,9 +19,7 @@
   state/.style={draw=Emerald,fill=EmeraldWash,rounded corners=1.5pt,
     minimum width=26mm,minimum height=9mm,align=center,line width=.8pt},
   flow/.style={-{Latex[length=2mm]},draw=Charcoal,line width=.7pt},
-  edge/.style={font=\sffamily\scriptsize,fill=white,inner sep=1.5pt,align=center},
-  note/.style={draw=PremiumEmerald,fill=NoteFill,rounded corners=1pt,
-    text width=39mm,align=center,inner sep=3mm,line width=.7pt}
+  edge/.style={font=\sffamily\scriptsize,fill=white,inner sep=1.5pt,align=center}
 ]
   \fill[Charcoal] (0,5.50) circle (2.2pt);
   \node[state] (queued) at (0,4.15) {Queued};
@@ -32,8 +29,6 @@
   \node[state] (succeeded) at (0,-1.35) {Succeeded};
   \draw[Charcoal,line width=.7pt] (0,-2.50) circle (3.2pt);
   \draw[Charcoal,line width=.7pt] (0,-2.50) circle (5.0pt);
-  \node[note] (redriveNote) at (5.0,-1.35)
-    {Redrive is refused for succeeded jobs, immutable-payload conflicts, partial results, or ineligible permanent failures.};
 
   \draw[flow] (0,5.43) -- node[edge,left,text width=23mm] {enqueue /\\initial transition} (queued.north);
   \draw[flow] (queued) -- (processing);
@@ -55,6 +50,5 @@
   \draw[flow] (dead.north) -- ++(0,3.15) -| (queued.east);
   \node[edge,text width=32mm] at (3.15,4.82)
     {redrive [authorized, eligible] / reset attempts};
-  \draw[dashed,draw=MutedInk,line width=.65pt] (dead.south) -- (redriveNote.north);
 \end{tikzpicture}
 \end{document}

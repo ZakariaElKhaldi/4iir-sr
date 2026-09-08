@@ -30,8 +30,4 @@ External -- UCFlows
 External -- UCSensor
 UCFeedback ..> UCInvestigate : <<extend>>\n[disposition recorded]
 
-note right of Admin
-  The protected use cases have a valid
-  administrator token as a precondition.
-end note
 @enduml

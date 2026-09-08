@@ -1,24 +1,32 @@
-\clearpage
-\chapter*{Conclusion g\'en\'erale}
-\addcontentsline{toc}{chapter}{Conclusion g\'en\'erale}
-\markboth{Conclusion g\'en\'erale}{Conclusion g\'en\'erale}
+\chapter*{Conclusion générale}
+\addcontentsline{toc}{chapter}{Conclusion générale}
+\markboth{Conclusion générale}{Conclusion générale}
 
-Ce projet d'\'et\'e avait pour objectif de construire une cha\^ine reproductible
-de d\'etection d'intrusions à partir d'observations de flux IoT. Le travail a
-abouti à un prototype coh\'erent qui v\'erifie la provenance du jeu de donn\'ees,
-entra\^ine et promeut une cascade binaire puis multiclasse, valide les contrats
-d'entr\'ee, conserve observations, pr\'edictions et alertes, et fournit une
-interface d'investigation. L'ingestion durable ajoute l'idempotence, les
-reprises contr\^ol\'ees et une diffusion post-transactionnelle; le laboratoire
-Suricata constitue une voie de signature distincte des pr\'edictions du mod\`ele.
+Le projet relie une expérience de classification sur RT-IoT2022 à une
+application d'investigation. La préparation contrôle le fichier source et
+retire les conflits d'étiquettes ainsi que les doublons. La comparaison de
+quatre familles de modèles retient un gradient boosting par histogrammes pour
+la détection binaire et une forêt aléatoire pour les familles d'attaque.
+L'API enregistre leurs décisions, et l'interface permet de retrouver les
+observations, les versions des modèles et les qualifications de l'analyste.
 
-Sur le partage de test RT-IoT2022 d\'eclar\'e, la cascade compl\`ete atteint un
-macro-F1 de 0,9520 pour la graine 42 et une moyenne de 0,9686 sur les trois
-graines \'evalu\'ees. Ces valeurs forment une r\'ef\'erence reproductible interne
-au jeu de donn\'ees, non une preuve d'efficacit\'e sur un r\'eseau r\'eel. Les
-limites principales restent l'absence de corpus NFStream natif \'etiquet\'e,
-l'absence d'\'evaluation temporelle ou externe et l'absence de mesure de capacit\'e
-sur un mat\'eriel cible. La suite logique consiste donc à collecter des flux
-autoris\'es et repr\'esentatifs, figer des partitions par session, \'evaluer la
-cha\^ine sur ces donn\'ees puis d\'ecider, à partir de preuves mesur\'ees, si une
-exp\'erimentation de d\'eploiement peut être envisag\'ee.
+La cascade atteint une macro-F1 de 0,9520 sur le test de la graine~42 et une
+moyenne de 0,9686 sur les trois graines. Les résultats sont moins stables pour
+les classes rares, dont certaines ne comptent que six ou sept observations de
+test. Les partitions aléatoires d'un même corpus ne renseignent pas encore
+sur le comportement du modèle dans un autre environnement.
+
+Sur le plan applicatif, la file persistante, les reprises et la publication
+après transaction permettent de suivre le traitement d'une observation jusqu'à
+sa consultation. La répétition locale documente ces parcours et les scénarios
+de signature Suricata. La traçabilité reste toutefois incomplète pour une
+reproduction exacte de l'entraînement : le rapport signale des modifications
+non commitées, et le matériel des mesures de latence n'est pas détaillé.
+
+La prochaine expérience devrait partir d'une collecte NFStream étiquetée,
+avec les paramètres d'extraction, les sessions et les horodatages conservés.
+Elle permettrait de séparer les sessions d'entraînement et de test, puis de
+mesurer les attaques manquées et les fausses alertes sur un trafic représentatif.
+L'archivage du code exact et des caractéristiques de l'hôte compléterait les
+fichiers déjà conservés. Ces éléments permettraient de juger le transfert du
+modèle au-delà de RT-IoT2022.

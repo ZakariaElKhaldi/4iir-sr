@@ -35,9 +35,6 @@
     "activationBorderColor": "#047857",
     "activationBkgColor": "#EAF5F0",
     "sequenceNumberColor": "#FFFFFF",
-    "noteBkgColor": "#FFF8D6",
-    "noteBorderColor": "#B7924A",
-    "noteTextColor": "#17211D",
     "classText": "#17211D"
   }
 }

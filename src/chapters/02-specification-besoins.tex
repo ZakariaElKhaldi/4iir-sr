@@ -3,11 +3,11 @@
 
 \section{Introduction}
 
-Ce chapitre traduit le p\'erim\`etre du prototype en besoins v\'erifiables. Les
-exigences sont tir\'ees des contrats d'API, des contr\^oles d'entr\'ee, des vues
-op\'erateur et des limites d\'eclar\'ees dans le d\'ep\^ot. Elles ne supposent ni
-d\'eploiement de production ni compatibilit\'e NFStream en direct.
-
+L'opérateur doit pouvoir soumettre ou rejouer des observations, suivre leur
+traitement et examiner les alertes. Les producteurs de données ont besoin d'un
+contrat d'entrée stable et d'un reçu qui indique l'acceptation du lot.
+Les exigences ci-dessous décrivent ces parcours ainsi que le comportement
+attendu en cas d'erreur ou de nouvelle soumission.
 
 \noindent\begin{minipage}{\textwidth}
 \section{Besoins fonctionnels}
@@ -22,13 +22,13 @@ d\'eploiement de production ni compatibilit\'e NFStream en direct.
     \ReportTableHeader{ID}{Besoin}
     BF-01 & Authentifier l'op\'erateur et prot\'eger les fonctions m\'etier par un jeton à dur\'ee limit\'ee. \\
     BF-02 & Valider puis accepter des observations de flux versionn\'ees en mode synchrone ou par ingestion durable. \\
-    BF-03 & Ex\'ecuter la cascade binaire puis, uniquement pour une attaque, la classification de famille. \\
+    BF-03 & Ex\'ecuter la cascade binaire puis, uniquement pour un flux prédit comme attaque, la classification de famille. \\
     BF-04 & Rejouer un sous-ensemble born\'e du jeu de donn\'ees et permettre la pause, la reprise et l'arr\^et. \\
     BF-05 & Persister les observations, pr\'edictions, alertes et transitions utiles à l'audit. \\
     BF-06 & Pr\'esenter, filtrer et d\'etailler les alertes puis enregistrer la qualification de l'analyste. \\
     BF-07 & Publier les nouvelles pr\'edictions et alertes aux tableaux de bord connect\'es apr\`es validation de la transaction. \\
     BF-08 & Recevoir les \'ev\'enements de signature Suricata par une voie distincte et exposer l'\'etat du capteur. \\
-    BF-09 & Restituer l'identit\'e des artefacts, leurs mesures d'\'evaluation et les instantan\'es de sant\'e du mod\`ele. \\
+    BF-09 & Afficher les versions des modèles, leurs mesures d'\'evaluation et les instantan\'es de sant\'e du mod\`ele. \\
   \end{tabularx}
   \rowcolors{2}{}{}
 \end{center}
@@ -46,7 +46,7 @@ d\'eploiement de production ni compatibilit\'e NFStream en direct.
   \begin{tabularx}{\textwidth}{@{}>{\bfseries\color{PremiumEmerald}}p{0.20\textwidth}Y@{}}
     \ReportTableHeader{Qualit\'e}{Crit\`ere observable}
     Int\'egrit\'e & V\'erifier le sch\'ema, l'ordre des caract\'eristiques, les sommes de contr\^ole des artefacts et l'identit\'e de chaque \'ev\'enement. \\
-    Fiabilit\'e & Rendre l'ingestion idempotente, conserver les transitions et appliquer des reprises born\'ees avant mise en lettre morte. \\
+    Fiabilit\'e & Rendre l'ingestion idempotente, conserver les transitions et appliquer des reprises born\'ees avant isolement des échecs persistants. \\
     S\'ecurit\'e & Refuser par d\'efaut les fonctions m\'etier non authentifi\'ees, s\'eparer le jeton capteur et ne pas placer de secret dans l'URL WebSocket. \\
     R\'eactivit\'e & D\'eporter les traitements bloquants hors de la boucle asynchrone, borner les corps HTTP, les lots, la file et les connexions temps r\'eel. \\
     Tra\c{c}abilit\'e & Associer chaque pr\'ediction aux versions exactes des mod\`eles et conserver l'identit\'e valid\'ee de l'op\'erateur dans l'historique. \\
@@ -66,12 +66,11 @@ des alternatives ou des effets persistants.
 
 \section{Pr\'esentation des acteurs}
 
-Les acteurs sont pr\'esent\'es bri\`evement, conform\'ement au guide. L'analyste
-ou l'administrateur est l'acteur humain qui s'authentifie, contr\^ole le rejeu,
-examine les alertes et consulte les preuves. Le syst\`eme IoT externe ou l'agent
-capteur transmet des observations conformes au sch\'ema ou des \`evenements
-Suricata authentifi\'es. L'attaquant n'est pas un acteur du logiciel : son
-activit\'e est une donn\'ee observ\'ee.
+L'analyste ou l'administrateur s'authentifie, contrôle le rejeu et examine les
+alertes. Le producteur externe soumet des observations conformes au schéma;
+l'agent Suricata transmet les événements du capteur avec un jeton dédié.
+L'attaquant intervient dans le trafic observé, sans utiliser directement les
+fonctions de l'application.
 
 \begin{samepage}
 \section{Diagramme global des cas d'utilisation}
@@ -95,17 +94,17 @@ utilise pour sa part une identit\'e machine distincte.
 \clearpage
 \section{Description des cas d'utilisation}
 
-Les tableaux suivants d\'ecrivent les parcours qui poss\`edent des validations,
-des alternatives ou des effets persistants. Les chemins machine et op\'erateur
-restent s\'epar\'es.
+Chaque description précise les conditions d'entrée, les opérations effectuées
+et les données conservées. Les identifiants UC correspondent à ceux du
+diagramme global.
 
-\subsection{UC-02 --- Submit network flow observations}
+\subsection{UC-02 --- Soumettre des observations de flux}
 
 \renewcommand{\arraystretch}{1.22}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.70\textwidth}@{}}
-  \caption{Description du cas UC-02 --- Submit network flow observations}\label{tab:uc-ingestion}\\
+  \caption{Description du cas UC-02 --- Soumettre des observations de flux}\label{tab:uc-ingestion}\\
   \arrayrulecolor{SoftRule}\toprule
-  \UCRow{Acteur}{External IoT system / sensor agent utilisant le contrat d'observation autoris\'e.}
+  \UCRow{Acteur}{Producteur externe ou agent capteur utilisant le contrat d'observation autoris\'e.}
   \UCRow{Objectif}{Soumettre d'une à mille observations canoniques à la file durable.}
   \UCRow{Pr\'econditions}{Jeton autoris\'e; sch\'ema et version reconnus; identifiant d'\'ev\'enement fourni.}
   \UCRow{Postconditions}{Chaque nouvelle observation accept\'ee poss\`ede un travail en file et une transition initiale; un doublon identique reste idempotent.}
@@ -114,13 +113,13 @@ restent s\'epar\'es.
   \bottomrule
 \end{longtable}
 
-\subsection{UC-03 --- Submit Suricata sensor events}
+\subsection{UC-03 --- Transmettre des événements Suricata}
 
 \renewcommand{\arraystretch}{1.22}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.70\textwidth}@{}}
-  \caption{Description du cas UC-03 --- Submit Suricata sensor events}\label{tab:uc-suricata}\\
+  \caption{Description du cas UC-03 --- Transmettre des événements Suricata}\label{tab:uc-suricata}\\
   \arrayrulecolor{SoftRule}\toprule
-  \UCRow{Acteur}{External IoT system / sensor agent.}
+  \UCRow{Acteur}{Producteur externe ou agent capteur.}
   \UCRow{Objectif}{Transmettre une alerte de signature et l'\'etat observ\'e du capteur.}
   \UCRow{Pr\'econditions}{Jeton capteur valide; message EVE pris en charge; identifiant externe pr\'esent.}
   \UCRow{Postconditions}{L'alerte et l'\'etat du capteur sont persist\'es; un \'ev\'enement temps r\'eel est produit apr\`es validation.}
@@ -129,13 +128,13 @@ restent s\'epar\'es.
   \bottomrule
 \end{longtable}
 
-\subsection{UC-04 --- Control dataset replay}
+\subsection{UC-04 --- Contrôler le rejeu du jeu de données}
 
 \renewcommand{\arraystretch}{1.22}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.70\textwidth}@{}}
-  \caption{Description du cas UC-04 --- Control dataset replay}\label{tab:uc-replay}\\
+  \caption{Description du cas UC-04 --- Contrôler le rejeu du jeu de données}\label{tab:uc-replay}\\
   \arrayrulecolor{SoftRule}\toprule
-  \UCRow{Acteur}{Security Analyst / Administrator.}
+  \UCRow{Acteur}{Analyste ou administrateur.}
   \UCRow{Objectif}{Ex\'ecuter un rejeu born\'e et en contr\^oler la cadence.}
   \UCRow{Pr\'econditions}{Session valide; jeu pr\'epar\'e disponible; aucun autre rejeu actif.}
   \UCRow{Postconditions}{Les lignes trait\'ees restent persist\'ees; l'\'etat final indique ach\`evement ou arr\^et.}
@@ -144,13 +143,13 @@ restent s\'epar\'es.
   \bottomrule
 \end{longtable}
 
-\subsection{UC-05 --- Investigate alerts and record disposition}
+\subsection{UC-05 --- Examiner et qualifier une alerte}
 
 \renewcommand{\arraystretch}{1.22}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.70\textwidth}@{}}
-  \caption{Description du cas UC-05 --- Investigate alerts and record disposition}\label{tab:uc-alert}\\
+  \caption{Description du cas UC-05 --- Examiner et qualifier une alerte}\label{tab:uc-alert}\\
   \arrayrulecolor{SoftRule}\toprule
-  \UCRow{Acteur}{Security Analyst / Administrator.}
+  \UCRow{Acteur}{Analyste ou administrateur.}
   \UCRow{Objectif}{Examiner une alerte puis, si n\'ecessaire, enregistrer une qualification justifi\'ee.}
   \UCRow{Pr\'econditions}{Session valide; alerte persist\'ee.}
   \UCRow{Postconditions}{La consultation ne modifie pas l'alerte; une qualification confirm\'ee ajoute une entr\'ee immuable associ\'ee à l'identit\'e authentifi\'ee.}
@@ -161,6 +160,7 @@ restent s\'epar\'es.
 
 \section{Conclusion}
 
-Les besoins distinguent clairement les actions humaines, les entr\'ees machine
-et les garanties transversales. Cette base permet de relier chaque parcours aux
-composants, donn\'ees et interactions d\'ecrits dans le chapitre de conception.
+Trois comportements structurent la conception : une soumission répétée doit
+rester sans doublon, une alerte doit garder sa provenance et une qualification
+doit être associée à l'opérateur authentifié. Les tables et les transactions du
+chapitre suivant précisent comment le système applique ces règles.

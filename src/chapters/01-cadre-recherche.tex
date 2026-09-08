@@ -3,16 +3,10 @@
 
 \section{Introduction}
 
-Ce projet d'\'et\'e a \'et\'e men\'e dans un cadre acad\'emique et autonome. Ce
-chapitre en \'etablit le cadre scientifique \`a travers une \'etude du contexte,
-des travaux existants et des limites de validit\'e qui structurent la recherche.
-
-L'objectif est de d\'efinir pr\'ecis\'ement le probl\`eme trait\'e par le prototype
-\emph{IoT Network-Flow Intrusion Detection}. Nous pr\'esentons d'abord le cadre de
-la d\'etection d'intrusions dans l'Internet des objets, puis le jeu de donn\'ees
-retenu et les principales approches d'apprentissage automatique. Cette analyse
-permet ensuite de formuler la probl\'ematique, de d\'elimiter la contribution du
-projet et d'exposer la m\'ethodologie suivie.
+Le prototype \emph{IoT Network-Flow Intrusion Detection} classe des observations
+de flux et conserve les résultats pour leur examen. Deux questions guident les
+choix scientifiques : ce que les variables de RT-IoT2022 permettent de mesurer,
+et ce qu'une évaluation sur ce seul jeu de données permet de conclure.
 
 \section{Contexte scientifique}
 
@@ -37,11 +31,10 @@ mesures de flux programmables; ils ne garantissent toutefois pas, \`a eux seuls,
 l'\'equivalence avec les variables d'un jeu de donn\'ees produit par un autre
 extracteur \citep{aouini_nfstream_2022}.
 
-La figure~\ref{fig:nist-passive-idps} fournit un rep\`ere architectural pour
-l'observation passive du trafic. Elle illustre plusieurs points de copie, des
-capteurs IDPS et un r\'eseau de gestion s\'epar\'e. Elle n'est pas pr\'esent\'ee comme
-l'architecture du prototype: elle sert uniquement \`a situer le principe de
-collecte hors bande d\'ecrit par le NIST.
+Dans une architecture passive, les capteurs reçoivent une copie du trafic.
+La figure~\ref{fig:nist-passive-idps}, issue du NIST, situe les points de copie et
+le réseau de gestion des capteurs. Elle sert de référence pour ce mode
+d'observation.
 
 \begin{figure}[htbp]
   \centering
@@ -65,8 +58,8 @@ Dans ce projet, les faits exp\'erimentaux proviennent du fichier CSV officiel
 contr\^ol\'e par somme SHA-256, et non d'une reconstruction de la description en
 ligne. L'audit local confirme 123\,117 lignes, 83 variables de mod\`ele et douze
 \'etiquettes observ\'ees: trois classes de trafic normal et neuf familles
-d'attaque. Il rel\`eve \'egalement 5\,202 vecteurs de caract\'eristiques dupliqu\'es
-et une forte concentration de la classe \texttt{DOS\_SYN\_Hping}. Ces propri\'et\'es
+d'attaque. Il rel\`eve \'egalement 5\,202 lignes excédentaires à
+caractéristiques identiques et une forte concentration de la classe \texttt{DOS\_SYN\_Hping}. Ces propri\'et\'es
 imposent une d\'eduplication avant la s\'eparation des donn\'ees et une lecture
 prudente des scores agr\'eg\'es.
 
@@ -83,23 +76,24 @@ prudente des scores agr\'eg\'es.
     \'Etiquettes observ\'ees & 12 \\
     Observations normales & 12\,507 \\
     Observations d'attaque & 110\,610 \\
-    Vecteurs de caract\'eristiques dupliqu\'es & 5\,202 \\
+    Lignes excédentaires à caractéristiques identiques & 5\,202 \\
   \end{tabularx}
   \rowcolors{2}{}{}
 \end{table}
 
-La provenance de l'extraction constitue une limite importante. Les sources
-publiques ne donnent pas une description suffisamment coh\'erente des outils,
-unit\'es, temporisations et r\`egles directionnelles pour affirmer qu'un nouveau
-flux extrait localement est num\'eriquement compatible avec les 83 variables
-publi\'ees. En outre, le tableau ne contient pas d'identifiant fiable de session,
-d'appareil ou de temps permettant une s\'eparation chronologique ou group\'ee.
+La notice UCI indique une extraction avec Zeek et un module Flowmeter
+\citep{b_s_rt-iot2022_2023}. Elle ne fournit toutefois pas les paramètres
+nécessaires pour reproduire ici les valeurs des 83 variables. Pour NFStream,
+les temporisations de flux et le niveau de comptage des octets font partie des
+paramètres d'extraction \citep{nfstream_api}. La correspondance des noms de
+variables ne suffit donc pas à établir leur équivalence numérique. Le CSV ne
+fournit pas non plus d'identifiant fiable de session, d'appareil ou d'horodatage
+permettant une partition groupée ou chronologique.
 
-Une validation externe demanderait donc une cha\^ine de capture document\'ee et
-reproductible. La figure~\ref{fig:nist-iot-capture} montre un exemple officiel
-d'environnement de capture pour appareils IoT filaires et sans fil. Il s'agit
-d'une architecture m\'ethodologique de r\'ef\'erence, et non de l'environnement
-ayant produit RT-IoT2022 ni d'un composant actuellement d\'eploy\'e par ce projet.
+Pour préparer une autre collecte, le NIST décrit un environnement d'observation
+d'appareils filaires et sans fil \citep{watrobski_methodology_2025}. La
+figure~\ref{fig:nist-iot-capture} en montre l'architecture; elle ne décrit pas
+l'environnement de collecte de RT-IoT2022.
 
 \begin{figure}[htbp]
   \centering
@@ -113,15 +107,17 @@ ayant produit RT-IoT2022 ni d'un composant actuellement d\'eploy\'e par ce proje
 
 \subsection{D\'etection par signatures et d\'etection statistique}
 
-La d\'etection par signatures recherche des motifs connus. Elle offre une
-justification directe lorsqu'une r\`egle correspond, mais reste d\'ependante de la
-couverture et de la mise \`a jour de cette base de r\`egles. La d\'etection
-statistique ou par apprentissage cherche au contraire des r\'egularit\'es dans les
-donn\'ees. Elle peut reconna\^itre des configurations plus complexes, au prix
-d'une d\'ependance forte envers les donn\'ees d'entra\^inement et le contexte de
-collecte. Ces familles sont compl\'ementaires; le laboratoire Suricata du projet
-est donc consid\'er\'e comme une source de preuves par signatures distincte des
-pr\'edictions du mod\`ele RT-IoT2022.
+Une signature recherche un motif défini par une règle; la qualité de la
+détection dépend donc de la couverture de ces règles. Une méthode de détection
+d'anomalies compare l'activité observée à un comportement de référence
+\citep{scarfone_guide_2007}. La classification supervisée adoptée ici apprend,
+quant à elle, à distinguer les étiquettes présentes dans les données
+d'entraînement. Elle n'établit pas une capacité à reconnaître des attaques
+absentes de ces données.
+
+Le prototype conserve deux sources de signalement : les prédictions de la
+cascade et les correspondances de règles Suricata. L'opérateur peut ainsi
+retrouver le modèle ou la signature à l'origine d'une alerte.
 
 \subsection{Classification supervis\'ee des flux}
 
@@ -171,10 +167,9 @@ probabilit\'es constituent deux propri\'et\'es distinctes
 La probl\'ematique retenue est la suivante:
 
 \begin{quote}
-Comment construire un prototype reproductible capable de classifier des flux
-RT-IoT2022 en deux \'etapes, de conserver les preuves de ses d\'ecisions et de
-signaler honn\^etement les limites qui s\'eparent une bonne performance interne
-d'une validation sur un r\'eseau IoT r\'eel?
+Comment évaluer une cascade de classification sur RT-IoT2022 et conserver,
+pour chaque décision, les informations nécessaires à son examen par un opérateur?
+
 \end{quote}
 
 Cette probl\'ematique se d\'ecompose en quatre questions:
@@ -183,7 +178,7 @@ Cette probl\'ematique se d\'ecompose en quatre questions:
   \item comment garantir la provenance, le sch\'ema et l'ordre des variables
         utilis\'ees pendant l'entra\^inement et l'inf\'erence;
   \item quelle combinaison de d\'etecteur binaire et de classifieur de familles
-        offre le meilleur compromis mesur\'e sur le protocole d\'eclar\'e;
+        obtient la meilleure macro-F1 de validation selon le protocole retenu;
   \item quelles erreurs sont introduites par chacun des deux \'etages et par la
         cascade compl\`ete;
   \item quelles preuves suppl\'ementaires seraient n\'ecessaires avant toute
@@ -192,23 +187,17 @@ Cette probl\'ematique se d\'ecompose en quatre questions:
 
 \section{Solution propos\'ee et p\'erim\`etre}
 
-La solution propos\'ee est un prototype de recherche reproductible compos\'e de
-quatre cha\^ines coh\'erentes. La premi\`ere pr\'epare et contr\^ole le jeu de donn\'ees,
-supprime les doublons selon une politique explicite et produit un sch\'ema
-versionn\'e. La deuxi\`eme entra\^ine plusieurs candidats, s\'electionne les mod\`eles
-sur la validation et r\'eserve le test \`a l'estimation finale. La troisi\`eme sert
-la cascade au moyen d'une API, persiste les observations, pr\'edictions et alertes,
-puis transmet les \'ev\'enements apr\`es validation. La quatri\`eme fournit une
-interface d'investigation, des explications locales et des indicateurs de sant\'e
-du mod\`ele.
+La chaîne de préparation contrôle le fichier source, traite les doublons et
+fixe l'ordre des variables. L'entraînement compare les candidats sur la
+validation, puis mesure leurs erreurs sur le test. Une fois sélectionnés, les
+modèles sont enregistrés avec leurs métadonnées et servis par l'API. Chaque
+prédiction peut ensuite être consultée dans l'interface avec son observation
+source et les versions des modèles utilisés.
 
-Le p\'erim\`etre doit rester explicite. Le syst\`eme classifie des enregistrements
-de flux valid\'es et rejoue des observations enregistr\'ees. Il ne prouve pas que
-le mod\`ele RT-IoT2022 est compatible avec un flux captur\'e par NFStream, ni qu'il
-se g\'en\'eralise \`a un autre r\'eseau. Le laboratoire Suricata analyse de vrais
-paquets dans un environnement isol\'e, mais ses alertes de signatures ne sont pas
-des pr\'edictions du mod\`ele. Ces fronti\`eres emp\^echent de transformer une preuve
-d'ing\'enierie en affirmation scientifique non mesur\'ee.
+L'application traite des observations enregistrées et permet leur rejeu. Le
+laboratoire Suricata observe aussi des paquets dans un réseau isolé, par une voie
+indépendante de la cascade. Le transfert du modèle RT-IoT2022 vers des flux
+NFStream et vers un autre réseau reste à évaluer.
 
 L'interface qui restitue ces limites et les preuves d'\'evaluation est pr\'esent\'ee
 avec les autres vues principales au chapitre~\ref{chap:realisation}.
@@ -217,13 +206,11 @@ avec les autres vues principales au chapitre~\ref{chap:realisation}.
 
 \subsection{Mode de d\'eveloppement}
 
-Le d\'eveloppement suit une d\'emarche incr\'ementale guid\'ee par les preuves.
-Chaque incr\'ement part d'un contrat ou d'une limite explicite, ajoute les tests
-correspondants, impl\'emente le comportement puis produit un artefact
-v\'erifiable. L'historique du d\'ep\^ot atteste cette progression depuis la
-pr\'eparation des donn\'ees jusqu'à l'ingestion, à la supervision et au
-laboratoire isol\'e. Cette organisation ne pr\'etend pas appliquer un cadre Scrum
-ou un calendrier d'entreprise qui n'ont pas exist\'e.
+Le code est réparti entre la préparation et l'évaluation des modèles, les
+services de l'API et l'interface. Les schémas de données, les tests automatisés
+et les manifestes permettent de vérifier les échanges entre ces parties.
+L'historique Git conserve les modifications du code; les rapports d'exécution
+renseignent les vérifications réalisées sur une version donnée.
 
 \subsection{Phases de recherche}
 
@@ -244,70 +231,16 @@ La conduite du projet est organis\'ee en phases tra\c{c}ables:
         mesure sur le mat\'eriel cible.
 \end{enumerate}
 
-Cette organisation constitue une d\'emarche de recherche v\'erifiable. Chaque
-phase produit un artefact contr\^olable:
-manifestes et sommes de contr\^ole, rapports d'\'evaluation, mod\`eles versionn\'es,
-tests automatis\'es, documentation d'architecture ou preuves d'ex\'ecution.
-
-Le carnet ex\'ecut\'e fournit une trace lisible de la comparaison des candidats.
-La figure~\ref{fig:notebook-model-comparison} reproduit directement sa section
-de comparaison, sans ressaisir ni recalculer les valeurs dans le rapport.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\textwidth]{assets/screenshots/notebook-model-comparison.png}
-  \caption{Comparaison des mod\`eles dans le carnet de recherche ex\'ecut\'e}
-  \label{fig:notebook-model-comparison}
-\end{figure}
-
-La figure~\ref{fig:gantt-realisation} synth\'etise le d\'eroulement du projet
-par semaines indicatives. Le d\'eveloppement du tableau de bord a commenc\'e
-apr\`es les premi\`eres exp\'erimentations, puis s'est poursuivi en parall\`ele
-de la recherche et de l'int\'egration de l'API. Les phases se chevauchent:
-elles repr\'esentent les principales p\'eriodes de travail et non des dur\'ees
-exactes d\'eduites des dates de commit.
-
-\begin{figure}[htbp]
-  \centering
-  \begin{ganttchart}[
-      x unit=1.65cm,
-      y unit title=0.65cm,
-      y unit chart=0.78cm,
-      vgrid={draw=SoftRule!65},
-      hgrid=false,
-      title/.style={draw=none,fill=EmeraldMist},
-      title label font=\small\bfseries\color{PremiumEmerald},
-      bar/.append style={draw=PremiumEmerald,fill=Emerald!78,rounded corners=1.2pt},
-      bar height=0.48,
-      bar label font=\small\color{Charcoal},
-      bar label node/.append style={align=right,text width=4.5cm},
-      group label font=\scriptsize,
-      link/.style={-Latex,draw=MutedInk},
-      canvas/.append style={draw=none}
-    ]{1}{5}
-    \gantttitle{S1}{1}
-    \gantttitle{S2}{1}
-    \gantttitle{S3}{1}
-    \gantttitle{S4}{1}
-    \gantttitle{S5}{1} \\
-    \ganttbar{Recherche et essais}{1}{3} \\
-    \ganttbar{Tableau de bord}{2}{5} \\
-    \ganttbar{API et mod\`eles}{2}{4} \\
-    \ganttbar{Ingestion et s\'ecurit\'e}{3}{4} \\
-    \ganttbar{Ergonomie et supervision}{4}{5} \\
-    \ganttbar{Laboratoire r\'eseau isol\'e}{5}{5}
-  \end{ganttchart}
-  \caption{Phases indicatives de r\'ealisation et chevauchement des travaux}
-  \label{fig:gantt-realisation}
-\end{figure}
+Les fichiers produits permettent de suivre ces étapes : manifeste du jeu de
+données, rapports d'évaluation, modèles sérialisés et journaux de tests.
+Le chapitre~\ref{chap:resultats} présente la comparaison des candidats et précise
+les limites de cette traçabilité.
 
 \section{Conclusion}
 
-Ce chapitre a situ\'e le projet dans le domaine de la d\'etection d'intrusions sur
-flux IoT et a d\'efini un cadre scientifique adapt\'e \`a un travail autonome.
-L'analyse de RT-IoT2022 et des
-travaux existants justifie une cascade supervis\'ee reproductible, tout en
-montrant que les scores obtenus sur un seul jeu de donn\'ees ne constituent pas
-une validation de d\'eploiement. La probl\'ematique, le p\'erim\`etre et la d\'emarche
-ainsi d\'efinis serviront de base \`a la sp\'ecification des besoins du syst\`eme au
-chapitre suivant.
+RT-IoT2022 fournit les données nécessaires à une comparaison supervisée, mais
+son déséquilibre et l'absence de repères temporels fiables limitent
+l'interprétation des scores. Le protocole doit traiter les doublons, réserver
+le test à l'évaluation et rendre visibles les erreurs des classes rares.
+L'application doit, de son côté, conserver l'origine de chaque signalement.
+Ces exigences orientent les besoins décrits au chapitre suivant.

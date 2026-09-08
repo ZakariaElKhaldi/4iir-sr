@@ -2,26 +2,26 @@
 \addcontentsline{toc}{chapter}{Abstract}
 \markboth{Abstract}{Abstract}
 
-This project presents a reproducible intrusion-detection prototype based on
-IoT network-flow observations. The RT-IoT2022 dataset is verified,
-deduplicated, and transformed under a versioned feature schema. A supervised
-cascade combines a binary detector with a multiclass attack-family classifier.
-Candidate models are compared using separate training, validation, and test
-partitions, with probability calibration and controlled promotion of the
-resulting artifacts.
+This project studies intrusion detection from IoT network flows and the review
+of alerts in a monitoring application. It uses RT-IoT2022, checking its
+123,117 rows and removing conflicting labels and duplicate observations.
+Four model families are compared on training, validation, and test partitions
+using three random seeds. The selection procedure chooses histogram-based
+gradient boosting to distinguish attacks from normal traffic, followed by a
+random forest to identify attack families.
 
-The prototype includes a FastAPI service, durable and idempotent ingestion,
-transactional persistence, post-commit real-time publication, and a React
-interface for monitoring and investigation. A separate Suricata path preserves
-signature-based alerts without presenting them as model predictions. The
-system also exposes artifact versions, evaluation evidence, and model-health
-indicators.
+A FastAPI service runs the models and stores observations, predictions, and
+alerts. A persistent ingestion queue supports retries without creating duplicate
+records. The React interface provides access to results, model versions, and
+the history of analyst dispositions. Signature alerts from the Suricata
+laboratory are identified by their source.
 
-On the declared internal RT-IoT2022 test split, the complete cascade reaches a
-macro-F1 score of 0.9520 for seed~42 and a three-seed mean of 0.9686. This result
-does not demonstrate effectiveness on a real IoT network. The absence of a labelled native NFStream
-corpus and of external evaluation remains the principal limitation of the
-work.
+On the internal test split for seed~42, the cascade achieves a macro-F1 of
+0.9520; the mean across the three seeds is 0.9686. Results for rare classes
+remain fragile: the test contains only six \texttt{NMAP\_FIN\_SCAN} flows and
+seven \texttt{Metasploit\_Brute\_Force\_SSH} flows. The study provides an internal
+evaluation and an investigation prototype. A labelled NFStream collection and
+evaluation on an external network are still needed to assess transfer.
 
 \noindent\textbf{Keywords:} Internet of Things, intrusion detection, network
-flows, machine learning, RT-IoT2022, reproducibility.
+flows, machine learning, RT-IoT2022.

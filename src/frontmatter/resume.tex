@@ -1,27 +1,29 @@
-\chapter*{R\'esum\'e}
-\addcontentsline{toc}{chapter}{R\'esum\'e}
-\markboth{R\'esum\'e}{R\'esum\'e}
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé}
+\markboth{Résumé}{Résumé}
 
-Ce projet pr\'esente un prototype reproductible de d\'etection d'intrusions fond\'e
-sur des observations de flux r\'eseau IoT. Le jeu de donn\'ees RT-IoT2022 est
-contr\^ol\'e, d\'edupliqu\'e et transform\'e selon un sch\'ema versionn\'e. Une cascade
-supervis\'ee associe un d\'etecteur binaire \`a un classifieur multiclasse de familles
-d'attaque. Les candidats sont compar\'es sur des partitions distinctes
-d'entra\^inement, de validation et de test, avec calibration et conservation des
-artefacts promus.
+Ce projet étudie la détection d'intrusions à partir de flux réseau IoT et la
+consultation des alertes dans une application de supervision. Il utilise
+RT-IoT2022, dont les 123\,117 lignes sont contrôlées puis nettoyées des conflits
+d'étiquettes et des doublons. Quatre familles de modèles sont comparées sur des
+partitions d'entraînement, de validation et de test, avec trois graines
+aléatoires. La sélection retient un gradient boosting par histogrammes pour
+distinguer les attaques du trafic normal, puis une forêt aléatoire pour
+identifier leur famille.
 
-Le prototype comprend une API FastAPI, une ingestion durable et idempotente,
-une persistance transactionnelle, une diffusion temps r\'eel apr\`es validation et
-une interface React destin\'ee \`a la supervision et \`a l'investigation. Une voie
-Suricata distincte conserve les alertes issues de signatures sans les confondre
-avec les pr\'edictions du mod\`ele. Le syst\`eme restitue aussi les versions des
-artefacts, les preuves d'\'evaluation et des indicateurs de sant\'e du mod\`ele.
+Une API FastAPI exécute les modèles et enregistre les observations, les
+prédictions et les alertes. L'ingestion persistante permet de reprendre les
+traitements en échec sans créer de doublons. L'interface React donne accès aux
+résultats, aux versions des modèles et à l'historique des qualifications de
+l'analyste. Les alertes de signature du laboratoire Suricata y sont identifiées
+par leur source.
 
-Sur le partage de test interne RT-IoT2022, la cascade atteint un macro-F1 de
-0,9520 pour la graine~42 et une moyenne de 0,9686 sur trois graines. Ce r\'esultat
-ne constitue toutefois pas une validation
-sur un r\'eseau IoT r\'eel. L'absence de corpus NFStream natif \'etiquet\'e et
-d'\'evaluation externe demeure la principale limite du travail.
+Sur le test interne associé à la graine~42, la cascade obtient une macro-F1 de
+0,9520; la moyenne sur les trois graines est de 0,9686. Les classes rares restent
+fragiles : le test ne contient que six flux \texttt{NMAP\_FIN\_SCAN} et sept flux
+\texttt{Metasploit\_Brute\_Force\_SSH}. L'étude fournit ainsi une évaluation interne
+et un prototype d'investigation. Une collecte NFStream étiquetée et une
+évaluation sur un réseau externe restent nécessaires pour en étudier le transfert.
 
-\noindent\textbf{Mots-cl\'es :} Internet des objets, d\'etection d'intrusions,
-flux r\'eseau, apprentissage automatique, RT-IoT2022, reproductibilit\'e.
+\noindent\textbf{Mots-clés :} Internet des objets, détection d'intrusions,
+flux réseau, apprentissage automatique, RT-IoT2022.

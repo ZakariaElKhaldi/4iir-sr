@@ -59,5 +59,3 @@ classDiagram
     Prediction "0..1" -- "0..1" Alert : supports ML alert
     SensorState "0..1" -- "0..*" Alert : reports signature alert
     Alert "1" *-- "0..*" AnalystFeedback : disposition history
-
-    note for Alert "Invariant: an ML alert references a prediction. A Suricata alert carries sensor evidence instead."

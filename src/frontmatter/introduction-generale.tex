@@ -1,28 +1,32 @@
-\chapter*{Introduction g\'en\'erale}
-\addcontentsline{toc}{chapter}{Introduction g\'en\'erale}
-\markboth{Introduction g\'en\'erale}{Introduction g\'en\'erale}
+\chapter*{Introduction générale}
+\addcontentsline{toc}{chapter}{Introduction générale}
+\markboth{Introduction générale}{Introduction générale}
 
-Les objets connect\'es produisent des communications nombreuses et
-h\'et\'erog\`enes dont l'analyse manuelle devient rapidement impraticable. La
-d\'etection d'intrusions fond\'ee sur les flux r\'eseau offre une observation
-moins intrusive que l'inspection du contenu, mais elle impose trois exigences:
-un sch\'ema de donn\'ees stable, une \'evaluation scientifique reproductible et
-une cha\^ine de traitement capable de conserver les preuves utiles à
-l'investigation.
+Une alerte de sécurité doit pouvoir être examinée. Pour un opérateur, connaître
+la classe prédite ne suffit pas : il faut retrouver l'observation analysée,
+le modèle utilisé et les éléments qui ont conduit au signalement. Ce projet
+aborde la détection d'intrusions IoT à partir de ce besoin, en reliant
+l'évaluation de modèles sur des flux enregistrés à une application
+qui conserve et présente leurs résultats.
 
-Ce projet d'\'et\'e \'etudie la question suivante: comment construire un
-prototype reproductible qui classe des observations de flux IoT, signale les
-comportements suspects et pr\'esente à l'op\'erateur les informations n\'ecessaires
-à leur examen, sans confondre un r\'esultat obtenu sur RT-IoT2022 avec une
-validation en environnement de production? Le travail couvre la pr\'eparation
-contr\^ol\'ee du jeu de donn\'ees, l'\'evaluation d'une cascade supervis\'ee,
-l'ingestion durable, la persistance des r\'esultats et une interface
-d'investigation. La collecte NFStream en direct et l'efficacit\'e sur un r\'eseau
-cible restent hors du p\'erim\`etre valid\'e.
+Le travail s'appuie sur RT-IoT2022, un jeu de données public de communications
+normales et d'attaques IoT \citep{b_s_rt-iot2022_2023}. Un premier modèle distingue
+le trafic normal des attaques; un second attribue une famille aux flux signalés.
+La préparation des données, la comparaison des modèles et l'analyse des erreurs
+précèdent leur intégration dans une API et une interface d'investigation.
+L'application permet aussi de rejouer les observations du jeu de données et de
+consulter séparément les alertes de signature d'un laboratoire Suricata.
 
-Le rapport est organis\'e en quatre chapitres. Le premier \'etablit le cadre
-scientifique, la probl\'ematique et la d\'emarche de recherche. Le deuxi\`eme
-formalise les besoins et les cas d'utilisation. Le troisi\`eme pr\'esente la
-conception dynamique, statique et architecturale. Le quatri\`eme d\'ecrit
-l'environnement de r\'ealisation, les principaux choix d'impl\'ementation et les
-interfaces essentielles du prototype.
+La question est donc la suivante : comment évaluer cette cascade de
+classification et rendre ses décisions consultables dans un prototype IoT?
+L'évaluation porte sur des partitions de RT-IoT2022. Elle ne mesure pas encore
+l'efficacité du modèle sur le trafic d'un autre réseau; cette distinction fixe
+la portée des résultats présentés.
+
+Le rapport comprend cinq chapitres. Le premier présente les travaux de
+référence et les caractéristiques du jeu de données. Le deuxième précise les
+besoins de l'opérateur et des producteurs d'observations. Le troisième décrit
+les données, les composants et leurs interactions. Le quatrième explique la
+réalisation et les vérifications techniques. Le cinquième compare les modèles,
+analyse les erreurs de la cascade et discute les limites de l'expérience.
+\clearpage

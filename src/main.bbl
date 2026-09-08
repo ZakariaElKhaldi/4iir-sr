@@ -1,4 +1,4 @@
-\begin{thebibliography}{13}
+\begin{thebibliography}{16}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -52,6 +52,21 @@ Shachar Kaufman, Saharon Rosset, Claudia Perlich, and Ori Stitelman.
 \newblock \doi{10.1145/2382577.2382579}.
 \newblock URL \url{https://dl.acm.org/doi/10.1145/2382577.2382579}.
 
+\bibitem[Lundberg and Lee(2017)]{lundberg_unified_2017}
+Scott~M. Lundberg and Su-In Lee.
+\newblock A unified approach to interpreting model predictions.
+\newblock In Isabelle Guyon, Ulrike Von~Luxburg, Samy Bengio, Hanna Wallach,
+  Rob Fergus, S.~V.~N. Vishwanathan, and Roman Garnett, editors, \emph{Advances
+  in Neural Information Processing Systems}, volume~30. Curran Associates,
+  Inc., 2017.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html}.
+
+\bibitem[{NFStream contributors}(s.d.)]{nfstream_api}
+{NFStream contributors}.
+\newblock {NFStream} apis documentation, s.d.
+\newblock URL \url{https://www.nfstream.org/docs/api}.
+
 \bibitem[Niculescu-Mizil and Caruana(2005)]{niculescu-mizil_predicting_2005}
 Alexandru Niculescu-Mizil and Rich Caruana.
 \newblock Predicting good probabilities with supervised learning.
@@ -81,6 +96,11 @@ Karen Scarfone and Peter Mell.
   Technology, Gaithersburg, MD, 2007.
 \newblock URL
   \url{https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-94.pdf}.
+
+\bibitem[{scikit-learn developers}(s.d.)]{sklearn_calibration}
+{scikit-learn developers}.
+\newblock Probability calibration, s.d.
+\newblock URL \url{https://scikit-learn.org/stable/modules/calibration.html}.
 
 \bibitem[Sharmila and Nagapadma(2023{\natexlab{a}})]{b_s_rt-iot2022_2023}
 B.~S. Sharmila and Rohini Nagapadma.

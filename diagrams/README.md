@@ -40,8 +40,7 @@ with one supplied vector exception:
   sources by Mermaid CLI 11.16.1.
 
 All Mermaid report figures share `report-mermaid-config.json`, which applies the
-report's emerald, ivory, charcoal, and muted-ink palette consistently. Pale gold
-is reserved for warning and explanatory notes.
+report's emerald, ivory, charcoal, and muted-ink palette consistently.
 
 The report uses Mermaid's adaptive ELK layout for the layouts that need
 collision-aware routing at A4 size:

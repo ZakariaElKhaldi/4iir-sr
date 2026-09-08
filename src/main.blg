@@ -8,44 +8,44 @@ A level-1 auxiliary file: chapters/04-realisation-systeme.aux
 A level-1 auxiliary file: chapters/05-resultats-experimentaux.aux
 The style file: plainnat.bst
 Database file #1: sources.bib
-You've used 13 entries,
+You've used 16 entries,
             2773 wiz_defined-function locations,
-            717 strings with 8888 characters,
-and the built_in function-call counts, 7060 in all, are:
-= -- 682
-> -- 440
-< -- 11
-+ -- 149
-- -- 135
-* -- 636
-:= -- 1129
-add.period$ -- 70
-call.type$ -- 13
-change.case$ -- 84
-chr.to.int$ -- 12
-cite$ -- 26
-duplicate$ -- 264
-empty$ -- 488
-format.name$ -- 160
-if$ -- 1453
+            734 strings with 9534 characters,
+and the built_in function-call counts, 8193 in all, are:
+= -- 776
+> -- 504
+< -- 15
++ -- 171
+- -- 154
+* -- 712
+:= -- 1309
+add.period$ -- 81
+call.type$ -- 16
+change.case$ -- 97
+chr.to.int$ -- 15
+cite$ -- 32
+duplicate$ -- 317
+empty$ -- 593
+format.name$ -- 184
+if$ -- 1694
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 10
-newline$ -- 103
-num.names$ -- 52
-pop$ -- 119
+missing$ -- 11
+newline$ -- 119
+num.names$ -- 66
+pop$ -- 154
 preamble$ -- 1
-purify$ -- 71
+purify$ -- 81
 quote$ -- 0
-skip$ -- 211
+skip$ -- 255
 stack$ -- 0
-substring$ -- 263
-swap$ -- 32
-text.length$ -- 3
+substring$ -- 269
+swap$ -- 37
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 143
+type$ -- 176
 warning$ -- 0
-while$ -- 58
+while$ -- 68
 width$ -- 0
-write$ -- 239
+write$ -- 279

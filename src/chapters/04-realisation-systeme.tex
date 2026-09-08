@@ -3,27 +3,27 @@
 
 \section{Introduction}
 
-Ce chapitre pr\'esente l'environnement reproductible, l'organisation du code et
-les interfaces essentielles du prototype. Il d\'ecrit uniquement les composants
-pr\'esents dans le d\'ep\^ot et distingue le mode local du mode de d\'emonstration
-conteneuris\'e.
+Le prototype associe un paquet Python pour l'apprentissage, une API FastAPI et
+une interface React. Il s'exécute localement ou avec Docker Compose. Ce chapitre
+explique le rôle des outils, le traitement d'une observation et les écrans
+utilisés pour examiner les résultats.
 
 \section{Environnement de d\'eveloppement}
 
 \subsection{Environnement mat\'eriel}
 
-Le d\'ep\^ot ne fixe pas un mod\`ele de poste ni une quantit\'e de m\'emoire comme
-pr\'econdition. Les caract\'eristiques d'une machine de d\'eveloppement ne sont donc
-pas invent\'ees ici. La reproductibilit\'e repose sur les fichiers de verrouillage,
-les images Docker à somme de contr\^ole et les contr\^oles pr\'ealables qui
-enregistrent les r\'esultats propres à l'h\^ote d'ex\'ecution.
+Le relevé d'exécution du 7 septembre 2026 indique un hôte Linux d'architecture
+x86\_64. Il ne précise ni le processeur ni la mémoire disponible. Ces
+informations manquent pour reproduire les mesures de performance dans des
+conditions matérielles identiques. Les fichiers de verrouillage et les images
+Docker référencées par empreinte fixent, quant à eux, les dépendances logicielles.
 
 \subsection{Environnement logiciel}
 
-L'environnement de travail associe Arch Linux, Neovim et les outils du projet.
-Pacman gère les paquets système, tandis que \texttt{uv} et \texttt{npm}
-isolent les dépendances applicatives. Le tableau distingue ces outils de
-production du code des composants nécessaires à l'exécution du prototype.
+Le relevé d'exécution identifie Arch Linux, Python 3.12.13 et Node.js 26.8.0.
+Les dépendances applicatives sont gérées avec \texttt{uv} et \texttt{npm}.
+Le tableau~\ref{tab:software-environment} présente les outils du projet et leur
+rôle dans le développement ou l'exécution.
 
 \begingroup
 \small
@@ -36,7 +36,7 @@ production du code des composants nécessaires à l'exécution du prototype.
   \rowcolor{PremiumEmerald}\color{white}\bfseries Usage & \color{white}\bfseries Outils & \color{white}\bfseries Rôle \\
   \endhead
   Poste & Linux, Arch Linux, pacman & Environnement de développement et installation des paquets système. \\
-  Édition & Neovim (nvim), terminal, Zsh, Bash & Écriture du code, exécution des commandes et scripts d'automatisation. \\
+  Commandes & Terminal, Zsh, Bash & Exécution des commandes et des scripts d'automatisation. \\
   Automatisation & Make, Git, GitHub Actions & Commandes communes, historique des modifications et validation continue. \\
   Dépendances & Python 3.12, uv, Node.js, npm & Environnements Python et JavaScript, dépendances et fichiers de verrouillage. \\
   Calcul et ML & NumPy, pandas, SciPy, scikit-learn, joblib, SHAP & Préparation des données, entraînement, sérialisation et explication des modèles. \\
@@ -87,7 +87,8 @@ correspondent pas au manifeste actif.
 Le même ordre de 83 variables est contrôlé à l'entraînement et à l'inférence.
 Le rejeu permet d'exercer cette chaîne avec les données enregistrées sans
 réentraîner le modèle. Les explications SHAP sont calculées à la demande pour
-l'investigation ; elles décrivent les contributions au résultat du modèle.
+l'investigation ; elles décrivent les contributions au résultat du modèle \citep{lundberg_unified_2017}.
+Elles aident à lire une prédiction, sans établir les causes d'une attaque.
 
 \subsection{Ingestion durable et traitement des erreurs}
 
@@ -125,10 +126,9 @@ RT-IoT2022. NFStream reste une voie d'extraction PCAP hors ligne distincte.
 \subsection{Exécution reproductible}
 
 \texttt{make setup} prépare les dépendances ; \texttt{make verify-model}
-contrôle le bundle promu. Le mode \texttt{make demo} prépare un rejeu initial
+contrôle les modèles sélectionnés et leurs métadonnées. Le mode \texttt{make demo} prépare un rejeu initial
 dans une base temporaire. Le laboratoire complet démarre avec
-\texttt{make demo-sensor}. Ces modes alternatifs facilitent une démonstration
-maîtrisée. Les migrations sont appliquées avant le démarrage des services,
+\texttt{make demo-sensor}. Les migrations sont appliquées avant le démarrage des services,
 et les sondes de santé permettent de vérifier leur disponibilité.
 
 \clearpage
@@ -166,10 +166,9 @@ l'historique de qualification disponibles.
 \clearpage
 \subsection{Analyse des mod\`eles}
 
-La figure~\ref{fig:implementation-models} expose les artefacts actifs et leur
-protocole d'\'evaluation. Les mesures sont pr\'esent\'ees avec leur partage, leurs
-graines et leurs limites pour ne pas transformer un score interne au jeu de
-donn\'ees en promesse de d\'eploiement.
+La figure~\ref{fig:implementation-models} affiche les modèles actifs, les
+partitions d'évaluation et les graines utilisées. L'opérateur peut ainsi relier
+les scores affichés au protocole expérimental et aux versions servies.
 
 \begin{figure}[htbp]
   \centering
@@ -200,20 +199,23 @@ ingestion, rejeu, sant\'e des mod\`eles et Suricata. Les tests Vitest couvrent l
 adaptateurs et composants React. Les sc\'enarios Playwright exercent le parcours
 de bout en bout avec les services et les artefacts r\'eels. Les commandes
 \texttt{make test}, \texttt{make lint}, \texttt{make build} et
-\texttt{make project-preflight} constituent les portes de validation d\'eclar\'ees
+\texttt{make project-preflight} lancent les vérifications prévues
 par le d\'ep\^ot.
 
-Storybook complète cette validation par des interactions sur les composants
-isolés. Des contrôles comparent également les chiffres du support de soutenance
-au rapport d'évaluation promu. La répétition complète du 7 septembre 2026 a
-validé les dix parcours navigateur, le déploiement Docker temporaire et les
-trois scénarios de signature Suricata. Le carnet exécuté et son export HTML
-conservent les résultats de cette répétition ; ils attestent du fonctionnement
-mesuré, sans démontrer une efficacité sur un réseau externe.
+Storybook vérifie aussi des interactions sur les composants isolés. Des contrôles
+comparent les chiffres du support de soutenance au rapport d'évaluation.
+Le fichier \path{machine-learning/reports/generated/presentation-evidence.json}
+enregistre une répétition terminée le 7 septembre 2026 : les trois groupes de
+vérifications (projet, déploiement Docker temporaire et laboratoire Suricata)
+portent le statut \texttt{pass}. Le journal du projet rapporte dix parcours
+navigateur réussis; celui du laboratoire vérifie trois scénarios de signature.
+Ces résultats décrivent cette exécution locale. Ils ne mesurent pas la qualité
+de détection sur un réseau externe.
 
 \section{Conclusion}
 
-La r\'ealisation conserve une s\'eparation nette entre apprentissage, service,
-persistance et interface. Les m\'ecanismes de validation et de tra\c{c}abilit\'e
-rendent la d\'emonstration reproductible, sans supprimer les limites
-scientifiques et op\'erationnelles rappel\'ees dans la conclusion g\'en\'erale.
+Le prototype permet de soumettre une observation, d'enregistrer sa prédiction
+et d'examiner l'alerte correspondante. Les journaux de la répétition documentent
+le fonctionnement des parcours applicatifs et du laboratoire. Le chapitre
+suivant examine une autre question : les erreurs commises par les modèles sur
+les données de test.

@@ -16,7 +16,6 @@ flowchart LR
     Succeeded[Succeeded]
     DeadLetter[Dead letter]
     Finish((( )))
-    Refusal["Redrive refused<br/>Succeeded job, immutable-payload conflict,<br/>partial result, or ineligible permanent failure"]
 
     Start -->|"enqueue / initial transition"| Queued
     Queued -->|"claim [available] / lease; attempts++"| Processing
@@ -29,13 +28,10 @@ flowchart LR
 
     Processing -->|"permanent failure or budget exhausted / retain error"| DeadLetter
     DeadLetter -->|"manual redrive [authorized, eligible] / reset attempts"| Queued
-    DeadLetter -.-> Refusal
 
     classDef state fill:#f5faf7,stroke:#047857,color:#17211d,stroke-width:1.5px;
     classDef marker fill:#17211d,stroke:#17211d,color:#17211d;
     classDef finish fill:#ffffff,stroke:#17211d,color:#17211d,stroke-width:2px;
-    classDef note fill:#fff8d6,stroke:#b7924a,color:#17211d,stroke-width:1.25px;
     class Queued,Processing,Retrying,Succeeded,DeadLetter state;
     class Start marker;
     class Finish finish;
-    class Refusal note;

@@ -36,5 +36,3 @@ sequenceDiagram
             Worker->>Store: Commit retry or dead-letter transition
         end
     end
-
-    note over Worker,Store: Publication occurs only after the database transaction commits.

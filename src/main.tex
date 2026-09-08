@@ -63,6 +63,7 @@
 }
 
 % French document labels
+\renewcommand{\chaptername}{Chapitre}
 \renewcommand{\contentsname}{Table des mati\`eres}
 \renewcommand{\listfigurename}{Liste des figures}
 \renewcommand{\listtablename}{Liste des tableaux}
@@ -123,6 +124,8 @@
 \setlength{\parindent}{0.8cm}
 \setlength{\parskip}{6pt}
 \raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
 
 \input{frontmatter/remerciements}
 \input{frontmatter/resume}

@@ -47,6 +47,3 @@ classDiagram
     IngestionJob "1" *-- "1..*" IngestionJobTransition : audit trail
     IngestionJob ..> Observation : materializes after processing
     OutboxEvent ..> Observation : shares event identity
-
-    note for IngestionJob "The immutable payload hash enforces event-id idempotency."
-    note for OutboxEvent "Domain rows, success transition, and outbox events share one transaction."
