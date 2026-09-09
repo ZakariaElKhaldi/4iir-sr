@@ -2,7 +2,7 @@
 
 These files are editable diagram sources derived from the implemented repository:
 
-- `01-use-cases.mmd`: actors and supported system interactions;
+- `01-use-cases.puml`: authoritative UML use-case view, rendered with PlantUML 1.2025.2 and Graphviz; `01-use-cases.mmd` and `uscase_diagrame.svg` are legacy references;
 - `02-ingestion-sequence.mmd`: durable ingestion and publication sequence;
 - `03-domain-classes.mmd`: operational detection entities and multiplicities;
 - `03b-ingestion-classes.mmd`: durable-ingestion and outbox persistence model;
@@ -34,8 +34,7 @@ report.
 The report-facing sources are generated from the Mermaid files listed above,
 with one supplied vector exception:
 
-- `uscase_diagrame.svg` is the exact use-case artwork embedded by the report
-  after lossless vector conversion to PDF; and
+- `01-use-cases.puml` is rendered to SVG with PlantUML, then converted losslessly to PDF; and
 - the remaining report diagrams are rendered from their authoritative `.mmd`
   sources by Mermaid CLI 11.16.1.
 
@@ -52,7 +51,7 @@ They are rendered directly to fitted vector PDFs by the pinned Mermaid CLI
 11.16.1 container. ELK assigns layers, ports, and routing lanes together, so
 cyclic transitions remain separate without manual coordinates.
 The component diagram (`14-component-architecture.mmd`) uses the same ELK workflow. The
-retrospective timeline is drawn directly with `pgfgantt` in Chapter~1 so its
+retrospective timeline is drawn with TikZ in `05-project-timeline.tex` so its
 labels and weekly ticks follow the report typography. Its S1–S5 bands are
 indicative phases, not exact dates inferred from Git. Dashboard development
 overlaps research and continues through integration and interface refinement.
@@ -83,10 +82,13 @@ persisted data, not Python access modifiers. Public service operations retain
 `+`. Neither `+` nor `-` in a diagram establishes API authorization; the backend
 enforces authentication and access controls independently.
 
-Mermaid does not implement a native UML use-case diagram. Consequently,
-`01-use-cases.mmd` is a carefully styled approximation for Mermaid-only workflows,
-and `01-use-cases.puml` remains an editable UML alternative. The report itself
-uses `uscase_diagrame.svg` exactly as supplied.
+The report uses the PlantUML source `01-use-cases.puml`, not the legacy Mermaid,
+SVG or TikZ use-case drawings. Human actors use stick figures; external system
+actors use classifier rectangles marked `actor`. Solid associations have no
+arrowheads. Dashed `include` arrows point to required behavior; the conditional
+`extend` arrow points from recording a disposition to investigating an alert,
+whose extension point is named explicitly. A valid session remains a precondition
+of protected operator use cases. Diagram labels are in English.
 
 ## Reproducible report render
 
@@ -98,9 +100,9 @@ run:
 make report-diagrams
 ```
 
-The command validates the Mermaid source, converts `uscase_diagrame.svg`
-directly to vector PDF with `rsvg-convert`, and renders the activity PDF with
-the pinned official Mermaid CLI container. Override `MERMAID_IMAGE` only when
+The command renders the use-case source with `plantuml/plantuml:1.2025.2`,
+converts the SVG to vector PDF with `rsvg-convert`, and renders Mermaid sources with
+the pinned official Mermaid CLI container. Override `PLANTUML_IMAGE` or `MERMAID_IMAGE` only when
 intentionally testing a renderer upgrade; committed outputs must use the pinned
 default in `render-report-diagrams.sh`.
 

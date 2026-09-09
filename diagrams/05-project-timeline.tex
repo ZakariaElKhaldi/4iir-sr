@@ -5,7 +5,7 @@
   bar/.style={rounded corners=2pt,draw=none}]
   \fill[WarmIvory,rounded corners=3pt] (0,0.5) rectangle (15,-5.5);
   \fill[PremiumEmerald,rounded corners=3pt] (0,0.5) rectangle (15,-0.25);
-  \node[anchor=west,font=\small\bfseries,text=white] at (0.25,0.12) {Phases du projet};
+  \node[anchor=west,font=\small\bfseries,text=white] at (0.25,0.12) {Project phases};
   \foreach \week in {1,...,5} {
     \node[font=\small\bfseries,text=white] at ({5.1+1.8*(\week-0.5)},0.12) {S\week};
   }
@@ -15,12 +15,12 @@
   \foreach \col in {0,...,5} {
     \draw[SoftRule,line width=0.4pt] ({5.1+1.8*\col},-0.4) -- ({5.1+1.8*\col},-5.2);
   }
-  \node[phase] at (0.25,-0.8) {Recherche et essais};
-  \node[phase,font=\small\bfseries,text=PremiumEmerald] at (0.25,-1.6) {Tableau de bord};
-  \node[phase] at (0.25,-2.4) {Int\'egration API et mod\`eles};
-  \node[phase] at (0.25,-3.2) {Ingestion et s\'ecurit\'e};
-  \node[phase] at (0.25,-4.0) {Ergonomie et supervision};
-  \node[phase] at (0.25,-4.8) {Laboratoire et validation};
+  \node[phase] at (0.25,-0.8) {Research and experiments};
+  \node[phase,font=\small\bfseries,text=PremiumEmerald] at (0.25,-1.6) {Dashboard development};
+  \node[phase] at (0.25,-2.4) {API and model integration};
+  \node[phase] at (0.25,-3.2) {Ingestion and security};
+  \node[phase] at (0.25,-4.0) {UX and monitoring};
+  \node[phase] at (0.25,-4.8) {Network lab and validation};
   \fill[bar,Emerald!65] (5.18,-1.00) rectangle (10.42,-0.60);
   \fill[bar,PremiumEmerald] (6.98,-1.80) rectangle (14.02,-1.40);
   \fill[bar,Emerald!80] (6.98,-2.60) rectangle (12.22,-2.20);

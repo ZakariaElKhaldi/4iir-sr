@@ -39,10 +39,10 @@ publiques des services.
   \label{fig:model-health-classes}
 \end{figure}
 
-Les entit\'es persistantes portent les donn\'ees et leurs associations. Les
-op\'erations sont volontairement regroup\'ees dans les services qui ex\'ecutent
-les transactions et les r\`egles m\'etier. La figure~\ref{fig:service-operations}
-présente leurs principales opérations publiques.
+Les classes décrivent les données enregistrées et les liens entre elles.
+Les services prennent en charge les traitements : accepter une observation,
+exécuter une prédiction ou enregistrer la qualification d'une alerte.
+La figure~\ref{fig:service-operations} présente leurs principales opérations.
 
 \clearpage
 \begin{figure}[htbp]
@@ -56,10 +56,12 @@ présente leurs principales opérations publiques.
 \clearpage
 \section{Architecture de l'application}
 
-La figure~\ref{fig:component-architecture} situe l'interface, les services de
-l'API, la cascade et la base de données. La file de traitement et l'outbox
-utilisent cette base. L'outbox est une table de messages à publier, écrits dans
-la même transaction que les résultats auxquels ils se rapportent.
+L'interface communique avec l'API, qui donne accès aux modèles et aux données
+enregistrées (figure~\ref{fig:component-architecture}). La base conserve aussi
+les observations en attente de traitement et les messages à diffuser. Ces
+derniers sont placés dans une table appelée \emph{outbox}, au sein de la même
+transaction que les résultats concernés. Une interruption de la diffusion
+n'efface donc pas les messages restant à envoyer.
 
 \begin{figure}[!htbp]
   \centering
@@ -104,9 +106,10 @@ choix et les étapes de l'investigation.
 
 \subsection{Communication pendant l'investigation}
 
-La figure~\ref{fig:alert-communication} montre les objets sollicités pendant
-l'examen d'une alerte. Les numéros donnent l'ordre des messages, de la demande
-de détail à l'enregistrement de la qualification.
+Lorsqu'un analyste ouvre une alerte, l'interface demande ses détails à l'API,
+qui les récupère en base. Si l'analyste confirme une qualification, une
+nouvelle requête enregistre sa décision. La figure~\ref{fig:alert-communication}
+numérote ces échanges pour en montrer l'ordre.
 
 \begin{figure}[!htbp]
   \centering
@@ -117,11 +120,13 @@ de détail à l'enregistrement de la qualification.
 
 \subsection{Ingestion durable des observations}
 
-La figure~\ref{fig:ingestion-sequence} s\'epare l'acceptation HTTP, le traitement
-asynchrone et la diffusion temps r\'eel assurée par le répartiteur d'outbox. Les transactions rendent visibles les
-fronti\`eres d'atomicit\'e, tandis que les fragments alternatifs explicitent le
-rejet, la r\'eussite et la reprise apr\`es erreur. Le cycle de vie persistant
-correspondant est synth\'etis\'e par la figure~\ref{fig:ingestion-states}.
+L'acceptation d'une observation et sa classification se déroulent en deux
+temps. L'API enregistre d'abord le travail à effectuer; un processus séparé
+prend ensuite en charge la prédiction. Les résultats sont enregistrés ensemble
+avant leur diffusion aux clients connectés. La
+figure~\ref{fig:ingestion-sequence} montre également les cas de rejet et de
+reprise après erreur. La figure~\ref{fig:ingestion-states} détaille les états
+successifs du travail en file.
 
 \begin{figure}[!htbp]
   \centering
@@ -155,10 +160,11 @@ transaction avant de répondre au client
 \clearpage
 \subsection{Investigation des alertes}
 
-L'investigation d'une alerte est d\'etaill\'ee dans la
-figure~\ref{fig:alert-investigation}. Elle relie la consultation des preuves à
-la d\'ecision de l'analyste et conserve une trace de l'interpr\'etation humaine
-du r\'esultat automatique.
+L'analyste consulte l'observation à l'origine de l'alerte, son modèle ou sa
+signature, puis les explications disponibles. Il peut ensuite enregistrer une
+qualification accompagnée d'une justification. Cette décision est ajoutée à
+l'historique avec son identité, sans remplacer le résultat initial
+(figure~\ref{fig:alert-investigation}).
 
 \begin{figure}[htbp]
   \centering
@@ -170,9 +176,11 @@ du r\'esultat automatique.
 \clearpage
 \subsection{Surveillance de la sant\'e des mod\`eles}
 
-Le parcours de la figure~\ref{fig:model-health-sequence} rassemble les mesures
-n\'ecessaires à l'examen d'un mod\`ele en service et à la restitution de son
-\'etat dans l'interface d'administration.
+Le suivi des modèles compare périodiquement les observations disponibles aux
+données de référence du modèle. Les indicateurs calculés sont enregistrés
+avec leur périmètre et leur période de mesure, puis rendus consultables dans
+l'interface (figure~\ref{fig:model-health-sequence}). Ce suivi fonctionne en
+mode d'observation : il ne déclenche pas de réentraînement automatique.
 
 \begin{figure}[htbp]
   \centering

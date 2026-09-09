@@ -12,21 +12,30 @@ utilisés pour examiner les résultats.
 
 \subsection{Environnement mat\'eriel}
 
-Le relevé d'exécution du 7 septembre 2026 indique un hôte Linux d'architecture
-x86\_64. Il ne précise ni le processeur ni la mémoire disponible. Ces
-informations manquent pour reproduire les mesures de performance dans des
-conditions matérielles identiques. Les fichiers de verrouillage et les images
-Docker référencées par empreinte fixent, quant à eux, les dépendances logicielles.
+La station sur laquelle le projet est disponible dispose d'un processeur
+Intel Core i5-10400F à six cœurs et douze fils d'exécution, avec environ
+16~Go de mémoire vive, sous Arch Linux 64 bits. Cette configuration a été
+relevée le 9 septembre 2026. Le code d'apprentissage utilise des modèles
+Scikit-learn exécutés sur le processeur et ne requiert pas de GPU.
+
+Ce relevé décrit le poste actuel. Les caractéristiques de la machine n'ayant
+pas été enregistrées avec les mesures de latence, il ne permet pas à lui seul
+de reconstituer les conditions matérielles de ces mesures.
 
 \subsection{Environnement logiciel}
 
-Le relevé d'exécution rapporte
-\texttt{Linux-7.1.9-arch1-2-x86\_64-with-glibc2.44}, Python 3.12.13 et
-Node.js 26.8.0. Il ne nomme pas séparément la distribution de l'hôte.
-Les dépendances applicatives sont gérées avec \texttt{uv} et \texttt{npm}.
-Le tableau~\ref{tab:software-environment} présente les outils du projet et leur
-rôle dans le développement ou l'exécution.
+Neovim (\texttt{nvim}) a servi à l'édition du code. Le carnet Jupyter regroupe
+l'exploration du jeu de données et les comparaisons des modèles. Les
+environnements Python sont gérés avec \texttt{uv}, tandis que \texttt{npm}
+installe les dépendances de l'interface React et lance ses tests. Docker
+Compose réunit les services pour les essais d'intégration et les
+démonstrations.
 
+Le relev\'e du 7 septembre 2026 enregistre Python 3.12.13, Node.js 26.8.0 et le
+noyau \texttt{Linux 7.1.9-arch1-2}. Le tableau~\ref{tab:software-environment}
+r\'esume les autres outils mobilis\'es et la place qu'ils occupent dans le projet.
+
+\clearpage
 \begingroup
 \small
 \renewcommand{\arraystretch}{1.16}
@@ -37,12 +46,13 @@ rôle dans le développement ou l'exécution.
   \endfirsthead
   \rowcolor{PremiumEmerald}\color{white}\bfseries Usage & \color{white}\bfseries Outils & \color{white}\bfseries Rôle \\
   \endhead
-  Poste & Linux x86\_64 & Environnement hôte relevé lors de l'exécution du 7 septembre 2026. \\
+  Poste & Arch Linux x86\_64 & Système de la station actuelle. \\
+  \'Edition & Neovim (nvim) & \'Edition du code source. \\
   Commandes & Make et scripts Bash & Exécution des tâches et des scripts d'automatisation du dépôt. \\
   Automatisation & Make, Git, GitHub Actions & Commandes communes, historique des modifications et validation continue. \\
   Dépendances & Python 3.12, uv, Node.js, npm & Environnements Python et JavaScript, dépendances et fichiers de verrouillage. \\
   Calcul et ML & NumPy, pandas, SciPy, scikit-learn, joblib, SHAP & Préparation des données, entraînement, sérialisation et explication des modèles. \\
-  Analyse & Jupyter, Matplotlib, nbconvert & Exploration, graphiques scientifiques et export des carnets en HTML. \\
+  Analyse & Jupyter & Exploration des donn\'ees et analyse interactive des r\'esultats. \\
   API & FastAPI, Pydantic, Uvicorn & Validation des entrées et service des routes HTTP et WebSocket. \\
   Données & SQLAlchemy, Alembic, SQLite, PostgreSQL 17 & Accès aux données, migrations, transactions et file persistante. \\
   Interface & TypeScript, React 19, Vite & Composants, typage, serveur de développement et compilation de l'interface. \\
@@ -51,7 +61,7 @@ rôle dans le développement ou l'exécution.
   Déploiement & Docker Engine, Docker Compose, NGINX & Construction des images, orchestration locale et passerelle web. \\
   Réseau & Suricata, Mosquitto, NFStream & Signatures sur paquets, trafic MQTT du laboratoire et extraction PCAP hors ligne. \\
   Sécurité et suivi & Argon2id/pwdlib, PyJWT, OpenSSL, client Prometheus & Hachage, jetons, génération des secrets et exposition des métriques. \\
-  Rapport & LaTeX, latexmk, Mermaid CLI, librsvg & Composition du document et rendu vectoriel des diagrammes. \\
+  Rapport & LaTeX, latexmk, PlantUML, Graphviz, Mermaid CLI, librsvg & Composition du document et rendu vectoriel des diagrammes. \\
   \bottomrule
 \end{longtable}
 \rowcolors{2}{}{}
@@ -59,32 +69,37 @@ rôle dans le développement ou l'exécution.
 
 \section{Organisation de la r\'ealisation}
 
+Le code est réparti entre l'apprentissage, le backend et le frontend. Cette
+organisation permet de modifier les traitements ou les écrans séparément,
+tant que le format des données échangées reste compatible.
+
 \begin{description}
-  \item[Machine learning.] Le paquet \texttt{iot\_ids\_ml} s\'epare sch\'ema,
-  pr\'eparation, entra\^inement, \'evaluation, promotion et validation des
-  artefacts. Le manifeste de production lie mod\`eles, m\'etadonn\'ees et rapport
-  par sommes de contr\^ole.
+  \item[Apprentissage automatique.] Le paquet \texttt{iot\_ids\_ml} prépare
+  les données, entraîne les modèles et compare leurs résultats. Les modèles
+  retenus sont enregistrés avec un manifeste qui contient les empreintes des
+  fichiers et les références du rapport d'évaluation.
 
-  \item[Backend.] L'application FastAPI s\'epare routes, validation des
-  caract\'eristiques, registre de mod\`eles, inf\'erence, ingestion, surveillance
-  et persistance. Le traitement durable associe une bo\^ite de r\'eception, un
-  historique de transitions alimenté par l'API et une outbox transactionnelle.
+  \item[Backend.] L'application FastAPI reçoit les observations, vérifie
+  leur format et donne accès aux prédictions et aux alertes. Les travaux en
+  attente et leur historique sont conservés en base afin de reprendre un
+  traitement interrompu. L'outbox conserve les messages à diffuser après
+  l'enregistrement des résultats.
 
-  \item[Frontend.] L'application React est organis\'ee par espaces fonctionnels:
-  supervision, alertes, mod\`eles, laboratoire d'observations et topologie. Les
-  adaptateurs de \texttt{api.ts} conservent la s\'eparation entre contrats r\'eseau
-  et composants visuels.
+  \item[Frontend.] L'application React propose des espaces consacrés à la
+  supervision, aux alertes, aux modèles, aux observations et à la topologie.
+  Le module \texttt{api.ts} centralise les échanges avec le serveur pour que
+  les composants se concentrent sur l'affichage et les actions de l'utilisateur.
 \end{description}
 
 \section{Principaux choix d'impl\'ementation}
 
 \subsection{Du modèle entraîné à la prédiction servie}
 
-La cascade ex\'ecute toujours le d\'etecteur binaire. Le classifieur de famille
-n'est appel\'e que si le premier \'etage retourne une attaque; cette d\'ependance
-est conserv\'ee dans les versions et les mesures retourn\'ees. Le registre refuse
-un artefact dont le sch\'ema, l'ordre des variables ou les sommes de contr\^ole ne
-correspondent pas au manifeste actif.
+Pour chaque observation, le détecteur décide d'abord si le flux est normal
+ou suspect. Seuls les flux classés comme attaques passent au classifieur de
+familles. Avant d'utiliser les modèles, le registre vérifie leur schéma,
+l'ordre des variables et les empreintes des fichiers. Un fichier incompatible
+avec le manifeste actif est refusé.
 
 Le même ordre de 83 variables est contrôlé à l'entraînement et à l'inférence.
 Le rejeu permet d'exercer cette chaîne avec les données enregistrées sans
@@ -115,10 +130,11 @@ la route de modèle active; le motif et la nouvelle transition sont conservés.
 
 \subsection{Interface, contrôle d'accès et provenance}
 
-L'interface conserve trois port\'ees distinctes: les agr\'egats persist\'es du
-tableau de bord, la page d'alertes charg\'ee et les \'ev\'enements re\c{c}us pendant
-la session. Cette distinction \'evite de pr\'esenter une activit\'e locale du
-navigateur comme une mesure historique globale.
+Les indicateurs de l'interface ne portent pas tous sur les mêmes données.
+Certains résument l'historique enregistré en base, d'autres concernent les
+alertes chargées ou les événements reçus depuis l'ouverture du navigateur.
+Leur périmètre est indiqué pour que ces valeurs puissent être interprétées
+correctement.
 
 La session opérateur utilise un jeton à durée limitée ; l'interface traite
 son expiration et les refus de l'API. L'identité associée à une qualification
@@ -133,22 +149,25 @@ RT-IoT2022. NFStream reste une voie d'extraction PCAP hors ligne distincte.
 
 \subsection{Exécution reproductible}
 
-\texttt{make setup} prépare les dépendances ; \texttt{make verify-model}
-contrôle les modèles sélectionnés et leurs métadonnées. Le mode \texttt{make demo}
-crée une base SQLite temporaire puis lance, par l'API de rejeu, le même nombre
-configurable d'observations normales et d'attaque. Le laboratoire complet démarre avec
-\texttt{make demo-sensor}. Les migrations sont appliquées avant le démarrage des services,
-et les sondes de santé permettent de vérifier leur disponibilité.
+Pour retrouver rapidement un environnement coh\'erent, les commandes courantes
+ont \'et\'e regroup\'ees dans le Makefile. \texttt{make setup} installe les
+d\'ependances et \texttt{make verify-model} contr\^ole que les mod\`eles charg\'es
+correspondent bien à leur manifeste. La commande \texttt{make demo} crée une
+base SQLite temporaire, puis lance par l'API le rejeu d'un nombre configurable
+d'observations normales et d'attaque en proportions égales.
+\texttt{make demo-sensor} démarre un environnement complet distinct, comprenant
+le laboratoire Suricata. Les scripts appliquent les migrations et vérifient
+la disponibilité des services au démarrage.
 
 \clearpage
 \section{Principales interfaces graphiques}
 
 \subsection{Supervision op\'erationnelle}
 
-La figure~\ref{fig:implementation-monitoring} regroupe l'\'etat de la cha\^ine de
-service, la progression du rejeu et les indicateurs d'ingestion. Les valeurs
-sont associ\'ees à leur port\'ee afin de distinguer historique persist\'e et
-activit\'e de la session.
+L'écran de supervision permet de vérifier la disponibilité des services,
+de suivre un rejeu et de repérer les travaux d'ingestion en attente ou en
+échec. Les indicateurs distinguent les résultats enregistrés des événements
+reçus pendant la session (figure~\ref{fig:implementation-monitoring}).
 
 \begin{figure}[htbp]
   \centering
@@ -160,10 +179,10 @@ activit\'e de la session.
 \clearpage
 \subsection{Investigation des alertes}
 
-La figure~\ref{fig:implementation-alerts} pr\'esente la file filtrable et le
-point d'entr\'ee de l'investigation. Le d\'etail distingue l'origine ML de
-l'origine Suricata et conserve la provenance, les scores, les versions et
-l'historique de qualification disponibles.
+L'opérateur filtre la liste des alertes, puis ouvre celle qu'il souhaite
+examiner. Le détail indique si le signalement provient d'un modèle ou de
+Suricata et présente les scores, les versions et les qualifications
+disponibles (figure~\ref{fig:implementation-alerts}).
 
 \begin{figure}[htbp]
   \centering
@@ -175,9 +194,10 @@ l'historique de qualification disponibles.
 \clearpage
 \subsection{Analyse des mod\`eles}
 
-La figure~\ref{fig:implementation-models} affiche les modèles actifs, les
-partitions d'évaluation et les graines utilisées. L'opérateur peut ainsi relier
-les scores affichés au protocole expérimental et aux versions servies.
+L'écran d'analyse rassemble les résultats d'évaluation des modèles actifs.
+Les partitions et les graines y sont précisées pour permettre à l'opérateur
+de retrouver les conditions du calcul des scores
+(figure~\ref{fig:implementation-models}).
 
 \begin{figure}[htbp]
   \centering
@@ -189,9 +209,10 @@ les scores affichés au protocole expérimental et aux versions servies.
 \clearpage
 \subsection{Laboratoire d'observations}
 
-La figure~\ref{fig:implementation-lab} permet de contr\^oler une observation ou
-un petit lot avant soumission. La validation locale fournit un retour pr\'ecis,
-mais l'API authentifi\'ee reste l'autorit\'e finale pour l'acceptation.
+Le laboratoire d'observations permet de préparer une observation ou un petit
+lot, puis d'en vérifier le format avant l'envoi. Les erreurs détectées sont
+affichées pour faciliter la correction. L'API effectue ensuite ses propres
+contrôles avant d'accepter les données (figure~\ref{fig:implementation-lab}).
 
 \begin{figure}[htbp]
   \centering
@@ -202,17 +223,16 @@ mais l'API authentifi\'ee reste l'autorit\'e finale pour l'acceptation.
 
 \section{Validation technique}
 
-La validation automatis\'ee couvre plusieurs niveaux. Les tests Python
-contr\^olent pr\'eparation, sch\'emas, promotion, registre, API, persistance,
-ingestion, rejeu, sant\'e des mod\`eles et Suricata. Les tests Vitest couvrent les
-adaptateurs et composants React. Les sc\'enarios Playwright exercent le parcours
-de bout en bout avec les services et les artefacts r\'eels. Les commandes
-\texttt{make test}, \texttt{make lint}, \texttt{make build} et
-\texttt{make project-preflight} lancent les vérifications prévues
-par le d\'ep\^ot.
+La validation combine des tests des traitements individuels et des essais
+de l'application complète. Les tests Python couvrent la préparation des données,
+les mod\`eles, l'API, la persistance et l'ingestion. Vitest contr\^ole les
+adaptateurs et les composants React, tandis que Playwright reproduit dans un
+navigateur les actions principales d'un op\'erateur. Les commandes \texttt{make
+test}, \texttt{make lint}, \texttt{make build} et \texttt{make
+project-preflight} rassemblent ces contr\^oles avant une d\'emonstration.
 
-Storybook vérifie aussi des interactions sur les composants isolés. Des contrôles
-comparent les chiffres du support de soutenance au rapport d'évaluation.
+Les tests Storybook exercent les interactions des composants isolés. D'autres
+contrôles comparent les chiffres du support de soutenance au rapport d'évaluation.
 Le fichier \path{machine-learning/reports/generated/presentation-evidence.json}
 enregistre une répétition terminée le 7 septembre 2026 : les trois groupes de
 vérifications (projet, déploiement Docker temporaire et laboratoire Suricata)
@@ -220,6 +240,45 @@ portent le statut \texttt{pass}. Le journal du projet rapporte dix parcours
 navigateur réussis; celui du laboratoire vérifie trois scénarios de signature.
 Ces résultats décrivent cette exécution locale. Ils ne mesurent pas la qualité
 de détection sur un réseau externe.
+
+\clearpage
+\section{Difficultés rencontrées et solutions apportées}
+
+Trois difficultés ont particulièrement marqué le travail : comprendre les
+données, fixer une limite aux expérimentations et rendre le tableau de bord
+facile à lire.
+
+\subsection{Comprendre les caractéristiques du jeu de données}
+
+Au début du projet, la principale difficulté était de comprendre ce que
+représentaient les variables de RT-IoT2022. Il était possible de lancer un
+entraînement sans pour autant savoir interpréter une durée de flux, un compteur
+de paquets ou une mesure calculée dans un sens de communication. L'étude de la
+description du jeu de données et l'exploration dans Jupyter ont aidé à relier
+ces caractéristiques au trafic observé. L'examen des distributions, des valeurs
+égales à zéro et des doublons a également permis de mieux comprendre les données avant
+de comparer les modèles.
+
+\subsection{Savoir quand passer des essais à l'application}
+
+La comparaison des modèles pouvait facilement se prolonger : chaque résultat
+donnait envie d'essayer un autre réglage. Il fallait pourtant avancer sur
+l'application. Le protocole présenté au chapitre~\ref{chap:resultats} a donné
+un cadre à cette étape : comparer quatre familles sur les mêmes partitions,
+retenir les modèles selon leur macro-F1 de validation et réserver le test à
+l'évaluation finale. Cette règle a permis de fixer une version de référence
+pour l'intégration, tout en conservant les autres essais pour l'analyse.
+
+\subsection{Rendre le tableau de bord compréhensible}
+
+Les premières versions du tableau de bord affichaient beaucoup de chiffres,
+mais il n'était pas évident de savoir lesquels regarder en premier. La mise en
+page a donc été reprise plusieurs fois. Les vues actuelles séparent la
+supervision, l'investigation des alertes et l'analyse des modèles. Cette
+organisation permet de commencer par une vue d'ensemble, puis de consulter les
+détails utiles à une question précise. Le travail sur les libellés et sur la
+distinction entre historique enregistré et activité de la session a également
+aidé à clarifier la lecture des indicateurs.
 
 \section{Conclusion}
 

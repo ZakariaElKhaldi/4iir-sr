@@ -59,10 +59,11 @@ attendu en cas d'erreur ou de nouvelle soumission.
 
 \section{Pr\'esentation des cas d'utilisation}
 
-Les cas d'utilisation relient les objectifs des acteurs aux fonctions du
-prototype. Le diagramme global donne la vue d'ensemble; les descriptions
-textuelles suivantes sont limitées aux parcours qui comportent des validations,
-des alternatives ou des effets persistants.
+Les cas d'utilisation distinguent les actions de l'opérateur des échanges
+avec les producteurs de données. Quatre parcours sont détaillés : soumettre
+des flux, transmettre des événements Suricata, contrôler un rejeu et examiner
+une alerte. Pour chacun, la description précise les conditions d'accès, les
+données enregistrées et les situations d'échec.
 
 \section{Pr\'esentation des acteurs}
 
@@ -76,16 +77,17 @@ fonctions de l'application.
 \section{Diagramme global des cas d'utilisation}
 
 La figure~\ref{fig:use-cases} relie chaque objectif à l'acteur qui le d\'eclenche.
-Les parcours op\'erateur prot\'eg\'es incluent l'authentification; le capteur Suricata
+L'authentification est une pr\'econdition des parcours op\'erateur prot\'eg\'es;
+le capteur Suricata
 utilise pour sa part une identit\'e machine distincte.
+L'examen d'une alerte inclut la consultation de ses preuves. L'enregistrement
+d'une qualification constitue une extension facultative, au point de d\'ecision
+de l'analyste. Les deux parcours de soumission incluent la validation des
+donn\'ees entrantes.
 
 \begin{center}
   \centering
-  \includegraphics[
-    width=\textwidth,
-    height=.50\textheight,
-    keepaspectratio
-  ]{../diagrams/rendered/01-use-cases.pdf}
+  \includegraphics[width=\textwidth,height=.70\textheight,keepaspectratio]{../diagrams/rendered/01-use-cases.pdf}
   \captionsetup{hypcap=false}
   \captionof{figure}{Cas d'utilisation du syst\`eme de d\'etection}
   \label{fig:use-cases}
@@ -108,8 +110,8 @@ diagramme global.
   \UCRow{Acteur}{Producteur externe ou agent capteur utilisant le contrat d'observation autoris\'e.}
   \UCRow{Objectif}{Soumettre d'une à mille observations canoniques à la file durable.}
   \UCRow{Pr\'econditions}{Jeton autoris\'e; sch\'ema et version reconnus; identifiant d'\'ev\'enement fourni.}
-  \UCRow{Postconditions}{Chaque nouvelle observation accept\'ee poss\`ede un travail en file et une transition initiale; un doublon identique reste idempotent.}
-  \UCRow{Sc\'enario nominal}{1. Le producteur envoie JSON ou NDJSON. 2. L'API valide la requ\^ete enti\`ere. 3. Elle contr\^ole identit\'es et capacit\'e. 4. Elle ins\`ere les travaux dans une transaction. 5. Elle retourne le re\c{c}u du lot.}
+  \UCRow{Postconditions}{Chaque nouvelle observation acceptée est enregistrée dans la file avec son état initial; une soumission identique ne crée pas de second travail.}
+  \UCRow{Sc\'enario nominal}{1. Le producteur envoie un lot JSON ou NDJSON. 2. L'API valide l'ensemble du lot. 3. Elle contrôle les identifiants et la capacité disponible. 4. Elle enregistre les travaux dans une transaction. 5. Elle retourne le reçu du lot.}
   \UCRow{Alternatives}{Requ\^ete invalide: aucun travail stock\'e. M\^eme identifiant avec contenu diff\'erent: conflit. File satur\'ee: refus temporaire avec indication de reprise.}
   \bottomrule
 \end{longtable}
@@ -163,5 +165,5 @@ diagramme global.
 
 Trois comportements structurent la conception : une soumission répétée doit
 rester sans doublon, une alerte doit garder sa provenance et une qualification
-doit être associée à l'opérateur authentifié. Les tables et les transactions du
-chapitre suivant précisent comment le système applique ces règles.
+doit être associée à l'opérateur authentifié. Le chapitre suivant décrit les
+classes, les composants et les échanges nécessaires pour respecter ces exigences.

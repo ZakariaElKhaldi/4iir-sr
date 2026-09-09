@@ -2,32 +2,52 @@
 left to right direction
 skinparam shadowing false
 skinparam packageStyle rectangle
+skinparam backgroundColor white
+skinparam defaultFontName "DejaVu Sans"
+skinparam defaultFontSize 14
+skinparam ArrowColor #52605A
+skinparam ArrowThickness 1
+skinparam nodesep 35
+skinparam ranksep 55
+skinparam actorBorderColor #064E3B
+skinparam actorFontColor #17211D
+skinparam rectangleBorderColor #064E3B
+skinparam rectangleBackgroundColor #FAF8F1
+skinparam rectangleFontColor #064E3B
 skinparam usecase {
-  BackgroundColor #F2FBF7
-  BorderColor #13795B
-  ArrowColor #0F5132
+  BackgroundColor #F5FAF7
+  BorderColor #047857
+  FontColor #17211D
 }
 
-actor Administrator as Admin
-actor "External IoT system\nor sensor agent" as External
+actor "Security analyst /\nAdministrator" as Admin
+rectangle "Flow producer" as Producer <<actor>>
+rectangle "Suricata sensor agent" as Sensor <<actor>>
 
-rectangle "IoT IDS prototype" {
-  usecase "Authenticate" as UCAuth
-  usecase "Submit canonical\nflow observations" as UCFlows
-  usecase "Submit Suricata\nsensor events" as UCSensor
-  usecase "Control dataset replay" as UCReplay
-  usecase "Investigate alerts" as UCInvestigate
-  usecase "Record analyst\ndisposition" as UCFeedback
-  usecase "Review system and\nmodel health" as UCHealth
+rectangle "IoT Intrusion Detection System" {
+  usecase "Sign in" as UCAuth
+  usecase "UC-04\nControl dataset replay" as UCReplay
+  usecase "UC-05\nInvestigate an alert\n--\nextension points\nDisposition decision" as UCInvestigate
+  usecase "Review alert evidence" as UCEvidence
+  usecase "Record analyst disposition" as UCFeedback
+  usecase "Review model results" as UCModels
+  usecase "Monitor system and\nmodel health" as UCHealth
+  usecase "UC-02\nSubmit flow observations" as UCFlows
+  usecase "UC-03\nSubmit Suricata events" as UCSensor
+  usecase "Validate incoming data" as UCValidate
 }
 
 Admin -- UCAuth
 Admin -- UCReplay
 Admin -- UCInvestigate
-Admin -- UCFeedback
+Admin -- UCModels
 Admin -- UCHealth
-External -- UCFlows
-External -- UCSensor
-UCFeedback ..> UCInvestigate : <<extend>>\n[disposition recorded]
+Producer -- UCFlows
+Sensor -- UCSensor
+UCInvestigate ..> UCEvidence : <<include>>
+UCFeedback .[norank].> UCInvestigate : <<extend>>\n[analyst chooses to qualify]
+UCInvestigate -[hidden]-> UCFeedback
+UCFlows ..> UCValidate : <<include>>
+UCSensor ..> UCValidate : <<include>>
 
 @enduml

@@ -50,11 +50,11 @@
 \contentsline {section}{\numberline {4.2}Environnement de d\'eveloppement}{28}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Environnement mat\'eriel}{28}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Environnement logiciel}{28}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Organisation de la r\'ealisation}{29}{section.4.3}%
+\contentsline {section}{\numberline {4.3}Organisation de la r\'ealisation}{30}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Principaux choix d'impl\'ementation}{30}{section.4.4}%
 \contentsline {subsection}{\numberline {4.4.1}Du modèle entraîné à la prédiction servie}{30}{subsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.4.2}Ingestion durable et traitement des erreurs}{30}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Interface, contrôle d'accès et provenance}{30}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.3}Interface, contrôle d'accès et provenance}{31}{subsection.4.4.3}%
 \contentsline {subsection}{\numberline {4.4.4}Exécution reproductible}{31}{subsection.4.4.4}%
 \contentsline {section}{\numberline {4.5}Principales interfaces graphiques}{32}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}Supervision op\'erationnelle}{32}{subsection.4.5.1}%
@@ -62,7 +62,11 @@
 \contentsline {subsection}{\numberline {4.5.3}Analyse des mod\`eles}{34}{subsection.4.5.3}%
 \contentsline {subsection}{\numberline {4.5.4}Laboratoire d'observations}{35}{subsection.4.5.4}%
 \contentsline {section}{\numberline {4.6}Validation technique}{35}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Conclusion}{36}{section.4.7}%
+\contentsline {section}{\numberline {4.7}Difficultés rencontrées et solutions apportées}{36}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Comprendre les caractéristiques du jeu de données}{36}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Savoir quand passer des essais à l'application}{36}{subsection.4.7.2}%
+\contentsline {subsection}{\numberline {4.7.3}Rendre le tableau de bord compréhensible}{36}{subsection.4.7.3}%
+\contentsline {section}{\numberline {4.8}Conclusion}{36}{section.4.8}%
 \contentsline {chapter}{\numberline {5}R\'esultats exp\'erimentaux}{37}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Données et fichiers de référence}{37}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Qualit\'e, nettoyage et d\'es\'equilibre}{37}{section.5.2}%

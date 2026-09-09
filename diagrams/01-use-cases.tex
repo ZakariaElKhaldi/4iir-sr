@@ -1,0 +1,46 @@
+% Report-native UML overview. Actor associations are undirected.
+\begingroup
+\singlespacing
+\begin{tikzpicture}[x=1cm,y=1.15cm,
+  usecase/.style={ellipse,draw=Emerald,fill=EmeraldWash,line width=.8pt,
+    minimum width=6.1cm,minimum height=.9cm,text width=4.3cm,align=center,
+    font=\fontsize{10.5}{11.5}\selectfont,
+    text=Charcoal,inner sep=2pt},
+  machine/.style={rectangle,draw=Emerald,line width=.8pt,fill=WarmIvory,
+    text width=2.5cm,minimum height=1cm,align=center,font=\fontsize{10}{11}\selectfont,
+    text=Charcoal,inner sep=4pt},
+  association/.style={draw=MutedInk,line width=.7pt}]
+  \draw[PremiumEmerald,line width=1pt,fill=white] (3.6,0) rectangle (11.1,-9.5);
+  \fill[PremiumEmerald] (3.6,0) rectangle (11.1,-.7);
+  \node[text=white,font=\small\bfseries] at (7.35,-.35)
+    {Syst\`eme de d\'etection d'intrusions IoT};
+
+  \node[usecase] (auth) at (7.35,-1.4) {S'authentifier};
+  \node[usecase] (replay) at (7.35,-2.6) {UC-04 --- Contr\^oler le rejeu};
+  \node[usecase] (alerts) at (7.35,-3.8) {UC-05 --- Examiner\\et qualifier une alerte};
+  \node[usecase] (evidence) at (7.35,-5.0) {Consulter les r\'esultats\\des mod\`eles};
+  \node[usecase] (health) at (7.35,-6.2) {Superviser le syst\`eme\\et les mod\`eles};
+  \node[usecase] (flows) at (7.35,-7.4) {UC-02 --- Soumettre\\des observations de flux};
+  \node[usecase] (sensor) at (7.35,-8.6) {UC-03 --- Transmettre\\les alertes Suricata};
+
+  % Human actor: head, torso, arms and legs, with associations from the torso.
+  \draw[Charcoal,line width=.9pt] (1.2,-2.95) circle (.18);
+  \draw[Charcoal,line width=.9pt] (1.2,-3.13) -- (1.2,-3.8);
+  \draw[Charcoal,line width=.9pt] (.8,-3.4) -- (1.6,-3.4);
+  \draw[Charcoal,line width=.9pt] (1.2,-3.8) -- (.85,-4.25);
+  \draw[Charcoal,line width=.9pt] (1.2,-3.8) -- (1.55,-4.25);
+  \node[align=center,text=Charcoal,font=\small,text width=2.5cm]
+    at (1.2,-4.8) {Analyste de s\'ecurit\'e\ ou administrateur};
+  \foreach \target in {auth,replay,alerts,evidence,health} {
+    \draw[association] (1.65,-3.4) -- (\target.west);
+  }
+
+  % Machine actors use rectangles and separate, horizontal associations.
+  \node[machine] (producer) at (13.5,-7.4)
+    {\textit{\guillemotleft syst\`eme\guillemotright}\\Producteur de flux};
+  \node[machine] (agent) at (13.5,-8.6)
+    {\textit{\guillemotleft syst\`eme\guillemotright}\\Agent Suricata};
+  \draw[association] (flows.east) -- (producer.west);
+  \draw[association] (sensor.east) -- (agent.west);
+\end{tikzpicture}
+\endgroup

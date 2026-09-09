@@ -8,14 +8,21 @@ trap 'rm -rf "$staging_dir"' EXIT
 chmod a+rwx "$staging_dir"
 
 mermaid_image=${MERMAID_IMAGE:-ghcr.io/mermaid-js/mermaid-cli/mermaid-cli:11.16.1}
+plantuml_image=${PLANTUML_IMAGE:-plantuml/plantuml:1.2025.2}
 
 mkdir -p "$rendered_dir"
+
+docker run --rm \
+  --volume "$diagram_dir:/data:ro" \
+  --volume "$staging_dir:/output" \
+  "$plantuml_image" -tsvg -o /output /data/01-use-cases.puml
 
 rsvg-convert \
   --format pdf \
   --output "$staging_dir/01-use-cases.pdf" \
-  "$diagram_dir/uscase_diagrame.svg"
+  "$staging_dir/01-use-cases.svg"
 
+install -m 0644 "$staging_dir/01-use-cases.svg" "$rendered_dir/01-use-cases.svg"
 install -m 0644 "$staging_dir/01-use-cases.pdf" "$rendered_dir/01-use-cases.pdf"
 diagrams=(
   02-ingestion-sequence

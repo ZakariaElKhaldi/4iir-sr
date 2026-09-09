@@ -54,9 +54,9 @@ travail associ\'e \'etudie \'egalement un autoencodeur quantifi\'e destin\'e \`a
 d\'etection d'anomalies sur des dispositifs aux ressources contraintes
 \citep{sharmila_quantized_2023}.
 
-Dans ce projet, les faits exp\'erimentaux proviennent du fichier CSV officiel
-contr\^ol\'e par somme SHA-256, et non d'une reconstruction de la description en
-ligne. L'audit local confirme 123\,117 lignes, 83 variables de mod\`ele et douze
+L'analyse porte sur le fichier CSV officiel, dont l'intégrité est vérifiée
+par une empreinte SHA-256. L'examen de ce fichier confirme 123\,117 lignes,
+83 variables explicatives et douze
 \'etiquettes observ\'ees: trois classes de trafic normal et neuf familles
 d'attaque. Il rel\`eve \'egalement 5\,202 lignes excédentaires à
 caractéristiques identiques et une forte concentration de la classe \texttt{DOS\_SYN\_Hping}. Ces propri\'et\'es
@@ -156,7 +156,8 @@ un seul fichier \`a une validation sur un r\'eseau de d\'eploiement.
 Enfin, l'exactitude seule est insuffisante lorsque les classes sont
 d\'es\'equilibr\'ees. Le projet privil\'egie donc la macro-F1, les matrices de
 confusion, le support et le rappel par classe, ainsi que le taux de faux positifs.
-Ces mesures r\'epondent \`a des aspects diff\'erents d'une t\^ache de classification
+Ces mesures permettent d'examiner à la fois les attaques manquées et les
+fausses alertes, en tenant compte de l'effectif de chaque classe
 \citep{sokolova_systematic_2009}. Les scores probabilistes sont calibr\'es par
 validation crois\'ee limit\'ee aux donn\'ees d'entra\^inement, puisque la qualit\'e du classement et celle des
 probabilit\'es constituent deux propri\'et\'es distinctes
@@ -199,33 +200,40 @@ laboratoire Suricata observe aussi des paquets dans un réseau isolé, par une v
 indépendante de la cascade. Le transfert du modèle RT-IoT2022 vers des flux
 NFStream et vers un autre réseau reste à évaluer.
 
-L'interface qui restitue ces limites et les preuves d'\'evaluation est pr\'esent\'ee
-avec les autres vues principales au chapitre~\ref{chap:realisation}.
+Le chapitre~\ref{chap:realisation} présente les écrans qui permettent de
+consulter ces résultats et d'examiner les alertes.
 
 \section{D\'emarche de recherche}
 
 \subsection{Mode de d\'eveloppement}
 
-Le code est réparti entre la préparation et l'évaluation des modèles, les
-services de l'API et l'interface. Les schémas de données, les tests automatisés
-et les manifestes permettent de vérifier les échanges entre ces parties.
-L'historique Git conserve les modifications validées dans des commits; les rapports d'exécution
-renseignent les vérifications réalisées sur une version donnée.
+Le travail a commencé par l'étude de RT-IoT2022 et par des essais de
+classification. Le développement du tableau de bord a ensuite débuté alors
+que les expérimentations se poursuivaient. L'historique Git montre des
+évolutions successives de l'API, de l'interface, de l'ingestion et de
+l'authentification, accompagnées de tests. La réalisation a ainsi progressé
+par ajustements entre ces différentes parties.
+
+Les contrats de donn\'ees ont servi de point de liaison entre les mod\`eles,
+l'API et l'interface. Les tests ont ensuite accompagn\'e les changements les
+plus sensibles, notamment l'ingestion, l'authentification et la persistance.
+L'historique Git et les rapports d'ex\'ecution permettent de retrouver les
+principales \'etapes de cette progression.
 
 \subsection{Phases de recherche}
 
-La conduite du projet est organis\'ee en phases tra\c{c}ables:
+Les principales étapes du travail sont les suivantes :
 
 \begin{enumerate}
   \item audit des sources scientifiques, du fichier RT-IoT2022 et de son sch\'ema;
   \item pr\'eparation reproductible des donn\'ees et d\'efinition du protocole
         d'\'evaluation;
-  \item comparaison des candidats, calibration, analyse des erreurs et promotion
-        après validation des artefacts;
+  \item comparaison des modèles, calibration, analyse des erreurs et
+        enregistrement des modèles retenus pour l'application;
   \item conception de l'API, de la persistance et de l'ingestion durable,
         et r\'ealisation en parall\`ele de l'interface d'investigation;
   \item tests unitaires, tests d'int\'egration, validation des artefacts et
-        constitution d'un paquet de preuves versionné;
+        conservation des résultats et des journaux d'exécution;
   \item identification des travaux non encore valid\'es: collecte native
         NFStream, s\'eparation par session ou par temps, validation externe et
         mesure sur le mat\'eriel cible.
@@ -244,10 +252,10 @@ repr\'esentent des p\'eriodes indicatives de travail.
   \label{fig:project-timeline}
 \end{figure}
 
-Les fichiers produits permettent de suivre ces étapes : manifeste du jeu de
-données, rapports d'évaluation, modèles sérialisés et journaux de tests.
-Le chapitre~\ref{chap:resultats} présente la comparaison des candidats et précise
-les limites de cette traçabilité.
+Les modèles enregistrés sont accompagnés de leurs paramètres et des résultats
+d'évaluation. Les journaux de tests complètent ces fichiers en décrivant les
+vérifications de l'application. Les résultats expérimentaux sont analysés au
+chapitre~\ref{chap:resultats}.
 
 \section{Conclusion}
 
