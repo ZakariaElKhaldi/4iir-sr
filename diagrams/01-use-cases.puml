@@ -1,4 +1,5 @@
 @startuml
+!pragma layout smetana
 left to right direction
 skinparam shadowing false
 skinparam packageStyle rectangle
@@ -15,7 +16,7 @@ skinparam rectangleBorderColor #064E3B
 skinparam rectangleBackgroundColor #FAF8F1
 skinparam rectangleFontColor #064E3B
 skinparam usecase {
-  BackgroundColor #F5FAF7
+  BackgroundColor #F5FAF8
   BorderColor #047857
   FontColor #17211D
 }
@@ -25,7 +26,7 @@ rectangle "Flow producer" as Producer <<actor>>
 rectangle "Suricata sensor agent" as Sensor <<actor>>
 
 rectangle "IoT Intrusion Detection System" {
-  usecase "Sign in" as UCAuth
+  usecase "Auth" as UCAuth
   usecase "UC-04\nControl dataset replay" as UCReplay
   usecase "UC-05\nInvestigate an alert\n--\nextension points\nDisposition decision" as UCInvestigate
   usecase "Review alert evidence" as UCEvidence
@@ -37,7 +38,6 @@ rectangle "IoT Intrusion Detection System" {
   usecase "Validate incoming data" as UCValidate
 }
 
-Admin -- UCAuth
 Admin -- UCReplay
 Admin -- UCInvestigate
 Admin -- UCModels
@@ -49,5 +49,9 @@ UCFeedback .[norank].> UCInvestigate : <<extend>>\n[analyst chooses to qualify]
 UCInvestigate -[hidden]-> UCFeedback
 UCFlows ..> UCValidate : <<include>>
 UCSensor ..> UCValidate : <<include>>
+UCReplay ..> UCAuth : <<include>>
+UCInvestigate ..> UCAuth : <<include>>
+UCModels .[norank].> UCAuth : <<include>>
+UCHealth .[norank].> UCAuth : <<include>>
 
 @enduml

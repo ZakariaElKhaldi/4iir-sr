@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.8.26)  9 SEP 2026 11:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.8.26)  9 SEP 2026 12:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -967,15 +967,14 @@ Chapitre 2.
 
 
 ]
-<../diagrams/rendered/01-use-cases.pdf, id=623, 744.53156pt x 504.38437pt>
-File: ../diagrams/rendered/01-use-cases.pdf Graphic file (type pdf)
-<use ../diagrams/rendered/01-use-cases.pdf>
-Package pdftex.def Info: ../diagrams/rendered/01-use-cases.pdf  used on input l
-ine 90.
-(pdftex.def)             Requested size: 455.25421pt x 308.41286pt.
- [10] [11 <../diagrams/rendered/01-use-cases.pdf>]
-ignored: Infinite glue shrinkage found
- in box being split [12
+<../diagrams/use-case.png, id=623, 892.33376pt x 467.7475pt>
+File: ../diagrams/use-case.png Graphic file (type png)
+<use ../diagrams/use-case.png>
+Package pdftex.def Info: ../diagrams/use-case.png  used on input line 90.
+(pdftex.def)             Requested size: 455.24759pt x 238.6337pt.
+ [10] [11 <../diagrams/use-case.png (PNG copy)>]
+ignored: Infinite glue shrinkage found i
+n box being split [12
 
 ]
 ignored: Infinite glue shrinkage found in box being split [13]) [14]
@@ -984,21 +983,21 @@ ignored: Infinite glue shrinkage found in box being split [13]) [14]
 
 (./chapters/03-conception-systeme.tex
 Chapitre 3.
-<../diagrams/rendered/03-domain-classes.pdf, id=665, 522.03032pt x 1014.9117pt>
+<../diagrams/rendered/03-domain-classes.pdf, id=645, 522.03032pt x 1014.9117pt>
 
 File: ../diagrams/rendered/03-domain-classes.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/03-domain-classes.pdf>
 Package pdftex.def Info: ../diagrams/rendered/03-domain-classes.pdf  used on in
 put line 23.
 (pdftex.def)             Requested size: 245.80035pt x 477.8758pt.
-<../diagrams/rendered/03b-ingestion-classes.pdf, id=666, 602.25pt x 524.92107pt
+<../diagrams/rendered/03b-ingestion-classes.pdf, id=646, 602.25pt x 524.92107pt
 >
 File: ../diagrams/rendered/03b-ingestion-classes.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/03b-ingestion-classes.pdf>
 Package pdftex.def Info: ../diagrams/rendered/03b-ingestion-classes.pdf  used o
 n input line 30.
 (pdftex.def)             Requested size: 455.26112pt x 396.80559pt.
-<../diagrams/rendered/03c-model-health-classes.pdf, id=667, 602.25pt x 376.5266
+<../diagrams/rendered/03c-model-health-classes.pdf, id=647, 602.25pt x 376.5266
 9pt>
 File: ../diagrams/rendered/03c-model-health-classes.pdf Graphic file (type pdf)
 
@@ -1014,7 +1013,7 @@ d on input line 37.
 ] [16 <../diagrams/rendered/03-domain-classes.pdf>] [17 <../diagrams/rendered/0
 3b-ingestion-classes.pdf>] [18 <../diagrams/rendered/03c-model-health-classes.p
 df>]
-<../diagrams/rendered/03d-service-operations.pdf, id=725, 602.25pt x 367.3725pt
+<../diagrams/rendered/03d-service-operations.pdf, id=705, 602.25pt x 367.3725pt
 >
 File: ../diagrams/rendered/03d-service-operations.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/03d-service-operations.pdf>
@@ -1024,7 +1023,7 @@ on input line 50.
  [19
 
  <../diagrams/rendered/03d-service-operations.pdf>]
-<../diagrams/rendered/14-component-architecture.pdf, id=745, 602.25pt x 383.512
+<../diagrams/rendered/14-component-architecture.pdf, id=724, 602.25pt x 383.512
 79pt>
 File: ../diagrams/rendered/14-component-architecture.pdf Graphic file (type pdf
 )
@@ -1035,7 +1034,7 @@ ed on input line 68.
  [20
 
  <../diagrams/rendered/14-component-architecture.pdf>]
-<../diagrams/rendered/15-docker-deployment.pdf, id=761, 602.25pt x 794.00638pt>
+<../diagrams/rendered/15-docker-deployment.pdf, id=741, 602.25pt x 794.00638pt>
 
 File: ../diagrams/rendered/15-docker-deployment.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/15-docker-deployment.pdf>
@@ -1045,14 +1044,14 @@ Package pdftex.def Info: ../diagrams/rendered/15-docker-deployment.pdf  used on
  [21
 
  <../diagrams/rendered/15-docker-deployment.pdf>]
-<../diagrams/rendered/12-operator-activity.pdf, id=777, 602.25pt x 790.87468pt>
+<../diagrams/rendered/12-operator-activity.pdf, id=757, 602.25pt x 790.87468pt>
 
 File: ../diagrams/rendered/12-operator-activity.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/12-operator-activity.pdf>
 Package pdftex.def Info: ../diagrams/rendered/12-operator-activity.pdf  used on
  input line 102.
 (pdftex.def)             Requested size: 385.3284pt x 506.01324pt.
-<../diagrams/rendered/13-alert-communication.pdf, id=779, 340.3917pt x 560.0925
+<../diagrams/rendered/13-alert-communication.pdf, id=759, 340.3917pt x 560.0925
 pt>
 File: ../diagrams/rendered/13-alert-communication.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/13-alert-communication.pdf>
@@ -1062,14 +1061,14 @@ on input line 116.
  [22
 
  <../diagrams/rendered/12-operator-activity.pdf>]
-<../diagrams/rendered/02-ingestion-sequence.pdf, id=796, 602.25pt x 465.65968pt
+<../diagrams/rendered/02-ingestion-sequence.pdf, id=776, 602.25pt x 465.65968pt
 >
 File: ../diagrams/rendered/02-ingestion-sequence.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/02-ingestion-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/02-ingestion-sequence.pdf  used o
 n input line 133.
 (pdftex.def)             Requested size: 455.26112pt x 352.00789pt.
-<../diagrams/rendered/04-ingestion-states.pdf, id=797, 602.25pt x 251.9814pt>
+<../diagrams/rendered/04-ingestion-states.pdf, id=777, 602.25pt x 251.9814pt>
 File: ../diagrams/rendered/04-ingestion-states.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/04-ingestion-states.pdf>
 Package pdftex.def Info: ../diagrams/rendered/04-ingestion-states.pdf  used on 
@@ -1077,7 +1076,7 @@ input line 140.
 (pdftex.def)             Requested size: 446.15425pt x 186.67093pt.
  [23 <../diagrams/rendered/13-alert-communication.pdf>] [24 <../diagrams/render
 ed/02-ingestion-sequence.pdf> <../diagrams/rendered/04-ingestion-states.pdf>]
-<../diagrams/rendered/07-synchronous-prediction-sequence.pdf, id=835, 602.25pt 
+<../diagrams/rendered/07-synchronous-prediction-sequence.pdf, id=815, 602.25pt 
 x 391.4625pt>
 File: ../diagrams/rendered/07-synchronous-prediction-sequence.pdf Graphic file 
 (type pdf)
@@ -1088,7 +1087,7 @@ e.pdf  used on input line 155.
  [25
 
  <../diagrams/rendered/07-synchronous-prediction-sequence.pdf>]
-<../diagrams/rendered/09-alert-investigation-sequence.pdf, id=851, 602.25pt x 3
+<../diagrams/rendered/09-alert-investigation-sequence.pdf, id=831, 602.25pt x 3
 96.52138pt>
 File: ../diagrams/rendered/09-alert-investigation-sequence.pdf Graphic file (ty
 pe pdf)
@@ -1099,7 +1098,7 @@ df  used on input line 171.
  [26
 
  <../diagrams/rendered/09-alert-investigation-sequence.pdf>]
-<../diagrams/rendered/11-model-health-sequence.pdf, id=868, 602.25pt x 331.2375
+<../diagrams/rendered/11-model-health-sequence.pdf, id=847, 602.25pt x 331.2375
 pt>
 File: ../diagrams/rendered/11-model-health-sequence.pdf Graphic file (type pdf)
 
@@ -1122,7 +1121,7 @@ Chapitre 4.
 ] [29
 
 ] [30] [31]
-<assets/screenshots/application-monitoring.png, id=905, 2409.0pt x 1505.625pt>
+<assets/screenshots/application-monitoring.png, id=885, 2409.0pt x 1505.625pt>
 File: assets/screenshots/application-monitoring.png Graphic file (type png)
 <use assets/screenshots/application-monitoring.png>
 Package pdftex.def Info: assets/screenshots/application-monitoring.png  used on
@@ -1131,7 +1130,7 @@ Package pdftex.def Info: assets/screenshots/application-monitoring.png  used on
  [32
 
  <./assets/screenshots/application-monitoring.png (PNG copy)>]
-<assets/screenshots/application-alert-investigation.png, id=911, 2409.0pt x 150
+<assets/screenshots/application-alert-investigation.png, id=891, 2409.0pt x 150
 5.625pt>
 File: assets/screenshots/application-alert-investigation.png Graphic file (type
  png)
@@ -1142,7 +1141,7 @@ Package pdftex.def Info: assets/screenshots/application-alert-investigation.png
  [33
 
  <./assets/screenshots/application-alert-investigation.png (PNG copy)>]
-<assets/screenshots/application-model-analysis.png, id=918, 2409.0pt x 1505.625
+<assets/screenshots/application-model-analysis.png, id=898, 2409.0pt x 1505.625
 pt>
 File: assets/screenshots/application-model-analysis.png Graphic file (type png)
 
@@ -1153,7 +1152,7 @@ d on input line 204.
  [34
 
  <./assets/screenshots/application-model-analysis.png (PNG copy)>]
-<assets/screenshots/application-observation-lab.png, id=924, 2409.0pt x 1505.62
+<assets/screenshots/application-observation-lab.png, id=904, 2409.0pt x 1505.62
 5pt>
 File: assets/screenshots/application-observation-lab.png Graphic file (type png
 )
@@ -1183,7 +1182,7 @@ Chapitre 5.
 
 
 ]
-<assets/screenshots/notebook-model-comparison.png, id=940, 1424.32124pt x 486.8
+<assets/screenshots/notebook-model-comparison.png, id=920, 1424.32124pt x 486.8
 1876pt>
 File: assets/screenshots/notebook-model-comparison.png Graphic file (type png)
 <use assets/screenshots/notebook-model-comparison.png>
@@ -1212,7 +1211,7 @@ Package rerunfilecheck Info: File `main.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  27496 strings out of 469515
- 533874 string characters out of 5470807
+ 533759 string characters out of 5470807
  959103 words of memory out of 5000000
  55325 multiletter control sequences out of 15000+600000
  683705 words of font info for 148 fonts, out of 8000000 for 9000
@@ -1223,10 +1222,10 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/font
 s/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf-dist/fonts/type1/public/tex-
 gyre/qtmr.pfb></usr/share/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb></us
 r/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (54 pages, 2943594 bytes).
+Output written on main.pdf (54 pages, 2990739 bytes).
 PDF statistics:
- 1076 PDF objects out of 1200 (max. 8388607)
- 931 compressed objects within 10 object streams
+ 1056 PDF objects out of 1200 (max. 8388607)
+ 917 compressed objects within 10 object streams
  189 named destinations out of 1000 (max. 500000)
  34019 words of extra memory for PDF output out of 35830 (max. 10000000)
 
