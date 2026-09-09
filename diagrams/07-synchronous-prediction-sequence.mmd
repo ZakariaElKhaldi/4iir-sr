@@ -25,7 +25,7 @@ sequenceDiagram
             Cascade-->>API: Compatibility failure
             API-->>Client: Reject model route
         else prediction produced
-            Cascade-->>API: Label, scores, and explanation summary
+            Cascade-->>API: Label, scores, and feature-value summary
             API->>Store: Commit observation, prediction, and optional alert
             Store-->>API: Persisted identifiers
             API-->>Client: Prediction response

@@ -23,7 +23,7 @@ flowchart TB
 
     subgraph Services[Application services]
         direction LR
-        Queue[Durable ingestion worker]
+        Queue[Ingestion worker and<br/>outbox dispatcher]
         Detection[Detection service]
         Health[Model-health worker]
         Registry[Checksum-verified<br/>model registry]
@@ -37,16 +37,17 @@ flowchart TB
 
     External -->|Observations or sensor events| API
     UI -->|Authenticated HTTP| API
-    API --> Queue
-    API --> Detection
+    API -->|Synchronous prediction| Detection
+    API -->|Jobs and sensor events| DB
     Queue --> Detection
     Detection --> Registry
     Registry --> Artifacts
     Detection --> DB
-    Queue --> DB
+    Queue -->|Claim jobs and persist results| DB
     Health --> DB
     Health --> Registry
-    DB -->|Committed events| Live
+    DB -->|Committed outbox events| Queue
+    Queue -->|Published live events| Live
     Live -->|Live events| UI
 
     classDef boundary fill:#eaf5f0,stroke:#047857,color:#17211d,stroke-width:1.5px;

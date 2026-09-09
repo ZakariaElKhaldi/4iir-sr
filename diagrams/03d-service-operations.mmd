@@ -42,4 +42,3 @@ classDiagram
     IngestionService ..> DetectionService : submits claimed observation
     DetectionService ..> InferenceEngine : executes cascade
     ReplayController ..> DetectionService : submits replay observation
-    ModelHealthService ..> InferenceEngine : evaluates serving route

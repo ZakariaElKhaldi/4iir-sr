@@ -175,7 +175,7 @@ pour chaque décision, les informations nécessaires à son examen par un opéra
 Cette probl\'ematique se d\'ecompose en quatre questions:
 
 \begin{enumerate}
-  \item comment garantir la provenance, le sch\'ema et l'ordre des variables
+  \item comment contrôler la provenance, le sch\'ema et l'ordre des variables
         utilis\'ees pendant l'entra\^inement et l'inf\'erence;
   \item quelle combinaison de d\'etecteur binaire et de classifieur de familles
         obtient la meilleure macro-F1 de validation selon le protocole retenu;
@@ -209,7 +209,7 @@ avec les autres vues principales au chapitre~\ref{chap:realisation}.
 Le code est réparti entre la préparation et l'évaluation des modèles, les
 services de l'API et l'interface. Les schémas de données, les tests automatisés
 et les manifestes permettent de vérifier les échanges entre ces parties.
-L'historique Git conserve les modifications du code; les rapports d'exécution
+L'historique Git conserve les modifications validées dans des commits; les rapports d'exécution
 renseignent les vérifications réalisées sur une version donnée.
 
 \subsection{Phases de recherche}
@@ -221,15 +221,28 @@ La conduite du projet est organis\'ee en phases tra\c{c}ables:
   \item pr\'eparation reproductible des donn\'ees et d\'efinition du protocole
         d'\'evaluation;
   \item comparaison des candidats, calibration, analyse des erreurs et promotion
-        atomique des artefacts;
+        après validation des artefacts;
   \item conception de l'API, de la persistance et de l'ingestion durable,
-        puis r\'ealisation de l'interface d'investigation;
+        et r\'ealisation en parall\`ele de l'interface d'investigation;
   \item tests unitaires, tests d'int\'egration, validation des artefacts et
-        constitution d'un paquet de preuves reproductible;
+        constitution d'un paquet de preuves versionné;
   \item identification des travaux non encore valid\'es: collecte native
         NFStream, s\'eparation par session ou par temps, validation externe et
         mesure sur le mat\'eriel cible.
 \end{enumerate}
+
+La figure~\ref{fig:project-timeline} synth\'etise le chevauchement des phases.
+Le d\'eveloppement du tableau de bord commence apr\`es les premiers travaux de
+recherche, puis se poursuit en parall\`ele des exp\'erimentations, de
+l'int\'egration et des am\'eliorations de l'interface. Les rep\`eres S1 \`a S5
+repr\'esentent des p\'eriodes indicatives de travail.
+
+\begin{figure}[!htbp]
+  \centering
+  \input{../diagrams/05-project-timeline.tex}
+  \caption{Chronologie indicative des phases de d\'eveloppement}
+  \label{fig:project-timeline}
+\end{figure}
 
 Les fichiers produits permettent de suivre ces étapes : manifeste du jeu de
 données, rapports d'évaluation, modèles sérialisés et journaux de tests.

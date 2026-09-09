@@ -76,7 +76,7 @@ fonctions de l'application.
 \section{Diagramme global des cas d'utilisation}
 
 La figure~\ref{fig:use-cases} relie chaque objectif à l'acteur qui le d\'eclenche.
-Les quatre parcours prot\'eg\'es incluent l'authentification; le capteur Suricata
+Les parcours op\'erateur prot\'eg\'es incluent l'authentification; le capteur Suricata
 utilise pour sa part une identit\'e machine distincte.
 
 \begin{center}
@@ -86,6 +86,7 @@ utilise pour sa part une identit\'e machine distincte.
     height=.50\textheight,
     keepaspectratio
   ]{../diagrams/rendered/01-use-cases.pdf}
+  \captionsetup{hypcap=false}
   \captionof{figure}{Cas d'utilisation du syst\`eme de d\'etection}
   \label{fig:use-cases}
 \end{center}
@@ -121,7 +122,7 @@ diagramme global.
   \arrayrulecolor{SoftRule}\toprule
   \UCRow{Acteur}{Producteur externe ou agent capteur.}
   \UCRow{Objectif}{Transmettre une alerte de signature et l'\'etat observ\'e du capteur.}
-  \UCRow{Pr\'econditions}{Jeton capteur valide; message EVE pris en charge; identifiant externe pr\'esent.}
+  \UCRow{Pr\'econditions}{Jeton capteur valide; lot identifiant le capteur; message EVE horodat\'e et, pour une alerte, signature renseign\'ee.}
   \UCRow{Postconditions}{L'alerte et l'\'etat du capteur sont persist\'es; un \'ev\'enement temps r\'eel est produit apr\`es validation.}
   \UCRow{Sc\'enario nominal}{1. L'agent lit un \'ev\'enement Suricata. 2. Il le normalise. 3. L'API authentifie la machine. 4. Elle d\'eduplique et persiste les preuves. 5. Elle retourne un re\c{c}u.}
   \UCRow{Alternatives}{Jeton absent ou invalide: refus. Message non conforme: erreur de validation. Identifiant d\'ej\`a accept\'e: traitement idempotent sans seconde alerte.}
@@ -137,7 +138,7 @@ diagramme global.
   \UCRow{Acteur}{Analyste ou administrateur.}
   \UCRow{Objectif}{Ex\'ecuter un rejeu born\'e et en contr\^oler la cadence.}
   \UCRow{Pr\'econditions}{Session valide; jeu pr\'epar\'e disponible; aucun autre rejeu actif.}
-  \UCRow{Postconditions}{Les lignes trait\'ees restent persist\'ees; l'\'etat final indique ach\`evement ou arr\^et.}
+  \UCRow{Postconditions}{Les lignes trait\'ees restent persist\'ees; l'\'etat final indique ach\`evement, arr\^et ou \`echec.}
   \UCRow{Sc\'enario nominal}{1. L'op\'erateur choisit sc\'enario, d\'ecalage, limite et vitesse. 2. L'API accepte la configuration. 3. Le serveur filtre et traite les lignes. 4. L'interface suit la progression.}
   \UCRow{Alternatives}{Configuration hors limites: refus. Rejeu actif: conflit. Pause: traitement suspendu. Reprise: cadence valid\'ee puis poursuite. Arr\^et: abandon du reste sans annuler les lignes d\'ej\`a trait\'ees.}
   \bottomrule
@@ -152,7 +153,7 @@ diagramme global.
   \UCRow{Acteur}{Analyste ou administrateur.}
   \UCRow{Objectif}{Examiner une alerte puis, si n\'ecessaire, enregistrer une qualification justifi\'ee.}
   \UCRow{Pr\'econditions}{Session valide; alerte persist\'ee.}
-  \UCRow{Postconditions}{La consultation ne modifie pas l'alerte; une qualification confirm\'ee ajoute une entr\'ee immuable associ\'ee à l'identit\'e authentifi\'ee.}
+  \UCRow{Postconditions}{La consultation ne modifie pas l'alerte; une qualification confirm\'ee ajoute une entr\'ee d'historique associ\'ee à l'identit\'e authentifi\'ee.}
   \UCRow{Sc\'enario nominal}{1. L'op\'erateur filtre la liste. 2. Il ouvre une alerte. 3. Il examine provenance, mod\`ele ou signature et explication disponible. 4. Il choisit un statut. 5. Il confirme la justification.}
   \UCRow{Alternatives}{Alerte absente: signalement sans modification. Explication indisponible: les autres preuves restent consultables. Justification obligatoire manquante: qualification refus\'ee.}
   \bottomrule

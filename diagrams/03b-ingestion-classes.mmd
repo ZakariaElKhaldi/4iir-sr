@@ -46,4 +46,3 @@ classDiagram
 
     IngestionJob "1" *-- "1..*" IngestionJobTransition : audit trail
     IngestionJob ..> Observation : materializes after processing
-    OutboxEvent ..> Observation : shares event identity

@@ -10,6 +10,7 @@ sequenceDiagram
     participant API as Ingestion API
     participant Worker as Background worker
     participant Store as Transactional store
+    participant Outbox as Outbox dispatcher
     participant UI as Dashboard
 
     Producer->>API: Submit observation batch
@@ -31,8 +32,18 @@ sequenceDiagram
         alt inference committed
             Worker->>Store: Commit result, transition, and outbox event
             Store-->>Worker: Transaction committed
-            Worker-)UI: Publish committed prediction or alert
         else processing failed
             Worker->>Store: Commit retry or dead-letter transition
+        end
+    end
+
+    loop each available outbox event
+        Outbox->>Store: Claim committed event with lease
+        Store-->>Outbox: Event payload
+        Outbox-)UI: Publish prediction or alert
+        alt publication succeeded
+            Outbox->>Store: Mark event published
+        else publication failed
+            Outbox->>Store: Record failure and next attempt
         end
     end

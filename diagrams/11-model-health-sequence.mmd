@@ -10,18 +10,20 @@ sequenceDiagram
     participant Health as Health service
     participant Registry as Model registry
     participant Store as Evidence store
+    participant Live as WebSocket manager
     participant View as Health view
 
     loop each monitoring interval
-        Scheduler->>Health: Evaluate eligible cohort
+        Scheduler->>Health: Evaluate observed and deployment cohorts
         Health->>Registry: Resolve route and verified reference
         Registry-->>Health: Compatible reference evidence
         Health->>Store: Load bounded observations and feedback
         Store-->>Health: Cohort evidence
         Health->>Health: Compute quality and drift evidence
-        Health->>Store: Commit shadow-mode snapshot
+        Health->>Store: Commit snapshot with shadow-mode flag
         opt status changed
-            Health-)View: Publish health update
+            Health->>Live: Publish health update
+            Live-)View: Deliver live event
         end
     end
 

@@ -13,7 +13,7 @@ techniques du code pour faciliter le passage du modèle à l'implémentation.
 \subsection{Mod\`ele du domaine}
 
 La figure~\ref{fig:domain-classes} relie les observations de flux, les prédictions,
-les alertes, les jeux de données et les modèles. Les vues suivantes détaillent
+les alertes, les qualifications d'analyste et l'état des capteurs. Les vues suivantes détaillent
 les travaux d'ingestion et le suivi des modèles. Les attributs sont présentés
 sans indication de visibilité; le signe \texttt{+} désigne les opérations
 publiques des services.
@@ -53,54 +53,6 @@ présente leurs principales opérations publiques.
 \end{figure}
 
 
-\subsection{Mod\`ele relationnel}
-
-Le mod\`ele relationnel traduit les classes persistantes en tables. Une
-observation poss\`ede une cl\'e primaire \texttt{event\_id}; une pr\'ediction lui
-est associ\'ee par une cl\'e \`etrang\`ere unique. Une alerte peut provenir d'une
-pr\'ediction ML ou d'un capteur Suricata. Les travaux d'ingestion, leurs
-transitions et les messages d'outbox sont s\'epar\'es afin de conserver
-l'idempotence, l'historique et la publication apr\`es transaction.
-
-La r\`egle de passage est la suivante : chaque entit\'e devient une table,
-chaque identifiant devient une cl\'e primaire, les relations un-\`a-un utilisent
-une cl\'e \`etrang\`ere unique et les relations un-\`a-plusieurs placent la cl\'e
-\`etrang\`ere du c\^ot\'e plusieurs. Les objets JSON regroupent les attributs
-variables dont la structure dépend du type d'observation ou de preuve.
-
-\subsection{Dictionnaire de donn\'ees}
-
-Le dictionnaire suivant reprend les champs principaux du mod\`ele. Les champs
-JSON contiennent les caract\'eristiques ou les preuves variables; les colonnes
-de statut et d'identit\'e sont contr\^ol\'ees par les contrats et contraintes du
-backend.
-
-\begin{table}[!t]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.14}
-  \caption{Dictionnaire synthétique des données persistées}
-  \label{tab:data-dictionary}
-  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}Y@{}}
-  \rowcolor{PremiumEmerald}\color{white}\bfseries Table & \color{white}\bfseries Colonne & \color{white}\bfseries Type / taille & \color{white}\bfseries Contraintes et rôle \\
-  observations & event\_id & UUID / 36 & clé primaire, obligatoire \\
-  observations & schema\_version & texte / 64 & obligatoire, contrat versionné \\
-  observations & raw\_features & JSON & obligatoire, 83 variables validées \\
-  observations & network\_context & JSON & facultatif, contexte réseau \\
-  predictions & prediction\_id & UUID / 36 & clé primaire \\
-  predictions & event\_id & UUID / 36 & clé étrangère unique vers observations \\
-  predictions & detector\_model\_version & texte / 128 & obligatoire, artefact servi \\
-  predictions & binary\_prediction & texte / 16 & obligatoire, normal ou attack \\
-  alerts & alert\_id & UUID / 36 & clé primaire \\
-  alerts & detection\_source & texte / 32 & obligatoire, ML ou Suricata \\
-  alerts & prediction\_id & UUID / 36 & clé étrangère facultative et unique \\
-  ingestion\_jobs & event\_id & UUID / 36 & unique, clé d'idempotence \\
-  ingestion\_jobs & state & texte / 24 & état du cycle de traitement \\
-  outbox\_events & event\_id & UUID / 36 & identité de publication \\
-  \bottomrule
-  \end{tabularx}
-\end{table}
-
 \clearpage
 \section{Architecture de l'application}
 
@@ -125,6 +77,7 @@ de pr\'esentation distinct.
 \noindent\begin{minipage}{\textwidth}
   \centering
   \includegraphics[width=0.98\textwidth,height=0.72\textheight,keepaspectratio]{../diagrams/rendered/15-docker-deployment.pdf}
+  \captionsetup{hypcap=false}
   \captionof{figure}{D\'eploiement du mode de d\'emonstration Docker}
   \label{fig:docker-deployment}
 \end{minipage}
@@ -165,7 +118,7 @@ de détail à l'enregistrement de la qualification.
 \subsection{Ingestion durable des observations}
 
 La figure~\ref{fig:ingestion-sequence} s\'epare l'acceptation HTTP, le traitement
-asynchrone et la diffusion temps r\'eel. Les transactions rendent visibles les
+asynchrone et la diffusion temps r\'eel assurée par le répartiteur d'outbox. Les transactions rendent visibles les
 fronti\`eres d'atomicit\'e, tandis que les fragments alternatifs explicitent le
 rejet, la r\'eussite et la reprise apr\`es erreur. Le cycle de vie persistant
 correspondant est synth\'etis\'e par la figure~\ref{fig:ingestion-states}.
@@ -231,8 +184,11 @@ n\'ecessaires à l'examen d'un mod\`ele en service et à la restitution de son
 \subsection{Authentification, rejeu et capteur}
 
 L'authentification précède l'accès aux fonctions protégées, comme l'exige
-BF-01. Le rejeu applique le parcours de prédiction à une suite bornée de lignes
-du jeu de données. L'agent Suricata dispose de sa propre route d'entrée : il
+BF-01. Le rejeu appelle directement le parcours de prédiction pour une suite
+bornée de lignes du jeu de données; il ne passe pas par la file d'ingestion
+durable. Les dates de début et de fin attribuées à ces observations correspondent
+au moment du rejeu: ce mécanisme ne reconstitue donc pas la chronologie de la
+capture d'origine. L'agent Suricata dispose de sa propre route d'entrée : il
 transmet des alertes de signature qui sont enregistrées puis publiées sans
 appel aux modèles de classification.
 

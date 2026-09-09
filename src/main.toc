@@ -1,7 +1,8 @@
-\contentsline {chapter}{Remerciements}{}{chapter*.1}%
-\contentsline {chapter}{Résumé}{}{chapter*.2}%
-\contentsline {chapter}{Abstract}{}{chapter*.3}%
-\contentsline {chapter}{Introduction générale}{1}{chapter*.7}%
+\contentsline {chapter}{D\'edicaces}{}{chapter*.1}%
+\contentsline {chapter}{Remerciements}{}{chapter*.2}%
+\contentsline {chapter}{Résumé}{}{chapter*.3}%
+\contentsline {chapter}{Abstract}{}{chapter*.4}%
+\contentsline {chapter}{Introduction générale}{1}{chapter*.8}%
 \contentsline {chapter}{\numberline {1}Cadre scientifique et probl\'ematique de recherche}{2}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Introduction}{2}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Contexte scientifique}{2}{section.1.2}%
@@ -34,45 +35,43 @@
 \contentsline {section}{\numberline {3.1}Introduction}{15}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Mod\'elisation statique}{15}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Mod\`ele du domaine}{15}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Mod\`ele relationnel}{19}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Dictionnaire de donn\'ees}{19}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Architecture de l'application}{21}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Mod\'elisation dynamique}{23}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Activit\'e de l'op\'erateur}{23}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Communication pendant l'investigation}{24}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Ingestion durable des observations}{24}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Pr\'ediction synchrone}{26}{subsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.4.5}Investigation des alertes}{27}{subsection.3.4.5}%
-\contentsline {subsection}{\numberline {3.4.6}Surveillance de la sant\'e des mod\`eles}{28}{subsection.3.4.6}%
-\contentsline {subsection}{\numberline {3.4.7}Authentification, rejeu et capteur}{28}{subsection.3.4.7}%
-\contentsline {section}{\numberline {3.5}Conclusion}{28}{section.3.5}%
-\contentsline {chapter}{\numberline {4}R\'ealisation du syst\`eme}{29}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduction}{29}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Environnement de d\'eveloppement}{29}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Environnement mat\'eriel}{29}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Environnement logiciel}{29}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Organisation de la r\'ealisation}{30}{section.4.3}%
+\contentsline {section}{\numberline {3.3}Architecture de l'application}{20}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Mod\'elisation dynamique}{22}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Activit\'e de l'op\'erateur}{22}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Communication pendant l'investigation}{23}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Ingestion durable des observations}{23}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Pr\'ediction synchrone}{25}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Investigation des alertes}{26}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.6}Surveillance de la sant\'e des mod\`eles}{27}{subsection.3.4.6}%
+\contentsline {subsection}{\numberline {3.4.7}Authentification, rejeu et capteur}{27}{subsection.3.4.7}%
+\contentsline {section}{\numberline {3.5}Conclusion}{27}{section.3.5}%
+\contentsline {chapter}{\numberline {4}R\'ealisation du syst\`eme}{28}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction}{28}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Environnement de d\'eveloppement}{28}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Environnement mat\'eriel}{28}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Environnement logiciel}{28}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Organisation de la r\'ealisation}{29}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Principaux choix d'impl\'ementation}{30}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Du modèle entraîné à la prédiction servie}{31}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Ingestion durable et traitement des erreurs}{31}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Interface, contrôle d'accès et provenance}{31}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}Exécution reproductible}{32}{subsection.4.4.4}%
-\contentsline {section}{\numberline {4.5}Principales interfaces graphiques}{33}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Supervision op\'erationnelle}{33}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Investigation des alertes}{34}{subsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.5.3}Analyse des mod\`eles}{35}{subsection.4.5.3}%
-\contentsline {subsection}{\numberline {4.5.4}Laboratoire d'observations}{36}{subsection.4.5.4}%
-\contentsline {section}{\numberline {4.6}Validation technique}{36}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Conclusion}{37}{section.4.7}%
-\contentsline {chapter}{\numberline {5}R\'esultats exp\'erimentaux}{38}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Données et fichiers de référence}{38}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Qualit\'e, nettoyage et d\'es\'equilibre}{38}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Protocole exp\'erimental}{39}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Comparaison des classifieurs}{39}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Exp\'erience sur le d\'es\'equilibre}{40}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Erreurs des modèles retenus et de la cascade}{41}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Calibration, seuil et co\^ut op\'erationnel}{41}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Menaces \`a la validit\'e}{42}{section.5.8}%
-\contentsline {section}{\numberline {5.9}Conclusion}{42}{section.5.9}%
-\contentsline {chapter}{Conclusion générale}{43}{chapter*.35}%
-\contentsline {chapter}{Bibliographie et webographie}{44}{chapter*.35}%
+\contentsline {subsection}{\numberline {4.4.1}Du modèle entraîné à la prédiction servie}{30}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Ingestion durable et traitement des erreurs}{30}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Interface, contrôle d'accès et provenance}{30}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Exécution reproductible}{31}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Principales interfaces graphiques}{32}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Supervision op\'erationnelle}{32}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Investigation des alertes}{33}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Analyse des mod\`eles}{34}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}Laboratoire d'observations}{35}{subsection.4.5.4}%
+\contentsline {section}{\numberline {4.6}Validation technique}{35}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Conclusion}{36}{section.4.7}%
+\contentsline {chapter}{\numberline {5}R\'esultats exp\'erimentaux}{37}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Données et fichiers de référence}{37}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Qualit\'e, nettoyage et d\'es\'equilibre}{37}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Protocole exp\'erimental}{38}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Comparaison des classifieurs}{38}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Exp\'erience sur le d\'es\'equilibre}{39}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Erreurs des modèles retenus et de la cascade}{40}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Calibration, seuil et co\^ut op\'erationnel}{40}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Menaces \`a la validit\'e}{41}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Conclusion}{41}{section.5.9}%
+\contentsline {chapter}{Conclusion générale}{42}{chapter*.36}%
+\contentsline {chapter}{Bibliographie et webographie}{43}{chapter*.36}%

@@ -27,6 +27,7 @@
 \usepackage{pdflscape}
 \usepackage[authoryear,round]{natbib}
 \usepackage[hidelinks]{hyperref}
+\Urlmuskip=0mu plus 1mu
 
 % Editable report data
 % Personal and academic facts must be supplied by the author; they are not
@@ -98,10 +99,12 @@
   {-2.2ex \@plus -.5ex \@minus -.2ex}%
   {0.9ex \@plus .2ex}%
   {\normalfont\Large\bfseries\color{PremiumEmerald}}}
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+\renewcommand\subsection{\@startsection{subsection}{2}{0.8cm}%
   {-1.8ex \@plus -.4ex \@minus -.2ex}%
   {0.7ex \@plus .2ex}%
   {\normalfont\large\bfseries\color{Emerald}}}
+\renewcommand*\l@subsection{%
+  \@dottedtocline{2}{\dimexpr3.8em+0.8cm\relax}{3.2em}}
 \makeatother
 
 \captionsetup{
@@ -127,6 +130,7 @@
 \clubpenalty=10000
 \widowpenalty=10000
 
+\input{frontmatter/dedication}
 \input{frontmatter/remerciements}
 \input{frontmatter/resume}
 \input{frontmatter/abstract}

@@ -32,7 +32,7 @@ sequenceDiagram
     opt analyst records a disposition
         Analyst->>UI: Confirm status and justification
         UI->>API: Submit disposition
-        API->>Store: Commit immutable feedback
+        API->>Store: Append feedback and update alert status
         Store-->>API: Saved feedback
         API-->>UI: Present updated alert
     end

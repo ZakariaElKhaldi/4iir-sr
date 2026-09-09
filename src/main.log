@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.8.26)  8 SEP 2026 23:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.8.26)  9 SEP 2026 10:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -716,24 +716,24 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 (./chapters/05-resultats-experimentaux.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -791,13 +791,13 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 114.
-Package microtype Info: Applying patch `item' on input line 114.
-Package microtype Info: Applying patch `toc' on input line 114.
-Package microtype Info: Applying patch `eqnum' on input line 114.
-Package microtype Info: Applying patch `footnote' on input line 114.
-Package microtype Info: Applying patch `verbatim' on input line 114.
-LaTeX Info: Redefining \microtypesetup on input line 114.
+LaTeX Info: Redefining \microtypecontext on input line 117.
+Package microtype Info: Applying patch `item' on input line 117.
+Package microtype Info: Applying patch `toc' on input line 117.
+Package microtype Info: Applying patch `eqnum' on input line 117.
+Package microtype Info: Applying patch `footnote' on input line 117.
+Package microtype Info: Applying patch `verbatim' on input line 117.
+LaTeX Info: Redefining \microtypesetup on input line 117.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -821,15 +821,15 @@ Package caption Info: longtable package is loaded.
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 114.
+Package hyperref Info: Link coloring OFF on input line 117.
  (./main.out)
 (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-Package hyperref Info: Option `pageanchor' set `false' on input line 116.
+Package hyperref Info: Option `pageanchor' set `false' on input line 119.
  (./frontmatter/cover.tex
-<assets/emsi-logo.png, id=319, 1445.4pt x 316.18124pt>
+<assets/emsi-logo.png, id=315, 1445.4pt x 316.18124pt>
 File: assets/emsi-logo.png Graphic file (type png)
 <use assets/emsi-logo.png>
 Package pdftex.def Info: assets/emsi-logo.png  used on input line 16.
@@ -847,12 +847,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 29.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 53.
-
-Overfull \hbox (0.61888pt too wide) in paragraph at lines 52--59
-[][][][][]  
- []
-
-[1
+ [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fonts
 /enc/dvips/tex-gyre/q-ec.enc} <./assets/emsi-logo.png>])
@@ -888,9 +883,11 @@ Overfull \hbox (0.61888pt too wide) in paragraph at lines 52--59
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+ (./frontmatter/dedication.tex)
+(./frontmatter/remerciements.tex [1
 
-(./frontmatter/remerciements.tex) (./frontmatter/resume.tex [1
 
+]) (./frontmatter/resume.tex [2
 
 ]
 Package microtype Info: Loading generic protrusion settings for font family
@@ -898,22 +895,22 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 )
-(./frontmatter/abstract.tex [2
+(./frontmatter/abstract.tex [3
 
-{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]) [3
+{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]) [4
 
-] (./main.toc [4
+] (./main.toc [5
 
 
-] [5])
+] [6])
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
- [6] (./main.lof)
+ [7] (./main.lof)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
- [7
+ [8
 
 
 ] (./main.lot)
@@ -921,11 +918,11 @@ Package microtype Info: Loading generic protrusion settings for font family
 \openout7 = `main.lot'.
 
 
-[8
+[9
 
 
 ]
-Package hyperref Info: Option `pageanchor' set `true' on input line 161.
+Package hyperref Info: Option `pageanchor' set `true' on input line 165.
  (./frontmatter/introduction-generale.tex [1
 
 
@@ -935,7 +932,7 @@ Package hyperref Info: Option `pageanchor' set `true' on input line 161.
 
 (./chapters/01-cadre-recherche.tex
 Chapitre 1.
-<assets/external/nist-passive-idps-architecture.png, id=519, 334.851pt x 428.80
+<assets/external/nist-passive-idps-architecture.png, id=517, 334.851pt x 428.80
 2pt>
 File: assets/external/nist-passive-idps-architecture.png Graphic file (type png
 )
@@ -948,7 +945,7 @@ ed on input line 41.
 
 
 ] [3 <./assets/external/nist-passive-idps-architecture.png (PNG copy)>]
-<assets/external/nist-iot-capture-architecture.png, id=547, 346.896pt x 392.667
+<assets/external/nist-iot-capture-architecture.png, id=546, 346.896pt x 392.667
 pt>
 File: assets/external/nist-iot-capture-architecture.png Graphic file (type png)
 
@@ -958,10 +955,11 @@ d on input line 100.
 (pdftex.def)             Requested size: 291.35594pt x 329.81407pt.
 
 [4] [5 <./assets/external/nist-iot-capture-architecture.png (PNG copy)>]
-[6] [7]) [8]
+[6] [7] (../diagrams/05-project-timeline.tex)) [8]
 \openout2 = `chapters/02-specification-besoins.aux'.
 
- (./chapters/02-specification-besoins.tex
+
+(./chapters/02-specification-besoins.tex
 Chapitre 2.
 [9
 
@@ -969,21 +967,15 @@ Chapitre 2.
 
 
 ]
-<../diagrams/rendered/01-use-cases.pdf, id=618, 1354.49483pt x 471.1352pt>
+<../diagrams/rendered/01-use-cases.pdf, id=619, 1354.49483pt x 471.1352pt>
 File: ../diagrams/rendered/01-use-cases.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/01-use-cases.pdf>
 Package pdftex.def Info: ../diagrams/rendered/01-use-cases.pdf  used on input l
 ine 88.
 (pdftex.def)             Requested size: 455.23117pt x 158.34348pt.
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 89.
-See the caption package documentation for explanation.
-
-[10] [11 <../diagrams/rendered/01-use-cases.pdf>]
-ignored: Infinite glue shrinkage found 
-in box being split [12
+ [10] [11 <../diagrams/rendered/01-use-cases.pdf>]
+ignored: Infinite glue shrinkage found
+ in box being split [12
 
 ]
 ignored: Infinite glue shrinkage found in box being split [13]) [14]
@@ -992,21 +984,21 @@ ignored: Infinite glue shrinkage found in box being split [13]) [14]
 
 (./chapters/03-conception-systeme.tex
 Chapitre 3.
-<../diagrams/rendered/03-domain-classes.pdf, id=720, 522.03032pt x 1014.9117pt>
+<../diagrams/rendered/03-domain-classes.pdf, id=719, 522.03032pt x 1014.9117pt>
 
 File: ../diagrams/rendered/03-domain-classes.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/03-domain-classes.pdf>
 Package pdftex.def Info: ../diagrams/rendered/03-domain-classes.pdf  used on in
 put line 23.
 (pdftex.def)             Requested size: 245.80035pt x 477.8758pt.
-<../diagrams/rendered/03b-ingestion-classes.pdf, id=721, 602.25pt x 528.05281pt
+<../diagrams/rendered/03b-ingestion-classes.pdf, id=720, 602.25pt x 524.92107pt
 >
 File: ../diagrams/rendered/03b-ingestion-classes.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/03b-ingestion-classes.pdf>
 Package pdftex.def Info: ../diagrams/rendered/03b-ingestion-classes.pdf  used o
 n input line 30.
-(pdftex.def)             Requested size: 455.26112pt x 399.17297pt.
-<../diagrams/rendered/03c-model-health-classes.pdf, id=722, 602.25pt x 376.5266
+(pdftex.def)             Requested size: 455.26112pt x 396.80559pt.
+<../diagrams/rendered/03c-model-health-classes.pdf, id=721, 602.25pt x 376.5266
 9pt>
 File: ../diagrams/rendered/03c-model-health-classes.pdf Graphic file (type pdf)
 
@@ -1022,203 +1014,184 @@ d on input line 37.
 ] [16 <../diagrams/rendered/03-domain-classes.pdf>] [17 <../diagrams/rendered/0
 3b-ingestion-classes.pdf>] [18 <../diagrams/rendered/03c-model-health-classes.p
 df>]
-<../diagrams/rendered/03d-service-operations.pdf, id=781, 602.25pt x 449.76028p
-t>
+<../diagrams/rendered/03d-service-operations.pdf, id=780, 602.25pt x 367.3725pt
+>
 File: ../diagrams/rendered/03d-service-operations.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/03d-service-operations.pdf>
 Package pdftex.def Info: ../diagrams/rendered/03d-service-operations.pdf  used 
 on input line 50.
-(pdftex.def)             Requested size: 455.26112pt x 339.989pt.
+(pdftex.def)             Requested size: 455.26112pt x 277.70927pt.
  [19
 
- <../diagrams/rendered/03d-service-operations.pdf>] [20]
-<../diagrams/rendered/14-component-architecture.pdf, id=804, 602.25pt x 597.191
-06pt>
+ <../diagrams/rendered/03d-service-operations.pdf>]
+<../diagrams/rendered/14-component-architecture.pdf, id=799, 602.25pt x 383.512
+79pt>
 File: ../diagrams/rendered/14-component-architecture.pdf Graphic file (type pdf
 )
 <use ../diagrams/rendered/14-component-architecture.pdf>
 Package pdftex.def Info: ../diagrams/rendered/14-component-architecture.pdf  us
-ed on input line 114.
-(pdftex.def)             Requested size: 411.06842pt x 407.61543pt.
- [21
+ed on input line 66.
+(pdftex.def)             Requested size: 446.15425pt x 284.11101pt.
+ [20
 
  <../diagrams/rendered/14-component-architecture.pdf>]
-<../diagrams/rendered/15-docker-deployment.pdf, id=820, 602.25pt x 794.00638pt>
+<../diagrams/rendered/15-docker-deployment.pdf, id=815, 602.25pt x 794.00638pt>
 
 File: ../diagrams/rendered/15-docker-deployment.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/15-docker-deployment.pdf>
 Package pdftex.def Info: ../diagrams/rendered/15-docker-deployment.pdf  used on
- input line 127.
+ input line 79.
 (pdftex.def)             Requested size: 383.80293pt x 506.00578pt.
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 128.
-See the caption package documentation for explanation.
-
-[22
+ [21
 
  <../diagrams/rendered/15-docker-deployment.pdf>]
-<../diagrams/rendered/12-operator-activity.pdf, id=836, 602.25pt x 790.87468pt>
+<../diagrams/rendered/12-operator-activity.pdf, id=831, 602.25pt x 790.87468pt>
 
 File: ../diagrams/rendered/12-operator-activity.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/12-operator-activity.pdf>
 Package pdftex.def Info: ../diagrams/rendered/12-operator-activity.pdf  used on
- input line 147.
+ input line 100.
 (pdftex.def)             Requested size: 385.3284pt x 506.01324pt.
-<../diagrams/rendered/13-alert-communication.pdf, id=838, 340.3917pt x 560.0925
+<../diagrams/rendered/13-alert-communication.pdf, id=833, 340.3917pt x 560.0925
 pt>
 File: ../diagrams/rendered/13-alert-communication.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/13-alert-communication.pdf>
 Package pdftex.def Info: ../diagrams/rendered/13-alert-communication.pdf  used 
-on input line 160.
+on input line 113.
 (pdftex.def)             Requested size: 264.81885pt x 435.74228pt.
- [23
+ [22
 
  <../diagrams/rendered/12-operator-activity.pdf>]
-<../diagrams/rendered/02-ingestion-sequence.pdf, id=855, 602.25pt x 450.72388pt
+<../diagrams/rendered/02-ingestion-sequence.pdf, id=850, 602.25pt x 465.65968pt
 >
 File: ../diagrams/rendered/02-ingestion-sequence.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/02-ingestion-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/02-ingestion-sequence.pdf  used o
-n input line 175.
-(pdftex.def)             Requested size: 455.26112pt x 340.7174pt.
-<../diagrams/rendered/04-ingestion-states.pdf, id=856, 602.25pt x 251.9814pt>
+n input line 128.
+(pdftex.def)             Requested size: 455.26112pt x 352.00789pt.
+<../diagrams/rendered/04-ingestion-states.pdf, id=851, 602.25pt x 251.9814pt>
 File: ../diagrams/rendered/04-ingestion-states.pdf Graphic file (type pdf)
 <use ../diagrams/rendered/04-ingestion-states.pdf>
 Package pdftex.def Info: ../diagrams/rendered/04-ingestion-states.pdf  used on 
-input line 182.
+input line 135.
 (pdftex.def)             Requested size: 446.15425pt x 186.67093pt.
- [24 <../diagrams/rendered/13-alert-communication.pdf>] [25 <../diagrams/render
+ [23 <../diagrams/rendered/13-alert-communication.pdf>] [24 <../diagrams/render
 ed/02-ingestion-sequence.pdf> <../diagrams/rendered/04-ingestion-states.pdf>]
-<../diagrams/rendered/07-synchronous-prediction-sequence.pdf, id=895, 602.25pt 
+<../diagrams/rendered/07-synchronous-prediction-sequence.pdf, id=890, 602.25pt 
 x 391.4625pt>
 File: ../diagrams/rendered/07-synchronous-prediction-sequence.pdf Graphic file 
 (type pdf)
 <use ../diagrams/rendered/07-synchronous-prediction-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/07-synchronous-prediction-sequenc
-e.pdf  used on input line 197.
+e.pdf  used on input line 150.
 (pdftex.def)             Requested size: 455.26112pt x 295.91972pt.
- [26
+ [25
 
  <../diagrams/rendered/07-synchronous-prediction-sequence.pdf>]
-<../diagrams/rendered/09-alert-investigation-sequence.pdf, id=911, 602.25pt x 4
-06.3983pt>
+<../diagrams/rendered/09-alert-investigation-sequence.pdf, id=906, 602.25pt x 3
+96.52138pt>
 File: ../diagrams/rendered/09-alert-investigation-sequence.pdf Graphic file (ty
 pe pdf)
 <use ../diagrams/rendered/09-alert-investigation-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/09-alert-investigation-sequence.p
-df  used on input line 212.
-(pdftex.def)             Requested size: 455.26112pt x 307.21022pt.
- [27
+df  used on input line 165.
+(pdftex.def)             Requested size: 455.26112pt x 299.74391pt.
+ [26
 
  <../diagrams/rendered/09-alert-investigation-sequence.pdf>]
-<../diagrams/rendered/11-model-health-sequence.pdf, id=927, 602.25pt x 408.5663
-8pt>
+<../diagrams/rendered/11-model-health-sequence.pdf, id=922, 602.25pt x 331.2375
+pt>
 File: ../diagrams/rendered/11-model-health-sequence.pdf Graphic file (type pdf)
 
 <use ../diagrams/rendered/11-model-health-sequence.pdf>
 Package pdftex.def Info: ../diagrams/rendered/11-model-health-sequence.pdf  use
-d on input line 226.
-(pdftex.def)             Requested size: 455.26112pt x 308.84912pt.
-)
-[28
+d on input line 179.
+(pdftex.def)             Requested size: 455.26112pt x 250.39362pt.
+) [27
 
  <../diagrams/rendered/11-model-health-sequence.pdf>]
 \openout2 = `chapters/04-realisation-systeme.aux'.
 
-
-(./chapters/04-realisation-systeme.tex
+ (./chapters/04-realisation-systeme.tex
 Chapitre 4.
 
-ignored: Infinite glue shrinkage found in box being split [29
+ignored: Infinite glue shrinkage found in box being split [28
 
 
 
 
-] [30] [31] [32]
-<assets/screenshots/application-monitoring.png, id=964, 2409.0pt x 1505.625pt>
+] [29] [30] [31]
+<assets/screenshots/application-monitoring.png, id=959, 2409.0pt x 1505.625pt>
 File: assets/screenshots/application-monitoring.png Graphic file (type png)
 <use assets/screenshots/application-monitoring.png>
 Package pdftex.def Info: assets/screenshots/application-monitoring.png  used on
- input line 146.
+ input line 155.
 (pdftex.def)             Requested size: 455.2152pt x 284.50949pt.
- [33
+ [32
 
  <./assets/screenshots/application-monitoring.png (PNG copy)>]
-<assets/screenshots/application-alert-investigation.png, id=970, 2409.0pt x 150
+<assets/screenshots/application-alert-investigation.png, id=965, 2409.0pt x 150
 5.625pt>
 File: assets/screenshots/application-alert-investigation.png Graphic file (type
  png)
 <use assets/screenshots/application-alert-investigation.png>
 Package pdftex.def Info: assets/screenshots/application-alert-investigation.png
-  used on input line 161.
+  used on input line 170.
 (pdftex.def)             Requested size: 455.2152pt x 284.50949pt.
- [34
+ [33
 
  <./assets/screenshots/application-alert-investigation.png (PNG copy)>]
-<assets/screenshots/application-model-analysis.png, id=978, 2409.0pt x 1505.625
+<assets/screenshots/application-model-analysis.png, id=973, 2409.0pt x 1505.625
 pt>
 File: assets/screenshots/application-model-analysis.png Graphic file (type png)
 
 <use assets/screenshots/application-model-analysis.png>
 Package pdftex.def Info: assets/screenshots/application-model-analysis.png  use
-d on input line 175.
+d on input line 184.
 (pdftex.def)             Requested size: 455.2152pt x 284.50949pt.
- [35
+ [34
 
  <./assets/screenshots/application-model-analysis.png (PNG copy)>]
-<assets/screenshots/application-observation-lab.png, id=984, 2409.0pt x 1505.62
+<assets/screenshots/application-observation-lab.png, id=979, 2409.0pt x 1505.62
 5pt>
 File: assets/screenshots/application-observation-lab.png Graphic file (type png
 )
 <use assets/screenshots/application-observation-lab.png>
 Package pdftex.def Info: assets/screenshots/application-observation-lab.png  us
-ed on input line 189.
+ed on input line 198.
 (pdftex.def)             Requested size: 455.2152pt x 284.50949pt.
 )
-[36
+[35
 
- <./assets/screenshots/application-observation-lab.png (PNG copy)>] [37]
+ <./assets/screenshots/application-observation-lab.png (PNG copy)>] [36]
 \openout2 = `chapters/05-resultats-experimentaux.aux'.
 
 
 (./chapters/05-resultats-experimentaux.tex
 Chapitre 5.
-[38
+[37
 
 
 
 
 ]
-<assets/screenshots/notebook-model-comparison.png, id=999, 1424.32124pt x 486.8
+<assets/screenshots/notebook-model-comparison.png, id=994, 1424.32124pt x 486.8
 1876pt>
 File: assets/screenshots/notebook-model-comparison.png Graphic file (type png)
 <use assets/screenshots/notebook-model-comparison.png>
 Package pdftex.def Info: assets/screenshots/notebook-model-comparison.png  used
  on input line 119.
 (pdftex.def)             Requested size: 418.82375pt x 143.14973pt.
- [39] [40 <./assets/screenshots/notebook-model-comparison.png (PNG copy)>]
-[41]) [42] (./backmatter/conclusion-generale.tex) [43
+ [38] [39 <./assets/screenshots/notebook-model-comparison.png (PNG copy)>]
+[40]) [41] (./backmatter/conclusion-generale.tex) [42
 
 
 
-] (./main.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 36--44
-\T1/qtm/m/n/12 (+20) URL []$\T1/cmtt/m/n/12 https : / / projecteuclid . org / j
-ournals / annals-[]of-[]statistics / volume-[]29 /
- []
+] (./main.bbl [43
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 36--44
-\T1/cmtt/m/n/12 issue-[]5 / Greedy-[]function-[]approximation-[]A-[]gradient-[]
-boosting-[]machine / 10 .
- []
-
-[44
-
-
-]) [45] (./main.aux (./chapters/01-cadre-recherche.aux)
+])
+[44] (./main.aux (./chapters/01-cadre-recherche.aux)
 (./chapters/02-specification-besoins.aux) (./chapters/03-conception-systeme.aux
 ) (./chapters/04-realisation-systeme.aux)
 (./chapters/05-resultats-experimentaux.aux))
@@ -1227,13 +1200,13 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 185DA5A3958DD7594647F05BC90739D6;15494.
+(rerunfilecheck)             Checksum: E61697DAB29BA99E0AF228946D0E7747;15243.
  ) 
 Here is how much of TeX's memory you used:
- 27380 strings out of 469515
- 531420 string characters out of 5470807
- 958089 words of memory out of 5000000
- 55216 multiletter control sequences out of 15000+600000
+ 27494 strings out of 469515
+ 533814 string characters out of 5470807
+ 958103 words of memory out of 5000000
+ 55325 multiletter control sequences out of 15000+600000
  683808 words of font info for 149 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  84i,14n,94p,1001b,843s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1242,10 +1215,10 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/font
 s/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf-dist/fonts/type1/public/tex-
 gyre/qtmr.pfb></usr/share/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb></us
 r/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (54 pages, 2944184 bytes).
+Output written on main.pdf (54 pages, 2955561 bytes).
 PDF statistics:
- 1136 PDF objects out of 1200 (max. 8388607)
- 965 compressed objects within 10 object streams
- 187 named destinations out of 1000 (max. 500000)
- 34027 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 1128 PDF objects out of 1200 (max. 8388607)
+ 957 compressed objects within 10 object streams
+ 185 named destinations out of 1000 (max. 500000)
+ 34019 words of extra memory for PDF output out of 35830 (max. 10000000)
 

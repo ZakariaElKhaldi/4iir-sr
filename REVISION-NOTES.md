@@ -14,6 +14,11 @@ Corrections et décisions documentées :
 - La latence de 19,27 / 31,79 ms est la moyenne de trois p95 d'inférence unitaire sur les premières 1 000 lignes de validation. Elle exclut HTTP et la base. La convention du Brier et le calcul de l'ECE sont explicités.
 - Le champ `code_worktree_dirty=true` du rapport d'entraînement est maintenant signalé : le commit enregistré ne suffit pas à reconstituer le code exact. Le relevé matériel ne donne pas le processeur ni la mémoire. Aucune configuration n'a été déduite de la machine actuelle.
 - La mention de Neovim a été retirée de l'environnement documenté, faute de trace dans le relevé d'exécution consulté. Les versions Python, Node.js et le système proviennent de ce relevé.
+- Le second contrôle a retiré les mentions non étayées d'Arch Linux comme distribution déclarée, de `pacman` et de BuildKit; le rapport cite désormais la chaîne système exacte enregistrée.
+- Les préconditions Suricata reflètent l'identité calculée par le serveur. Le rejeu mentionne ses trois états terminaux, son appel direct au parcours synchrone et ses horodatages créés au moment du rejeu.
+- Les diagrammes distinguent maintenant le travailleur d'ingestion du répartiteur d'outbox. Les événements ne sont publiés qu'après leur transaction, puis marqués comme publiés ou planifiés pour une nouvelle tentative.
+- `top_features` est décrit comme un classement de valeurs par magnitude. L'explication SHAP, disponible sur une route distincte, porte sur un estimateur arborescent ajusté avant calibration sigmoïde.
+- Les termes « immuable » ont été retirés des qualifications et transitions : l'API ajoute des lignes d'historique, mais le schéma SQL n'impose pas à lui seul leur immutabilité.
 
 Sources externes consultées :
 
@@ -35,6 +40,6 @@ Vérifications locales :
 - `backend/app/database/models.py` et services d'ingestion : relations persistantes et transactions examinées.
 - `machine-learning/reports/generated/presentation-evidence.json` et journaux associés : trois groupes au statut `pass`, dix parcours navigateur et trois scénarios Suricata pour l'exécution du 7 septembre 2026. Cette révision n'a pas relancé ces tests applicatifs.
 
-La bibliographie existante a été conservée, avec deux références documentaires ajoutées. Cette vérification ciblée ne constitue pas une revue exhaustive de chaque publication citée. Les performances externes, les durées personnelles de travail et une configuration matérielle précise restent non établies.
+La bibliographie existante a été conservée, avec deux références documentaires ajoutées. Les références directement utilisées pour les données, la capture, la calibration et l'interprétation ont été contrôlées. Les performances externes, les durées personnelles de travail et une configuration matérielle précise restent non établies.
 
-Le PDF a été recompilé avec `latexmk -pdf -interaction=nonstopmode -halt-on-error -cd src/main.tex`. Les citations et renvois sont résolus. Les 18 lignes des tableaux numériques ont été comparées automatiquement au JSON; l’empreinte du CSV source a aussi été vérifiée. Les pages de résultats ont été contrôlées visuellement. Les avertissements restants concernent un dépassement de 0,62 pt sur la couverture, deux ancres de légende et l’espacement d’une URL bibliographique.
+Le PDF a été recompilé avec `latexmk -pdf -interaction=nonstopmode -halt-on-error -cd src/main.tex`. Les citations et renvois sont résolus. Les 18 lignes des tableaux numériques ont été comparées automatiquement au JSON; l’empreinte du CSV source a aussi été vérifiée. Les chapitres de conception, de réalisation et de résultats ont été contrôlés visuellement.

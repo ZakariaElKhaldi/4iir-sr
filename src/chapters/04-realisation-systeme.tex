@@ -20,7 +20,9 @@ Docker référencées par empreinte fixent, quant à eux, les dépendances logic
 
 \subsection{Environnement logiciel}
 
-Le relevé d'exécution identifie Arch Linux, Python 3.12.13 et Node.js 26.8.0.
+Le relevé d'exécution rapporte
+\texttt{Linux-7.1.9-arch1-2-x86\_64-with-glibc2.44}, Python 3.12.13 et
+Node.js 26.8.0. Il ne nomme pas séparément la distribution de l'hôte.
 Les dépendances applicatives sont gérées avec \texttt{uv} et \texttt{npm}.
 Le tableau~\ref{tab:software-environment} présente les outils du projet et leur
 rôle dans le développement ou l'exécution.
@@ -35,8 +37,8 @@ rôle dans le développement ou l'exécution.
   \endfirsthead
   \rowcolor{PremiumEmerald}\color{white}\bfseries Usage & \color{white}\bfseries Outils & \color{white}\bfseries Rôle \\
   \endhead
-  Poste & Linux, Arch Linux, pacman & Environnement de développement et installation des paquets système. \\
-  Commandes & Terminal, Zsh, Bash & Exécution des commandes et des scripts d'automatisation. \\
+  Poste & Linux x86\_64 & Environnement hôte relevé lors de l'exécution du 7 septembre 2026. \\
+  Commandes & Make et scripts Bash & Exécution des tâches et des scripts d'automatisation du dépôt. \\
   Automatisation & Make, Git, GitHub Actions & Commandes communes, historique des modifications et validation continue. \\
   Dépendances & Python 3.12, uv, Node.js, npm & Environnements Python et JavaScript, dépendances et fichiers de verrouillage. \\
   Calcul et ML & NumPy, pandas, SciPy, scikit-learn, joblib, SHAP & Préparation des données, entraînement, sérialisation et explication des modèles. \\
@@ -46,7 +48,7 @@ rôle dans le développement ou l'exécution.
   Interface & TypeScript, React 19, Vite & Composants, typage, serveur de développement et compilation de l'interface. \\
   Visualisation & D3, ECharts, Cytoscape, Lucide & Graphiques, topologie d'investigation et icônes. \\
   Tests & pytest, Vitest, Storybook, Playwright, Axe, Ruff & Tests Python, composants, parcours navigateur, accessibilité et analyse statique. \\
-  Déploiement & Docker Engine, BuildKit, Docker Compose, NGINX & Construction des images, orchestration locale et passerelle web. \\
+  Déploiement & Docker Engine, Docker Compose, NGINX & Construction des images, orchestration locale et passerelle web. \\
   Réseau & Suricata, Mosquitto, NFStream & Signatures sur paquets, trafic MQTT du laboratoire et extraction PCAP hors ligne. \\
   Sécurité et suivi & Argon2id/pwdlib, PyJWT, OpenSSL, client Prometheus & Hachage, jetons, génération des secrets et exposition des métriques. \\
   Rapport & LaTeX, latexmk, Mermaid CLI, librsvg & Composition du document et rendu vectoriel des diagrammes. \\
@@ -65,8 +67,8 @@ rôle dans le développement ou l'exécution.
 
   \item[Backend.] L'application FastAPI s\'epare routes, validation des
   caract\'eristiques, registre de mod\`eles, inf\'erence, ingestion, surveillance
-  et persistance. Le traitement durable associe une bo\^ite de r\'eception, des
-  transitions immuables et une outbox transactionnelle.
+  et persistance. Le traitement durable associe une bo\^ite de r\'eception, un
+  historique de transitions alimenté par l'API et une outbox transactionnelle.
 
   \item[Frontend.] L'application React est organis\'ee par espaces fonctionnels:
   supervision, alertes, mod\`eles, laboratoire d'observations et topologie. Les
@@ -86,9 +88,14 @@ correspondent pas au manifeste actif.
 
 Le même ordre de 83 variables est contrôlé à l'entraînement et à l'inférence.
 Le rejeu permet d'exercer cette chaîne avec les données enregistrées sans
-réentraîner le modèle. Les explications SHAP sont calculées à la demande pour
-l'investigation ; elles décrivent les contributions au résultat du modèle \citep{lundberg_unified_2017}.
-Elles aident à lire une prédiction, sans établir les causes d'une attaque.
+réentraîner le modèle. La liste \texttt{top\_features} renvoyée avec une
+prédiction classe cinq valeurs d'entrée selon leur magnitude absolue; elle ne
+mesure pas leur influence sur le modèle. Pour les alertes ML compatibles avec
+les versions actives, un point d'accès distinct calcule à la demande des
+contributions SHAP \citep{lundberg_unified_2017}. Dans le cas des modèles
+calibrés, ces contributions expliquent la marge de l'estimateur arborescent
+ajusté du premier pli de calibration, et non la probabilité calibrée. Elles
+aident à lire une prédiction, sans établir les causes d'une attaque.
 
 \subsection{Ingestion durable et traitement des erreurs}
 
@@ -102,8 +109,9 @@ validation.
 Une nouvelle soumission identique n'ajoute pas une seconde observation ; un
 contenu différent sous le même identifiant est refusé. Après une erreur
 temporaire, le travail est repris avec un délai et un nombre d'essais bornés.
-Les échecs persistants sont isolés pour permettre leur examen et une relance
-manuelle authentifiée, avec conservation du motif.
+Les échecs persistants passent en état \texttt{dead\_letter}. Une relance
+manuelle authentifiée est disponible pour les travaux encore compatibles avec
+la route de modèle active; le motif et la nouvelle transition sont conservés.
 
 \subsection{Interface, contrôle d'accès et provenance}
 
@@ -126,8 +134,9 @@ RT-IoT2022. NFStream reste une voie d'extraction PCAP hors ligne distincte.
 \subsection{Exécution reproductible}
 
 \texttt{make setup} prépare les dépendances ; \texttt{make verify-model}
-contrôle les modèles sélectionnés et leurs métadonnées. Le mode \texttt{make demo} prépare un rejeu initial
-dans une base temporaire. Le laboratoire complet démarre avec
+contrôle les modèles sélectionnés et leurs métadonnées. Le mode \texttt{make demo}
+crée une base SQLite temporaire puis lance, par l'API de rejeu, le même nombre
+configurable d'observations normales et d'attaque. Le laboratoire complet démarre avec
 \texttt{make demo-sensor}. Les migrations sont appliquées avant le démarrage des services,
 et les sondes de santé permettent de vérifier leur disponibilité.
 
